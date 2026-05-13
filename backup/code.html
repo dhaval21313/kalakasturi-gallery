@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-width=1.0" name="viewport"/>
+<title>KalaKasturi - Original Canvas Art</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">(function() {
+    // Synchronized with body script for 3D Torus Particle System
+  })();</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed-variant": "#184973",
+                "secondary": "#9fcafb",
+                "secondary-fixed-dim": "#9fcafb",
+                "on-primary": "#003256",
+                "background": "#101417",
+                "error": "#ffb4ab",
+                "surface-container-low": "#181c20",
+                "surface-container-high": "#262a2e",
+                "surface-container": "#1c2024",
+                "on-error": "#690005",
+                "outline": "#8a919c",
+                "surface-container-lowest": "#0a0f12",
+                "error-container": "#93000a",
+                "tertiary-container": "#9c9d9d",
+                "on-tertiary": "#2f3131",
+                "on-primary-fixed": "#001d35",
+                "on-tertiary-fixed-variant": "#454747",
+                "on-surface-variant": "#c0c7d2",
+                "primary-container": "#52a2ed",
+                "inverse-on-surface": "#2d3135",
+                "on-tertiary-container": "#333535",
+                "primary-fixed-dim": "#9ccaff",
+                "surface-bright": "#353a3e",
+                "surface": "#101417",
+                "surface-container-highest": "#313539",
+                "surface-dim": "#101417",
+                "on-surface": "#dfe3e8",
+                "on-error-container": "#ffdad6",
+                "secondary-fixed": "#d0e4ff",
+                "tertiary-fixed-dim": "#c6c6c7",
+                "inverse-primary": "#0062a1",
+                "primary-fixed": "#d0e4ff",
+                "outline-variant": "#404751",
+                "on-secondary-container": "#8eb9e9",
+                "on-secondary-fixed": "#001d35",
+                "on-primary-container": "#00375d",
+                "inverse-surface": "#dfe3e8",
+                "tertiary": "#c6c6c7",
+                "on-secondary": "#003256",
+                "surface-variant": "#313539",
+                "on-tertiary-fixed": "#1a1c1c",
+                "secondary-container": "#184973",
+                "surface-tint": "#9ccaff",
+                "primary": "#9ccaff",
+                "tertiary-fixed": "#e2e2e2",
+                "on-background": "#dfe3e8",
+                "on-primary-fixed-variant": "#00497a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "stack-sm": "8px",
+                "stack-md": "16px",
+                "section-gap": "128px",
+                "gutter": "32px",
+                "margin-mobile": "24px",
+                "margin-desktop": "64px",
+                "container-max": "1440px",
+                "stack-lg": "32px"
+        },
+        "fontFamily": {
+                "headline-lg": [
+                        "Geist"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Geist"
+                ],
+                "headline-lg-mobile": [
+                        "Geist"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Geist"
+                ],
+                "label-sm": [
+                        "Geist"
+                ]
+        },
+        "fontSize": {
+                "headline-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "32px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.8",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-lg": [
+                        "80px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.04em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.0",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #04070A; /* Deep void background */
+    color: #dfe3e8;
+  }
+</style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-white/10 ease-out transition-all duration-300">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md w-full max-w-container-max mx-auto">
+<!-- Brand -->
+<a class="font-headline-md text-headline-md text-on-surface tracking-tight" href="#">KalaKasturi</a>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-gutter">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Gallery</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Collections</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">About the Artist</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">FAQ</a>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-stack-md">
+<button aria-label="Cart" class="text-on-surface hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="bg-[#F5F5F5] text-[#04070A] px-6 py-2 rounded font-label-sm text-label-sm hover:opacity-90 transition-opacity ease-out duration-300">Shop Now</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center justify-center pt-[100px] px-margin-mobile md:px-margin-desktop">
+<div class="absolute inset-0 z-0 bg-[#04070A]">
+<canvas class="absolute inset-0 w-full h-full" id="hero-particles"></canvas>
+<div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/10 to-background z-10 pointer-events-none"></div>
+</div>
+<div class="relative z-20 max-w-4xl text-center flex flex-col items-center gap-stack-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface leading-tight text-balance">
+      Original Canvas Art to Transform Your Space.
+    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl text-balance">
+      Discover hand-painted acrylics, oils, and wabi-sabi abstracts from KalaKasturi.
+    </p>
+<div class="flex flex-col sm:flex-row gap-stack-md mt-8">
+<button class="bg-[#F5F5F5] text-[#04070A] px-8 py-4 rounded font-label-sm text-label-sm hover:-translate-y-1 transition-transform ease-out duration-300">
+        Explore Gallery
+      </button>
+<button class="border border-white/20 text-on-surface px-8 py-4 rounded font-label-sm text-label-sm hover:bg-white/5 transition-colors ease-out duration-300 backdrop-blur-md">
+        Shop on Etsy
+      </button>
+</div>
+</div>
+</section>
+<!-- Featured Categories -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col gap-section-gap">
+<!-- Block 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-7">
+<div class="relative aspect-[4/3] w-full group overflow-hidden bg-surface-container">
+<img alt="Wabi-Sabi Abstract" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 mix-blend-luminosity" data-alt="A large, textured Wabi-Sabi inspired abstract painting in earth tones like raw sienna, burnt umber, and muted clay. The artwork is presented in a minimalist, gallery-style setting against a deep obsidian background. Soft, diffused lighting emphasizes the raw, organic imperfections and heavy acrylic textures. The mood is quiet luxury, earthy, and grounded." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqUkCib2Pymm7Zik3EE-LO6xiE_ePJP8iVgGB7KvLAMf1PyMsNwGkzMlW-bb1DrWoDheL5s_dKD8YLXl0AnKKzh22CeS1KGvUk_7EOZDPfYBWa7oglwsQY4OkNaGT6wMZfQnqpBHdGfuPMR4PxT2ymJLeabCmjRXItxTklQ_03Izw7lyCe-MxS4gLZF8SIRj2hDl8X6r8mbFzBNOokUfDegt18Hpkxy-bT44ePsRcDUR4l6fwRWvUiCSyeLNrBmJp07OvRIEOWY7BT"/>
+</div>
+</div>
+<div class="md:col-span-4 md:col-start-9 flex flex-col gap-stack-md pt-8 md:pt-0">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Earth Tones</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Wabi-Sabi &amp; Abstracts</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Earth tones and neutral textures designed for the modern home. Finding beauty in imperfection and impermanence through raw, expressive canvas art.
+      </p>
+<a class="inline-flex items-center gap-2 mt-4 font-label-sm text-label-sm text-on-surface hover:text-primary transition-colors group" href="#">
+        View Collection
+        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Block 2 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-4 flex flex-col gap-stack-md order-2 md:order-1 pt-8 md:pt-0">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Figurative</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Portraits &amp; Still Life</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Expressive, original pieces that tell a story. Capturing moments of quiet reflection through bold brushstrokes and nuanced color palettes.
+      </p>
+<a class="inline-flex items-center gap-2 mt-4 font-label-sm text-label-sm text-on-surface hover:text-secondary transition-colors group" href="#">
+        View Collection
+        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="md:col-span-7 md:col-start-6 order-1 md:order-2 md:translate-y-12">
+<div class="relative aspect-[3/4] w-full group overflow-hidden bg-surface-container">
+<img alt="Portrait Painting" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80" data-alt="An expressive, contemporary oil portrait painting displayed on an easel in a dark, moody studio space. The painting features vibrant but slightly desaturated tones against an inky, pitch-black background. A single, focused beam of gallery light illuminates the canvas, highlighting the energetic brushstrokes and deep emotional resonance of the subject. The atmosphere is intimate and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtWH421lTsL6LFoDfwO81GMAfTNMT9o3qQ2I5HHVTaw-iuPbb10YpHVIiwa9S2KuizOGLN44lZ6acv0inYcHRAdRCTZzqS456Gxy-GG_2BM3rsgffNpX--5GuXTkURhiQUBXspXPJuCcpat0qqcazxhn7K9M70QO2gGkNsNw3fnDQy0L8rhTSqmd9Zj8upwrzKoMt-H85C0zrmPYbqJNQywTpVNbD_8wRb38mAvcv9j-1vn1MM8vgonwOaarEjxe3vO_-w8McDxZkA"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Carousel (Latest Arrivals) -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-white/5">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Latest Arrivals</h2>
+<a class="hidden md:inline-flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+        View All <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<a class="group block cursor-pointer" href="#">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container mb-stack-md relative">
+<div class="absolute inset-0 bg-[#20252A]/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+<span class="bg-[#F5F5F5] text-[#04070A] px-4 py-2 rounded font-label-sm text-label-sm">View Details</span>
+</div>
+<img alt="Ethereal Flow Artwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A minimalist abstract oil painting titled 'Ethereal Flow', featuring soft, bleeding gradients of pale blue and slate grey. Frameless presentation floating on a dark background. High-resolution gallery view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwG0GwNm7Sz2MkbJ0CBNRfRw2z9sMUDM4hDyHv10j-i1_16LfSpgUBfdYiwORfYFAVZ8CpykmOCh9sfXotlJSC-jnAlnkPq5fV3-tDacbZmI_iW2vu9txtYJs0950JJcoCKmRySXYkOnlaFWW4C7wnV0QG9fj-RDYDTaD6V-okC1Luzyupu1Ue9oMSnbYxWcNM437qEd1p6h-SY7JOOKGpDocd0vvYXMb33bAInzeMHvRiyJp4vFm7fnp2czYErqnDwBsje5rtcziM"/>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Ethereal Flow</h3>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Oil on Canvas</span>
+<span class="font-label-sm text-label-sm text-primary">$1,200</span>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="group block cursor-pointer md:translate-y-8" href="#">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container mb-stack-md relative">
+<div class="absolute inset-0 bg-[#20252A]/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+<span class="bg-[#F5F5F5] text-[#04070A] px-4 py-2 rounded font-label-sm text-label-sm">View Details</span>
+</div>
+<img alt="Midnight Stillness Artwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A textured abstract acrylic painting titled 'Midnight Stillness', featuring deep indigo and obsidian black shapes intersected by a single, thin gold line. Gallery lighting, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzzsHNqtvD-YH3rNODpBu3NJJB-Lq8NtjPy3_VAiQU1TCfOd_5tb-nkoHYjONuIrJ1A6mogzROmG6-Q-eNCZ-ormAjp7PerB1FVqiLd97IaV3kQmsTcT7CN0tZJPcpNlitO1yKt5OccEdbmb7z2RgjPZI8lFQWpgeX1HVX9JxBTIqYiNXc1gBdW8Hxj6RRH78UTx2_GSpbHBM1m_mLCuJOXZPngROxpapLBYEipxDSWzE6h-Shl8hbN4aIyA1C4Q5DzUhXUY6fZto9"/>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Midnight Stillness</h3>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Acrylic on Canvas</span>
+<span class="font-label-sm text-label-sm text-primary">$850</span>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="group block cursor-pointer" href="#">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container mb-stack-md relative">
+<div class="absolute inset-0 bg-[#20252A]/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+<span class="bg-[#F5F5F5] text-[#04070A] px-4 py-2 rounded font-label-sm text-label-sm">View Details</span>
+</div>
+<img alt="Ochre Horizon Artwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A large, striking contemporary painting titled 'Ochre Horizon' featuring a stark division between raw, textured ochre and smooth, deep charcoal black. The piece feels heavy and grounded, displayed in a dark void." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbPQoMK0zhV6ZIN18NNcPbAt1ZIuWZZBinmMHvzT7wvypkgxlwlXRjrcSLLKb4qi52pZN9zMtaRlKHMg1z1XiP3QB2dAkQWGL3vziy7kXSkUBd94hBdQu2KtB8FQ2aveaVYt8e62pU-r7Xg9KDooV_kct8QnWcLRd4BaYjts0ZR3r_1eYML3Ecr_cOTK8cOGfjYAnho-fySsCWpZReEbPsgjWKO4EAiMuXLAWS0zI3zVe-Zde6MOqrldGFXtf7PDuGvr0aDEef6Ajl"/>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Ochre Horizon</h3>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Mixed Media</span>
+<span class="font-label-sm text-label-sm text-primary">$1,500</span>
+</div>
+</a>
+<!-- Card 4 -->
+<a class="group block cursor-pointer md:translate-y-8" href="#">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container mb-stack-md relative">
+<div class="absolute inset-0 bg-[#20252A]/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+<span class="bg-[#F5F5F5] text-[#04070A] px-4 py-2 rounded font-label-sm text-label-sm">View Details</span>
+</div>
+<img alt="Whispering Void Artwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A subtle, monochromatic abstract painting titled 'Whispering Void'. Shades of warm gray and soft white layered delicately over a dark canvas. The aesthetic is serene, wabi-sabi, and highly texturized." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcnHo6MkWl0NeLmFq3Cnek32y4bDLv5hTt9J3SRAf41SYCuayE6aBOdR0YIr0hzdf3Pyg6ved2i4LCprGXFEgz1T2wTHvnfnAtKFWcXRqZMSSyQExnDvyPGt3PGQqPsbSeKDjMOgQKwxBxC_IsC_VlWBZMEInm2LDaRJocrnYLUQ6lYVAUxPlHBelZ0sMfhaCibvyCj0pRmaN4iWNThRmo7rRQeY33nplA3Ip0efqK7G7Trgh7IVb-eeevm1fZBZBkkc_oRBOfSAYF"/>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Whispering Void</h3>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Oil on Linen</span>
+<span class="font-label-sm text-label-sm text-primary">$950</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Feature Grid -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+<div class="flex flex-col items-center gap-stack-md py-8 md:py-0 md:px-8">
+<span class="material-symbols-outlined text-[32px] text-primary mb-4" data-icon="brush">brush</span>
+<h3 class="font-body-lg text-body-lg text-on-surface">100% Original Artwork</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-balance">
+        No mass prints. Every piece is a unique, hand-painted creation by the artist.
+      </p>
+</div>
+<div class="flex flex-col items-center gap-stack-md py-8 md:py-0 md:px-8">
+<span class="material-symbols-outlined text-[32px] text-primary mb-4" data-icon="wallpaper">wallpaper</span>
+<h3 class="font-body-lg text-body-lg text-on-surface">Ready to Hang</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-balance">
+        Stretched on premium gallery canvas, wired and ready for your walls immediately.
+      </p>
+</div>
+<div class="flex flex-col items-center gap-stack-md py-8 md:py-0 md:px-8">
+<span class="material-symbols-outlined text-[32px] text-primary mb-4" data-icon="flight_takeoff">flight_takeoff</span>
+<h3 class="font-body-lg text-body-lg text-on-surface">Worldwide Delivery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-balance">
+        Securely packaged in custom crates and shipped globally with full insurance.
+      </p>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-section-gap">FAQ</h2>
+<div class="flex flex-col gap-4">
+<!-- Accordion Item 1 -->
+<details class="group border-b border-white/10 pb-4">
+<summary class="flex justify-between items-center cursor-pointer list-none font-body-lg text-body-lg text-on-surface py-4">
+        Do you ship internationally?
+        <span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-300" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-2 pb-4">
+        Yes, we offer worldwide shipping. All artworks are carefully crated and fully insured during transit to ensure they arrive in pristine condition.
+      </p>
+</details>
+<!-- Accordion Item 2 -->
+<details class="group border-b border-white/10 pb-4">
+<summary class="flex justify-between items-center cursor-pointer list-none font-body-lg text-body-lg text-on-surface py-4">
+        Are these originals or prints?
+        <span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-300" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-2 pb-4">
+        Every piece available in the KalaKasturi gallery is a 100% original, hand-painted canvas. We do not sell prints or mass-produced reproductions.
+      </p>
+</details>
+<!-- Accordion Item 3 -->
+<details class="group border-b border-white/10 pb-4">
+<summary class="flex justify-between items-center cursor-pointer list-none font-body-lg text-body-lg text-on-surface py-4">
+        Do you take custom commissions?
+        <span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-300" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-2 pb-4">
+        Yes, commission slots open quarterly. Please contact us directly to discuss your vision, preferred dimensions, and color palette.
+      </p>
+</details>
+</div>
+</section>
+<!-- CTA Block -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container text-center border-y border-white/5 relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-stack-lg">
+<h2 class="font-display-lg text-display-lg text-on-surface leading-tight text-balance">
+      Bring your empty walls to life.
+    </h2>
+<button class="bg-[#F5F5F5] text-[#04070A] px-8 py-4 rounded font-label-sm text-label-sm hover:-translate-y-1 transition-transform ease-out duration-300 mt-4">
+      Browse the Collection
+    </button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface-container-lowest border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-start px-margin-desktop gap-stack-lg max-w-container-max mx-auto">
+<div class="flex flex-col gap-stack-md">
+<span class="font-headline-md text-headline-md text-on-surface">KalaKasturi</span>
+<p class="font-body-md text-body-md text-secondary">© 2024 KalaKasturi. All rights reserved.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-gutter">
+<div class="flex flex-col gap-stack-sm">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity ease-in-out duration-200" href="#">Etsy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity ease-in-out duration-200" href="#">Instagram</a>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity ease-in-out duration-200" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-opacity ease-in-out duration-200" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-stack-sm min-w-[250px]">
+<span class="font-label-sm text-label-sm text-on-surface tracking-widest mb-2">NEWSLETTER</span>
+<div class="flex">
+<input class="bg-[#13171C] border-0 border-b-2 border-white/10 focus:border-primary focus:ring-0 text-on-surface w-full py-2 px-0 font-body-md transition-colors" placeholder="Email address" type="email"/>
+<button class="text-on-surface hover:text-primary px-4 border-b-2 border-white/10"><span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span></button>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>(function() {
+    const canvas = document.getElementById('hero-particles');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    
+    const mouse = { x: 0, y: 0, active: false };
+    const COLORS = ['#9ccaff', '#d0e4ff', '#c6c6c7', '#52a2ed']; 
+    const PARTICLE_COUNT = 8000; // Increased 10x
+    const DEPTH = 1000;
+    const GRAVITY_STRENGTH = 1.2; // Increased for better attraction
+    const EVENT_HORIZON = 5;
+
+    function init() {
+      resize();
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+      animate();
+    }
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    });
+    window.addEventListener('mouseleave', () => {
+      mouse.active = false;
+    });
+
+    class Particle {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.x = (Math.random() - 0.5) * width * 2;
+        this.y = (Math.random() - 0.5) * height * 2;
+        this.z = Math.random() * DEPTH;
+        // Significantly slower base movement
+        this.vx = (Math.random() - 0.5) * 0.2;
+        this.vy = (Math.random() - 0.5) * 0.2;
+        this.vz = (Math.random() - 0.5) * 0.2;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        // 2-3 times larger than original (was 0.5 to 2.5, now 1.5 to 5.5)
+        this.size = Math.random() * 4 + 1.5;
+      }
+
+      update() {
+        if (mouse.active) {
+          const targetX = mouse.x - width / 2;
+          const targetY = mouse.y - height / 2;
+          const targetZ = 100;
+
+          const dx = targetX - (this.x * (600 / (600 + this.z)));
+          const dy = targetY - (this.y * (600 / (600 + this.z)));
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Gravity effect: Move towards pointer
+          if (dist > EVENT_HORIZON) {
+            const force = GRAVITY_STRENGTH / (dist * 0.02 + 1);
+            this.vx += (dx / dist) * force;
+            this.vy += (dy / dist) * force;
+          }
+        } else {
+          // Much slower idle drift
+          this.vz -= 0.02;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+        this.z += this.vz;
+        
+        // High friction for slow, controlled movement
+        this.vx *= 0.92;
+        this.vy *= 0.92;
+        this.vz *= 0.92;
+
+        if (this.z < 1 || this.z > DEPTH * 2 || Math.abs(this.x) > width * 3 || Math.abs(this.y) > height * 3) {
+          this.init();
+        }
+      }
+
+      draw() {
+        const scale = 600 / (600 + this.z);
+        const x2d = (this.x * scale) + width / 2;
+        const y2d = (this.y * scale) + height / 2;
+        const r = this.size * scale;
+
+        if (x2d > -50 && x2d < width + 50 && y2d > -50 && y2d < height + 50) {
+          ctx.beginPath();
+          ctx.arc(x2d, y2d, r, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          // Lower opacity due to high particle count for better aesthetics
+          ctx.globalAlpha = Math.min(0.6, (DEPTH - this.z) / DEPTH);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = '#04070A';
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    init();
+  })();</script></body></html>
