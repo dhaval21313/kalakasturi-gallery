@@ -178,11 +178,6 @@ function render() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                
-                if (entry.target.id === 'features-section') {
-                    document.body.classList.add('color-blast-active');
-                    setTimeout(() => document.body.classList.remove('color-blast-active'), 1000);
-                }
             }
         });
     }, { threshold: 0.1 });
@@ -195,21 +190,14 @@ function renderHome() {
     
     return `
         <!-- Section 1: Hero -->
-        <section class="section hero-section reveal" style="min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 0 64px;">
+        <section class="section hero-section reveal" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 120px;">
             <div style="margin-bottom: 2rem;">
-                            <div class="hero-text" style="text-align: left;">
-                <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 700; margin-bottom: 20px; color: #fff;">Capture the Soul of Indian Art</h1>
-                <p style="color: var(--muted); font-size: 18px; line-height: 1.8; margin-bottom: 30px;">Experience art that transcends space and time. Handcrafted masterpieces bridging classical heritage with modern spaces.</p>
-                <div style="display: flex; gap: 15px; margin-bottom: 30px;">
-                    <button class="btn-primary" style="font-size: 16px; padding: 16px 40px; border-radius: 30px;" onclick="navigateTo('gallery')">Explore Collection</button>
-                    <button class="btn-secondary" style="font-size: 16px; padding: 16px 40px; border-radius: 30px;" onclick="navigateTo('about')">About Artist</button>
-                </div>
-            </div>
+                <h1 class="glitch-text" data-text="KalaKasturi">KalaKasturi</h1>
             </div>
             
-            <div class="hero-image" style="display: flex; justify-content: center;">
-
-
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-style: italic; color: var(--gold); margin-bottom: 3rem; text-align: center; max-width: 600px; line-height: 1.5;">
+                "Art is the whisper of history, captured in color and preserved in soul."
+            </div>
             
             <div class="art-card glass-card" data-tilt style="width: 100%; max-width: 400px; border-radius: 15px; cursor: pointer; margin-bottom: 3rem;" onclick="navigateTo('product', ${heroProduct.id})">
                 <div style="width: 100%; height: 500px; border-radius: 15px 15px 0 0; overflow: hidden; position: relative;">
@@ -222,9 +210,9 @@ function renderHome() {
                 </div>
             </div>
 
-
-            </div>
-
+            <button class="btn-primary" style="font-size: 16px; padding: 16px 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(212,168,67,0.3); transition: transform 0.3s ease;" onclick="navigateTo('gallery')" onmouseover="this.style.transform='scale(1.05) translateY(-5px)'" onmouseout="this.style.transform='scale(1) translateY(0)'">
+                Enter The 3D Gallery
+            </button>
             
             <div class="scroll-hint" style="margin-top: 4rem; position: relative; bottom: auto;">
                 <span>Scroll to Explore</span>
@@ -233,32 +221,32 @@ function renderHome() {
         </section>
 
         <!-- Section 2: Features -->
-        <section class="section reveal" id="features-section" style="padding-top: 50px; padding-bottom: 100px;">
+        <section class="section reveal" style="padding-top: 50px; padding-bottom: 100px;">
             <h2 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 40px; margin-bottom: 3rem; color: var(--gold);">The KalaKasturi Promise</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
                 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; text-align: center; transform-style: preserve-3d; transition: background 0.3s;">
-                    <div style="font-size: 60px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); transform: translateZ(50px);">✈️</div>
-                    <h3 style="font-size: 22px; margin-bottom: 15px; transform: translateZ(30px); color: #fff;">Free Global Shipping</h3>
-                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; transform: translateZ(10px);">Secure, insured delivery worldwide at no extra cost to you.</p>
+                <div class="glass-card" data-tilt style="padding: 30px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 40px; margin-bottom: 15px;">✈️</div>
+                    <h3 style="font-size: 20px; margin-bottom: 10px;">Free Global Shipping</h3>
+                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Secure, insured delivery worldwide at no extra cost to you.</p>
                 </div>
 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; text-align: center; transform-style: preserve-3d; transition: background 0.3s;">
-                    <div style="font-size: 60px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); transform: translateZ(50px);">🖼️</div>
-                    <h3 style="font-size: 22px; margin-bottom: 15px; transform: translateZ(30px); color: #fff;">Museum Quality Prints</h3>
-                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; transform: translateZ(10px);">Premium print-on-demand reproduction that captures every brushstroke.</p>
+                <div class="glass-card" data-tilt style="padding: 30px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 40px; margin-bottom: 15px;">🖼️</div>
+                    <h3 style="font-size: 20px; margin-bottom: 10px;">Museum Quality Prints</h3>
+                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Premium print-on-demand reproduction that captures every brushstroke.</p>
                 </div>
 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; text-align: center; transform-style: preserve-3d; transition: background 0.3s;">
-                    <div style="font-size: 60px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); transform: translateZ(50px);">📜</div>
-                    <h3 style="font-size: 22px; margin-bottom: 15px; transform: translateZ(30px); color: #fff;">Authenticity Certified</h3>
-                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; transform: translateZ(10px);">Every original piece includes a signed Certificate of Authenticity.</p>
+                <div class="glass-card" data-tilt style="padding: 30px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 40px; margin-bottom: 15px;">📜</div>
+                    <h3 style="font-size: 20px; margin-bottom: 10px;">Authenticity Certified</h3>
+                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Every original piece includes a signed Certificate of Authenticity.</p>
                 </div>
 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; text-align: center; transform-style: preserve-3d; transition: background 0.3s;">
-                    <div style="font-size: 60px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); transform: translateZ(50px);">🎧</div>
-                    <h3 style="font-size: 22px; margin-bottom: 15px; transform: translateZ(30px); color: #fff;">24/7 VIP Support</h3>
-                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; transform: translateZ(10px);">Direct communication with our team for inquiries and commissions.</p>
+                <div class="glass-card" data-tilt style="padding: 30px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 40px; margin-bottom: 15px;">🎧</div>
+                    <h3 style="font-size: 20px; margin-bottom: 10px;">24/7 VIP Support</h3>
+                    <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Direct communication with our team for inquiries and commissions.</p>
                 </div>
 
             </div>
@@ -269,9 +257,9 @@ function renderHome() {
             <h2 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 40px; margin-bottom: 3rem; color: var(--text);">Loved by Collectors Worldwide</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; border-top: 3px solid var(--gold); transform-style: preserve-3d;">
-                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px; transform: translateZ(40px);">★★★★★</div>
-                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px; transform: translateZ(20px);">"The detail in the Saraswati painting is absolutely breathtaking. It has brought such a serene and divine energy to my living room. Fast shipping to the UK!"</p>
+                <div class="glass-card" style="padding: 30px; border-radius: 15px; border-top: 3px solid var(--gold);">
+                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px;">★★★★★</div>
+                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px;">"The detail in the Saraswati painting is absolutely breathtaking. It has brought such a serene and divine energy to my living room. Fast shipping to the UK!"</p>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
                         <div>
@@ -281,9 +269,9 @@ function renderHome() {
                     </div>
                 </div>
 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; border-top: 3px solid var(--gold); transform-style: preserve-3d;">
-                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px; transform: translateZ(40px);">★★★★★</div>
-                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px; transform: translateZ(20px);">"I purchased the leopard oil painting and it is even more stunning in person. The brushwork is phenomenal. A true centerpiece for our home."</p>
+                <div class="glass-card" style="padding: 30px; border-radius: 15px; border-top: 3px solid var(--gold);">
+                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px;">★★★★★</div>
+                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px;">"I purchased the leopard oil painting and it is even more stunning in person. The brushwork is phenomenal. A true centerpiece for our home."</p>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-weight: bold;">J</div>
                         <div>
@@ -293,9 +281,9 @@ function renderHome() {
                     </div>
                 </div>
 
-                <div class="glass-card" data-tilt style="padding: 40px; border-radius: 20px; border-top: 3px solid var(--gold); transform-style: preserve-3d;">
-                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px; transform: translateZ(40px);">★★★★★</div>
-                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px; transform: translateZ(20px);">"Excellent communication from Ankita. The Ektara Girl painting arrived perfectly packaged. It's a gorgeous reflection of Indian culture."</p>
+                <div class="glass-card" style="padding: 30px; border-radius: 15px; border-top: 3px solid var(--gold);">
+                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px;">★★★★★</div>
+                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px;">"Excellent communication from Ankita. The Ektara Girl painting arrived perfectly packaged. It's a gorgeous reflection of Indian culture."</p>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-weight: bold;">S</div>
                         <div>
@@ -504,11 +492,11 @@ function renderContact() {
         </section>
 
         <!-- Section 4: Footer -->
-        <footer class="footer reveal glass-card" style="margin-top: 50px; border-radius: 20px 20px 0 0; padding: 60px; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);">
+        <footer class="footer reveal" style="margin-top: 50px;">
             <div class="footer-grid">
-                <div style="text-align: center;">
-                    <img src="kalakasturi logo.png" alt="KalaKasturi Logo" style="height: 60px; width: auto; margin-bottom: 15px;"/>
-                    <p class="footer-tagline" style="max-width: 100%;">Original Indian art bridging classical heritage with modern spaces.</p>
+                <div>
+                    <div class="footer-brand-name">KalaKasturi</div>
+                    <p class="footer-tagline">Original Indian art bridging classical heritage with modern spaces.</p>
                 </div>
                 <div>
                     <div class="footer-heading">Explore</div>
@@ -535,7 +523,7 @@ function renderContact() {
                     </form>
                 </div>
             </div>
-            <div class="footer-bottom" style="border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted);">
+            <div class="footer-bottom">
                 <div>© 2026 KalaKasturi. All rights reserved.</div>
                 <div style="display: flex; gap: 20px;">
                     <a href="#">Instagram</a>
