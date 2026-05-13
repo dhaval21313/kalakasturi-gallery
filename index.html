@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KalaKasturi â€” Original Indian Art | Buy Direct from the Artist</title>
+  <meta name="description" content="Discover original hand-painted Indian classical and spiritual artworks by artist Ankita from Rishikesh. Raja Ravi Varma inspired paintings, wildlife art, and more. Buy direct â€” no middlemen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Live Visitors Widget -->
+  <div class="live-visitors" id="liveVisitors">
+    <span class="live-pulse"></span>
+    <span id="visitorCount">14</span> people viewing now
+  </div>
+
+  <!-- Contact Form accessible via menu -->
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" onclick="navigateTo('home')">
+        <span class="logo-kala">Kala</span><span class="logo-kasturi">Kasturi</span>
+      </a>
+      <div class="nav-links">
+        <a href="#" class="nav-link" onclick="navigateTo('gallery')">Gallery</a>
+        <a href="#" class="nav-link" onclick="navigateTo('collections')">Collections</a>
+        <a href="#" class="nav-link" onclick="navigateTo('about')">About Artist</a>
+        <a href="#" class="nav-link" onclick="navigateTo('faq')">FAQ</a>
+        <a href="#" class="nav-link" onclick="navigateTo('contact')">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="cart-btn" id="cartBtn" onclick="toggleCart()" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22">
+            <path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="btn-primary" onclick="navigateTo('gallery')">Explore Art</button>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" onclick="navigateTo('gallery');toggleMenu()">Gallery</a>
+      <a href="#" onclick="navigateTo('collections');toggleMenu()">Collections</a>
+      <a href="#" onclick="navigateTo('about');toggleMenu()">About Artist</a>
+      <a href="#" onclick="navigateTo('faq');toggleMenu()">FAQ</a>
+      <a href="#" onclick="navigateTo('contact');toggleMenu()">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Your Collection</h2>
+      <button onclick="toggleCart()" aria-label="Close cart">âœ•</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64" opacity="0.3">
+          <path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+        </svg>
+        <p>Your cart is empty</p>
+        <button class="btn-primary" onclick="navigateTo('gallery');toggleCart()">Browse Gallery</button>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">â‚¹0</span>
+      </div>
+      <button class="btn-primary btn-full" onclick="navigateTo('checkout');toggleCart()">Proceed to Purchase</button>
+      <p class="cart-note">ðŸ”’ Secure checkout â€¢ Certificate of Authenticity included</p>
+    </div>
+  </aside>
+
+  <!-- Main App -->
+  <main id="app"></main>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
