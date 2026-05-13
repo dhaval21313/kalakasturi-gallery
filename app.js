@@ -467,8 +467,32 @@ function renderContact() {
 document.addEventListener('DOMContentLoaded', () => {
     render();
     updateCartUI();
+    initCursor();
 });
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     render();
     updateCartUI();
+    initCursor();
+}
+
+// Figma Style Cursor tracking
+function initCursor() {
+    const cursor = document.getElementById('customCursor');
+    if (!cursor) return;
+    
+    let isVisible = false;
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isVisible) {
+            cursor.style.opacity = '1';
+            isVisible = true;
+        }
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+    });
+    
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        isVisible = false;
+    });
 }
