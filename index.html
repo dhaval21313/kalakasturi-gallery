@@ -5,11 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KalaKasturi â€” Original Indian Art | Buy Direct from the Artist</title>
   <meta name="description" content="Discover original hand-painted Indian classical and spiritual artworks by artist Ankita from Rishikesh. Raja Ravi Varma inspired paintings, wildlife art, and more. Buy direct â€” no middlemen." />
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "KalaKasturi",
+    "image": "https://kalakasturi.vercel.app/logo.png",
+    "description": "Original Indian Art & Immersive Decor by Ankita.",
+    "url": "https://kalakasturi.vercel.app",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Rishikesh",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <!-- Swiper.js for 3D Carousels -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -96,7 +117,10 @@
   <!-- Main App -->
   <main id="app"></main>
 
+  <!-- Application Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="products.js"></script>
+  <script src="webgl.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

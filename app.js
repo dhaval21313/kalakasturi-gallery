@@ -84,9 +84,27 @@ function toggleCart() {
     document.getElementById('cartOverlay').classList.toggle('open');
 }
 
+function updateSEO(page, product) {
+    const titleEl = document.querySelector('title');
+    const descEl = document.querySelector('meta[name="description"]');
+    
+    if (page === 'product' && product) {
+        if (titleEl) titleEl.textContent = `${product.title} | KalaKasturi`;
+        if (descEl) descEl.setAttribute('content', product.description || product.title);
+    } else {
+        if (titleEl) titleEl.textContent = 'KalaKasturi — Original Indian Art | Buy Direct from the Artist';
+        if (descEl) descEl.setAttribute('content', 'Discover original hand-painted Indian classical and spiritual artworks by artist Ankita from Rishikesh. Raja Ravi Varma inspired paintings, wildlife art, and more.');
+    }
+}
+
 function navigateTo(page, data) {
     currentPage = page;
     currentProduct = data || null;
+    
+    // SEO Update
+    const p = PRODUCTS.find(x => x.id === currentProduct);
+    updateSEO(page, p);
+    
     window.scrollTo(0, 0);
     render();
 }
@@ -105,6 +123,7 @@ function render() {
             app.innerHTML = renderHome();
             break;
         case 'gallery':
+        case 'shop':
             app.innerHTML = renderGallery();
             break;
         case 'product':
@@ -129,34 +148,57 @@ function render() {
     if (typeof VanillaTilt !== 'undefined') {
         VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
     }
+
+    // Initialize Swiper for 3D Carousels
+    if (typeof Swiper !== 'undefined' && document.querySelector('.mySwiper')) {
+        new Swiper('.mySwiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 30,
+                stretch: 0,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            }
+        });
+    }
 }
 
 function renderHome() {
-    const featured = PRODUCTS.filter(p => p.featured).slice(0, 3);
+    const featured = PRODUCTS.filter(p => p.featured).slice(0, 5);
     return `
-        <section class="section">
-            <h1>Welcome to KalaKasturi</h1>
-            <p>Original Indian Art by Ankita</p>
-            <div class="gallery-grid">
-                ${featured.map(p => productCard(p)).join('')}
+        <section class="section hero-section">
+            <h1 class="glitch-text" data-text="KalaKasturi">KalaKasturi</h1>
+            <p class="subtitle">Original Indian Art & Immersive Decor by Ankita</p>
+            
+            <div class="swiper mySwiper" style="padding-top: 50px; padding-bottom: 50px;">
+                <div class="swiper-wrapper">
+                    ${featured.map(p => `
+                        <div class="swiper-slide" style="width: 300px; height: 400px; background-image: url('${p.img}'); background-size: cover; background-position: center; border-radius: 15px; cursor: pointer;" onclick="navigateTo('product', ${p.id})">
+                            <div style="position: absolute; bottom: 0; width: 100%; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); border-radius: 0 0 15px 15px; color: white;">
+                                <h3 style="margin: 0; font-size: 18px;">${p.title}</h3>
+                                <p style="margin: 5px 0 0; color: #D4A843;">${formatPrice(p.price)}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-            <button class="btn-primary" onclick="navigateTo('gallery')">View Full Gallery</button>
-        </section>
-    `;
-}
 
-function productCard(p) {
-    return `
-        <div class="art-card" data-tilt onclick="navigateTo('product', ${p.id})">
-            <div class="art-card-img">
-                <img src="${p.img}" alt="${p.title}" onerror="this.src='https://placehold.co/300x400/0E1117/D4A843?text=Art'"/>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-primary" onclick="navigateTo('gallery')">Enter the Gallery</button>
             </div>
-            <div class="art-card-info">
-                <div class="art-card-title">${p.title}</div>
-                <div class="art-price">${formatPrice(p.price)}</div>
-                <div class="art-price-usd">Approx. ${formatUSD(p.priceUSD)}</div>
-            </div>
-        </div>
+        </section>
     `;
 }
 
@@ -164,14 +206,30 @@ function renderGallery() {
     const filtered = activeFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.collection === activeFilter);
     return `
         <section class="section">
-            <h1>Gallery</h1>
-            <div class="filters">
-                <button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" onclick="activeFilter='all';render();">All</button>
-                <button class="filter-btn ${activeFilter === 'spiritual' ? 'active' : ''}" onclick="activeFilter='spiritual';render();">Spiritual</button>
-                <button class="filter-btn ${activeFilter === 'wildlife' ? 'active' : ''}" onclick="activeFilter='wildlife';render();">Wildlife</button>
+            <h1 style="text-align: center; margin-bottom: 1rem;">The Collection</h1>
+            <div class="filters" style="justify-content: center;">
+                <button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" onclick="activeFilter='all';render();">All Artworks</button>
+                <button class="filter-btn ${activeFilter === 'spiritual' ? 'active' : ''}" onclick="activeFilter='spiritual';render();">Spiritual Series</button>
+                <button class="filter-btn ${activeFilter === 'wildlife' ? 'active' : ''}" onclick="activeFilter='wildlife';render();">Wildlife Series</button>
             </div>
-            <div class="gallery-grid">
-                ${filtered.map(p => productCard(p)).join('')}
+            
+            <!-- 3D Carousel Gallery -->
+            <div class="swiper mySwiper" style="padding-top: 50px; padding-bottom: 50px;">
+                <div class="swiper-wrapper">
+                    ${filtered.map(p => `
+                        <div class="swiper-slide glass-card" style="width: 320px; padding: 15px; border-radius: 20px; cursor: pointer;" onclick="navigateTo('product', ${p.id})">
+                            <div style="width: 100%; height: 350px; border-radius: 15px; overflow: hidden; margin-bottom: 15px;">
+                                <img src="${p.img}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/300x400/0E1117/D4A843?text=Art'"/>
+                            </div>
+                            <h3 style="margin: 0 0 10px; font-size: 20px;">${p.title}</h3>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #D4A843; font-weight: bold; font-size: 18px;">${formatPrice(p.price)}</span>
+                                <span style="background: rgba(212,168,67,0.2); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #fff;">1 In Stock</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
     `;
@@ -179,21 +237,42 @@ function renderGallery() {
 
 function renderProduct() {
     const p = PRODUCTS.find(x => x.id === currentProduct);
-    if (!p) return 'Product not found';
+    if (!p) return '<section class="section"><h1>Product not found</h1></section>';
     return `
         <section class="section">
             <div class="product-hero">
-                <div class="product-img-wrap">
+                <div class="product-img-wrap" style="box-shadow: 0 10px 40px rgba(212,168,67,0.2);">
                     <img src="${p.img}" alt="${p.title}" onerror="this.src='https://placehold.co/600x750/0E1117/D4A843?text=Art'"/>
                 </div>
                 <div>
-                    <h1>${p.title}</h1>
-                    <p>${p.subtitle}</p>
-                    <div class="product-price">${formatPrice(p.price)}</div>
-                    <div class="product-price-usd">Approx. ${formatUSD(p.priceUSD)}</div>
-                    <p>${p.description}</p>
-                    <button class="btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
-                    <button class="btn-secondary" onclick="navigateTo('contact')">Inquire via Form</button>
+                    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 40px; margin-bottom: 10px;">${p.title}</h1>
+                    <p style="color: #D4A843; font-style: italic; margin-bottom: 20px;">${p.subtitle}</p>
+                    <div style="font-size: 32px; font-weight: bold; margin-bottom: 5px;">${formatPrice(p.price)}</div>
+                    <div style="color: var(--muted); margin-bottom: 20px;">Approx. ${formatUSD(p.priceUSD)}</div>
+                    
+                    <div style="background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.3); padding: 10px 15px; border-radius: 8px; margin-bottom: 25px; display: inline-block;">
+                        <span style="color: #D4A843; font-weight: bold; font-size: 14px;">🔥 High Demand:</span>
+                        <span style="color: var(--text); font-size: 14px;"> Only 1 original piece available.</span>
+                    </div>
+
+                    <p style="line-height: 1.8; color: var(--muted); margin-bottom: 30px;">${p.description}</p>
+                    
+                    <div style="display: flex; gap: 15px; margin-bottom: 40px;">
+                        <button class="btn-primary" style="flex: 1; padding: 16px; font-size: 16px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                        <button class="btn-secondary" style="flex: 1; padding: 16px; font-size: 16px;" onclick="navigateTo('contact')">Inquire via Form</button>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>🔒</span> 100% Secure Checkout
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>✈️</span> Free Global Shipping
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>📜</span> Certificate of Authenticity Included
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -251,76 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
     updateCartUI();
 });
-
-// --- Three.js Particle Background ---
-function initParticles() {
-    const container = document.getElementById('bg-canvas');
-    if (!container || typeof THREE === 'undefined') return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
-    const posArray = new Float32Array(particlesCount * 3);
-
-    for(let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 10;
-    }
-
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-    const material = new THREE.PointsMaterial({
-        size: 0.015,
-        color: 0xD4A843, // Gold color
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
-    });
-
-    const particlesMesh = new THREE.Points(particlesGeometry, material);
-    scene.add(particlesMesh);
-
-    camera.position.z = 3;
-
-    let mouseX = 0;
-    let mouseY = 0;
-    document.addEventListener('mousemove', (event) => {
-        mouseX = event.clientX / window.innerWidth - 0.5;
-        mouseY = event.clientY / window.innerHeight - 0.5;
-    });
-
-    const clock = new THREE.Clock();
-
-    function animate() {
-        requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
-        
-        particlesMesh.rotation.y = elapsedTime * 0.05;
-        particlesMesh.rotation.x = elapsedTime * 0.02;
-        
-        camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-        camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.05;
-        camera.lookAt(scene.position);
-
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-}
-
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     render();
     updateCartUI();
-    initParticles();
 }
