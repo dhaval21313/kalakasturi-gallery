@@ -459,6 +459,201 @@ function renderContact() {
                 <input class="form-input" type="email" placeholder="Email" required /><br/>
                 <textarea class="form-input" placeholder="Message" required></textarea><br/>
                 <button type="submit" class="btn-primary">Send Message</button>
+                            <div style="color: var(--muted); font-size: 12px;">London, UK</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding: 30px; border-radius: 15px; border-top: 3px solid var(--gold);">
+                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px;">★★★★★</div>
+                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px;">"I purchased the leopard oil painting and it is even more stunning in person. The brushwork is phenomenal. A true centerpiece for our home."</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-weight: bold;">J</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 14px;">James L.</div>
+                            <div style="color: var(--muted); font-size: 12px;">New York, USA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding: 30px; border-radius: 15px; border-top: 3px solid var(--gold);">
+                    <div style="color: var(--gold); font-size: 18px; margin-bottom: 15px;">★★★★★</div>
+                    <p style="color: var(--text); font-style: italic; font-size: 15px; line-height: 1.8; margin-bottom: 20px;">"Excellent communication from Ankita. The Ektara Girl painting arrived perfectly packaged. It's a gorgeous reflection of Indian culture."</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-weight: bold;">S</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 14px;">Siddharth R.</div>
+                            <div style="color: var(--muted); font-size: 12px;">Mumbai, India</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 4: Footer -->
+        <footer class="footer reveal" style="margin-top: 50px;">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand-name">KalaKasturi</div>
+                    <p class="footer-tagline">Original Indian art bridging classical heritage with modern spaces.</p>
+                </div>
+                <div>
+                    <div class="footer-heading">Explore</div>
+                    <div class="footer-links">
+                        <a href="#" onclick="navigateTo('gallery')">Gallery</a>
+                        <a href="#" onclick="navigateTo('about')">About Ankita</a>
+                        <a href="#" onclick="navigateTo('faq')">FAQ</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-heading">Support</div>
+                    <div class="footer-links">
+                        <a href="#" onclick="navigateTo('contact')">Contact Us</a>
+                        <a href="#">Shipping Policy</a>
+                        <a href="#">Returns</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-heading">Newsletter</div>
+                    <p style="color: var(--muted); font-size: 13px; margin-bottom: 10px;">Stay updated on new collections.</p>
+                    <form class="newsletter-input" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                        <input type="email" placeholder="Email Address" required />
+                        <button type="submit">→</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 KalaKasturi. All rights reserved.</div>
+                <div style="display: flex; gap: 20px;">
+                    <a href="#">Instagram</a>
+                    <a href="#">Pinterest</a>
+                    <a href="#">Etsy Shop</a>
+                </div>
+            </div>
+        </footer>
+    `;
+}
+
+function renderGallery() {
+    const filtered = activeFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.collection === activeFilter);
+    return `
+        <section class="section">
+            <h1 style="text-align: center; margin-bottom: 1rem;">The Collection</h1>
+            <div class="filters" style="justify-content: center;">
+                <button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" onclick="activeFilter='all';render();">All Artworks</button>
+                <button class="filter-btn ${activeFilter === 'spiritual' ? 'active' : ''}" onclick="activeFilter='spiritual';render();">Spiritual Series</button>
+                <button class="filter-btn ${activeFilter === 'wildlife' ? 'active' : ''}" onclick="activeFilter='wildlife';render();">Wildlife Series</button>
+            </div>
+            
+            <!-- 3D Carousel Gallery -->
+            <div class="swiper mySwiper" style="padding-top: 50px; padding-bottom: 50px;">
+                <div class="swiper-wrapper">
+                    ${filtered.map(p => `
+                        <div class="swiper-slide glass-card" style="width: 320px; padding: 15px; border-radius: 20px; cursor: pointer;" onclick="navigateTo('product', ${p.id})">
+                            <div style="width: 100%; height: 350px; border-radius: 15px; overflow: hidden; margin-bottom: 15px;">
+                                <img src="${p.img}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/300x400/0E1117/D4A843?text=Art'"/>
+                            </div>
+                            <h3 style="margin: 0 0 10px; font-size: 20px;">${p.title}</h3>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #D4A843; font-weight: bold; font-size: 18px;">${formatPrice(p.price)}</span>
+                                <span style="background: rgba(212,168,67,0.2); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #fff;">1 In Stock</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+    `;
+}
+
+function renderProduct() {
+    const p = PRODUCTS.find(x => x.id === currentProduct);
+    if (!p) return '<section class="section"><h1>Product not found</h1></section>';
+    return `
+        <section class="section">
+            <div class="product-hero">
+                <div class="product-img-wrap" style="box-shadow: 0 10px 40px rgba(212,168,67,0.2);">
+                    <img src="${p.img}" alt="${p.title}" onerror="this.src='https://placehold.co/600x750/0E1117/D4A843?text=Art'"/>
+                </div>
+                <div>
+                    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 40px; margin-bottom: 10px;">${p.title}</h1>
+                    <p style="color: #D4A843; font-style: italic; margin-bottom: 20px;">${p.subtitle}</p>
+                    <div style="font-size: 32px; font-weight: bold; margin-bottom: 5px;">${formatPrice(p.price)}</div>
+                    <div style="color: var(--muted); margin-bottom: 20px;">Approx. ${formatUSD(p.priceUSD)}</div>
+                    
+                    <div style="background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.3); padding: 10px 15px; border-radius: 8px; margin-bottom: 25px; display: inline-block;">
+                        <span style="color: #D4A843; font-weight: bold; font-size: 14px;">🔥 High Demand:</span>
+                        <span style="color: var(--text); font-size: 14px;"> Only 1 original piece available.</span>
+                    </div>
+
+                    <p style="line-height: 1.8; color: var(--muted); margin-bottom: 30px;">${p.description}</p>
+                    
+                    <div style="display: flex; gap: 15px; margin-bottom: 40px;">
+                        <button class="btn-primary" style="flex: 1; padding: 16px; font-size: 16px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                        <button class="btn-secondary" style="flex: 1; padding: 16px; font-size: 16px;" onclick="navigateTo('contact')">Inquire via Form</button>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>🔒</span> 100% Secure Checkout
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>✈️</span> Free Global Shipping
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px;">
+                            <span>📜</span> Certificate of Authenticity Included
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function renderAbout() {
+    return `
+        <section class="section">
+            <h1>About Artist Ankita</h1>
+            <p>Based in Rishikesh, painting with passion.</p>
+        </section>
+    `;
+}
+
+function renderFAQ() {
+    return `
+        <section class="section">
+            <h1>FAQ</h1>
+            <p>Common questions answered here.</p>
+        </section>
+    `;
+}
+
+function renderCheckout() {
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    return `
+        <section class="section">
+            <h1>Mock Checkout</h1>
+            <p>Total: ${formatPrice(total)}</p>
+            <form onsubmit="event.preventDefault(); alert('Order submitted!'); cart=[]; saveCart(); navigateTo('home');">
+                <input class="form-input" type="text" placeholder="Name" required /><br/>
+                <input class="form-input" type="email" placeholder="Email" required /><br/>
+                <button type="submit" class="btn-primary">Submit Order</button>
+            </form>
+        </section>
+    `;
+}
+
+function renderContact() {
+    return `
+        <section class="section">
+            <h1>Contact</h1>
+            <form onsubmit="event.preventDefault(); alert('Message sent!'); navigateTo('home');">
+                <input class="form-input" type="text" placeholder="Name" required /><br/>
+                <input class="form-input" type="email" placeholder="Email" required /><br/>
+                <textarea class="form-input" placeholder="Message" required></textarea><br/>
+                <button type="submit" class="btn-primary">Send Message</button>
             </form>
         </section>
     `;
@@ -467,32 +662,8 @@ function renderContact() {
 document.addEventListener('DOMContentLoaded', () => {
     render();
     updateCartUI();
-    initCursor();
 });
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     render();
     updateCartUI();
-    initCursor();
-}
-
-// Figma Style Cursor tracking
-function initCursor() {
-    const cursor = document.getElementById('customCursor');
-    if (!cursor) return;
-    
-    let isVisible = false;
-    
-    document.addEventListener('mousemove', (e) => {
-        if (!isVisible) {
-            cursor.style.opacity = '1';
-            isVisible = true;
-        }
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-    });
-    
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-        isVisible = false;
-    });
 }

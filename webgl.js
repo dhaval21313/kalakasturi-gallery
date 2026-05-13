@@ -101,8 +101,8 @@ class SpacetimeEngine {
     }
 
     initParticles() {
-        // High density: 60,000 particles
-        const particleCount = 60000;
+        // Reduced density: 30,000 particles (was 60,000)
+        const particleCount = 30000;
         const geometry = new THREE.BufferGeometry();
         
         const positions = new Float32Array(particleCount * 3);
