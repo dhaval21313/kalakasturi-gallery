@@ -67,18 +67,24 @@
 }
 
 /* Full-Screen & Scroll Snapping */
-html {
+html.snap-active {
     scroll-snap-type: y mandatory;
 }
-.section {
+html.snap-active .section {
     height: 100vh !important;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+}
+html.snap-active footer {
+    scroll-snap-align: end;
+}
+.section {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 64px !important;
+    padding: 96px 64px !important;
     max-width: 100% !important;
     margin: 0 !important;
 }
