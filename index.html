@@ -1,174 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" class="snap-active">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Two Leaves and a Bud — Premium Organic Whole Leaf Tea</title>
-  <meta name="description" content="Shop premium organic whole leaf tea bags, sachets, and loose leaf tea. Taste the difference with our USDA Certified Organic & Fair Trade teas." />
-  
-  <!-- JSON-LD Structured Data for Organic Tea Store -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "Two Leaves and a Bud",
-    "image": "https://twoleavestea.vercel.app/logo.png",
-    "description": "Premium Organic Whole Leaf Tea & Accessories.",
-    "url": "https://twoleavestea.vercel.app",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Basalt",
-      "addressRegion": "CO",
-      "addressCountry": "US"
-    }
-  }
-  </script>
-
+  <meta name="theme-color" content="#050505" />
+  <title>KalaKasturi — Original Indian Fine Art | Ankita, Rishikesh</title>
+  <meta name="description" content="Original hand-painted Indian classical and spiritual artworks by artist Ankita from Rishikesh. Raja Ravi Varma tradition. Buy direct — certified, worldwide shipping." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <!-- Swiper.js for carousels -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  
+  <link href="https://fonts.googleapis.com/css2?family=Fahkwang:wght@400;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Floating Micro-animation background leaf container (Will be handled in style/JS) -->
-  <div id="leaves-container" class="leaves-container"></div>
 
-  <!-- Scroll Progress Bar -->
+  <!-- Scroll Progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Live Tea Lovers Viewing Widget -->
-  <div class="live-visitors" id="liveVisitors">
-    <span class="live-pulse"></span>
-    <span id="visitorCount">28</span> tea lovers online
-  </div>
+  <!-- Toast -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
-  <!-- Navigation -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo" onclick="navigateTo('home')">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" class="logo-icon">
-          <path d="M12 2c0 0-4 4.5-4 8.5C8 14.5 12 19 12 19s4-4.5 4-8.5C16 6.5 12 2 12 2z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 19V5" stroke-linecap="round"/>
-          <path d="M8 12c1.5-1 4-1 5.5 0" stroke-linecap="round"/>
-        </svg>
-        <span class="brand-text">two leaves <span class="brand-sub">& a bud</span></span>
-      </a>
-      <div class="nav-links">
-        <a href="#" class="nav-link" id="nav-shop" onclick="navigateTo('shop')">Shop Tea</a>
-        <a href="#" class="nav-link" id="nav-quiz" onclick="navigateTo('quiz')">Tea Quiz</a>
-        <a href="#" class="nav-link" id="nav-about" onclick="navigateTo('about')">Our Story</a>
-        <a href="#" class="nav-link" id="nav-faq" onclick="navigateTo('faq')">FAQ</a>
-        <a href="#" class="nav-link" id="nav-contact" onclick="navigateTo('contact')">Contact</a>
-      </div>
-      <div class="nav-actions">
-        <!-- Account / Portal Button -->
-        <button class="account-btn" id="accountBtn" onclick="navigateTo('account')" aria-label="Customer Account">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span class="user-greeting" id="userGreeting">Sign In</span>
-        </button>
+  <!-- Cart Overlay -->
+  <div class="cart-overlay" id="cartOverlay"></div>
 
-        <!-- Cart Trigger -->
-        <button class="cart-btn" id="cartBtn" onclick="toggleCart()" aria-label="Shopping cart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
-          </svg>
-          <span class="cart-count" id="cartCount">0</span>
-        </button>
-
-        <button class="btn-primary nav-cta" onclick="navigateTo('quiz')">Find Your Tea</button>
-        
-        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
+  <!-- Cart Drawer -->
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" role="dialog">
+    <div class="cart-drawer-head">
+      <span class="cart-drawer-title">YOUR COLLECTION</span>
+      <button class="cart-close-btn" onclick="closeCart()" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-drawer-body" id="cartBody">
+      <div class="cart-empty-state" id="cartEmpty">
+        <p>Your collection is empty.</p>
+        <button class="link-btn" onclick="closeCart();navigateTo('gallery')">Browse Gallery →</button>
       </div>
     </div>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#" onclick="navigateTo('shop');toggleMenu()">Shop Tea</a>
-      <a href="#" onclick="navigateTo('quiz');toggleMenu()">Tea Quiz</a>
-      <a href="#" onclick="navigateTo('about');toggleMenu()">Our Story</a>
-      <a href="#" onclick="navigateTo('faq');toggleMenu()">FAQ</a>
-      <a href="#" onclick="navigateTo('contact');toggleMenu()">Contact</a>
-      <a href="#" onclick="navigateTo('account');toggleMenu()">My Account</a>
-    </div>
-  </nav>
-
-  <!-- Cart Sidebar -->
-  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-  <aside class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h2>Your Cart</h2>
-      <button onclick="toggleCart()" aria-label="Close cart">✕</button>
-    </div>
-    
-    <!-- Free Shipping Progress Tracker -->
-    <div class="shipping-tracker" id="shippingTracker">
-      <span class="tracker-text" id="trackerText">Spend $35 more for Free Shipping!</span>
-      <div class="tracker-bar-bg">
-        <div class="tracker-bar-fill" id="trackerBarFill" style="width: 0%"></div>
+    <div class="cart-drawer-foot" id="cartFoot" style="display:none">
+      <div class="cart-promo-row">
+        <input type="text" id="promoInput" placeholder="Promo code" class="promo-field" aria-label="Promo code" />
+        <button class="link-btn" onclick="applyPromo()">Apply</button>
       </div>
-    </div>
-
-    <!-- Cart Items list -->
-    <div class="cart-items" id="cartItems">
-      <div class="cart-empty" id="cartEmpty">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64" opacity="0.3">
-          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
-        </svg>
-        <p>Your tea cart is empty</p>
-        <button class="btn-primary" onclick="navigateTo('shop');toggleCart()">Explore Teas</button>
+      <div id="promoMsg" class="promo-msg"></div>
+      <div class="cart-totals">
+        <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+        <div class="cart-total-row discount-row" id="discountRow" style="display:none"><span>Discount</span><span id="discountAmt"></span></div>
+        <div class="cart-total-row"><span>Shipping</span><span class="free-ship">Free worldwide</span></div>
+        <div class="cart-total-row cart-grand-total"><span>Total</span><span id="cartTotal">₹0</span></div>
       </div>
-    </div>
-    
-    <!-- Cart Footer with Discount Section -->
-    <div class="cart-footer" id="cartFooter" style="display:none">
-      <div class="cart-promo-section">
-        <div class="promo-inputs">
-          <input type="text" id="promoCodeInput" placeholder="Coupon (e.g. TEALOVER)" />
-          <button onclick="applyPromo()">Apply</button>
-        </div>
-        <div id="promoFeedback" class="promo-feedback"></div>
-      </div>
-      
-      <div class="cart-summary-lines">
-        <div class="summary-line">
-          <span>Subtotal</span>
-          <span id="cartSubtotal">$0.00</span>
-        </div>
-        <div class="summary-line discount-line" id="discountLine" style="display:none; color: var(--accent);">
-          <span>Discount (15%)</span>
-          <span id="cartDiscount">-$0.00</span>
-        </div>
-        <div class="summary-line">
-          <span>Shipping</span>
-          <span id="cartShipping">Calculated next</span>
-        </div>
-        <div class="summary-line total-line">
-          <span>Total</span>
-          <span id="cartTotal">$0.00</span>
-        </div>
-      </div>
-      
-      <button class="btn-primary btn-full" onclick="navigateTo('checkout');toggleCart()">Proceed to Checkout</button>
-      <p class="cart-note">🔒 256-bit Secure Checkout • 100% Organic Quality Guaranteed</p>
+      <button class="primary-btn full-btn" onclick="closeCart();navigateTo('checkout')">PROCEED TO CHECKOUT</button>
+      <p class="cart-note">Certificate of Authenticity · Secure checkout</p>
     </div>
   </aside>
 
-  <!-- Main App -->
-  <main id="app"></main>
+  <!-- NAV -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+      <button class="nav-logo" onclick="navigateTo('home')" aria-label="KalaKasturi Home">
+        <img src="https://websitedemos.net/fashion-photography-04/wp-content/uploads/sites/1169/2023/02/Mason-Leblanc.svg" alt="Mason Leblanc Logo" style="height: 18px; filter: invert(1);" />
+      </button>
 
-  <!-- Application Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <ul class="nav-menu" role="list">
+        <li><button id="nav-gallery"     class="nav-item" onclick="navigateTo('gallery')">Portfolio</button></li>
+        <li><button id="nav-about"       class="nav-item" onclick="navigateTo('about')">Biography</button></li>
+        <li><button id="nav-faq"         class="nav-item" onclick="navigateTo('faq')">Services</button></li>
+        <li><button id="nav-contact"     class="nav-item" onclick="navigateTo('contact')">Contact</button></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" onclick="navigateTo('account')" aria-label="Account" id="accountNavBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="nav-icon-btn" onclick="navigateTo('wishlist')" aria-label="Wishlist">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span class="nav-badge" id="wishBadge" style="display:none">0</span>
+        </button>
+        <button class="nav-icon-btn cart-icon-btn" onclick="toggleCart()" aria-label="Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="nav-badge" id="cartBadge">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-item" onclick="navigateTo('gallery');closeMobileNav()">Portfolio</button>
+      <button class="mobile-nav-item" onclick="navigateTo('about');closeMobileNav()">Biography</button>
+      <button class="mobile-nav-item" onclick="navigateTo('faq');closeMobileNav()">Services</button>
+      <button class="mobile-nav-item" onclick="navigateTo('contact');closeMobileNav()">Contact</button>
+      <button class="mobile-nav-item" onclick="navigateTo('wishlist');closeMobileNav()">Wishlist</button>
+      <button class="mobile-nav-item" onclick="navigateTo('account');closeMobileNav()">Account</button>
+    </div>
+  </header>
+
+  <!-- APP -->
+  <main id="app" role="main"></main>
+
   <script src="products.js"></script>
   <script src="app.js"></script>
 </body>
