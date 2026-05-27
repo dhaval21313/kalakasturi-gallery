@@ -179,7 +179,7 @@ export const teamData = {
   ownerName: "KalaKasturiShop",
   role: "Artist & Founder",
   bio: "Welcome to KalaKasturiShop located in Rishikesh, Uttarakhand. We specialize in handmade paintings of Spiritual Art and Nature, along with digital prints and reproductions. Each piece is crafted with love and devotion to traditional and contemporary Indian art forms.",
-  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop"
+  image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777587/kalakasturi_products/jzhbxoe2enzzpn7qg1lw.png"
 };
 
 export const faqs = [

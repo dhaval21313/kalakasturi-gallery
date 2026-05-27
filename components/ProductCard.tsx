@@ -110,6 +110,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     className="object-cover transition-transform duration-700 ease-out scale-100 group-hover/box:scale-110"
                     referrerPolicy="no-referrer"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    quality={95}
                     priority={product.id === 'vishwamitra'}
                   />
                 </motion.div>
