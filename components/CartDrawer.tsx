@@ -19,7 +19,7 @@ export default function CartDrawer({ isOpen, onClose, onOpenCheckout }: CartDraw
     if (items.length === 0) return;
 
     // Build WhatsApp Message Body
-    const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919876543210";
+    const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919033459353";
     let message = "Hello Kala Kasturi! I am interested in placing an order for the following artworks:\n\n";
     message += "----------------------------------------\n";
     items.forEach(item => {

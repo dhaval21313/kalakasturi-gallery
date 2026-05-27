@@ -85,7 +85,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919876543210";
+    const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919033459353";
     
     // Compile formatted order narrative
     let text = `Hello Kala Kasturi! I would like to place an order:\n\n`;
@@ -416,15 +416,6 @@ export default function CheckoutPage() {
                   Order on WhatsApp (Immediate Setup)
                 </button>
 
-                {/* 2. Secondary Action: Stripe Prototype checkout */}
-                <button
-                  onClick={handleStripePrototypeCheckout}
-                  disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 bg-transparent border border-white/10 hover:border-white/20 text-[#A3A3A3] hover:text-white font-bold text-xs uppercase tracking-widest rounded-full transition-all active:scale-98 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <CreditCard className="w-4 h-4" />
-                  {isSubmitting ? 'Verifying Sandbox Session...' : 'Checkout via Credit Card (Sandbox)'}
-                </button>
               </div>
 
               {/* Secure Trust indicators */}

@@ -38,3 +38,5 @@ next-env.d.ts
 # heavy assets
 public/products/
 upload-cloudinary.mjs
+
+.vercel
