@@ -146,13 +146,17 @@ const DigitalSerenity = () => {
               <div className="text-[11px] sm:text-xs md:text-sm font-sans font-normal text-[#A3A3A3] leading-relaxed tracking-normal max-w-xl mx-auto py-2">
                 <span className="word-animate" data-delay="600">Traditional</span>
                 <span className="word-animate" data-delay="650">Indian</span>
-                <span className="word-animate" data-delay="700">art</span>
-                <span className="word-animate" data-delay="750">born</span>
-                <span className="word-animate" data-delay="800">in</span>
-                <span className="word-animate" data-delay="850">the</span>
-                <span className="word-animate" data-delay="900">heart</span>
-                <span className="word-animate" data-delay="950">of</span>
-                <span className="word-animate text-white font-semibold" data-delay="1000">Rishikesh.</span>
+                <span className="word-animate" data-delay="700">fine</span>
+                <span className="word-animate" data-delay="750">art</span>
+                <span className="word-animate" data-delay="800">and</span>
+                <span className="word-animate" data-delay="850">archival</span>
+                <span className="word-animate text-white font-semibold" data-delay="900">prints.</span>
+                <span className="word-animate" data-delay="955">Bridging</span>
+                <span className="word-animate" data-delay="1010">timeless</span>
+                <span className="word-animate" data-delay="1065">heritage</span>
+                <span className="word-animate" data-delay="1120">with</span>
+                <span className="word-animate" data-delay="1175">modern</span>
+                <span className="word-animate text-white font-semibold" data-delay="1230">spaces.</span>
               </div>
             </h1>
             
