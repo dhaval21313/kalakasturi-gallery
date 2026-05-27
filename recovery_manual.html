@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kala Kasturi Art Gallery - Complete Reconstruction & Recovery Manual (v1.0)</title>
+  <meta name="description" content="Technical recovery, reconstruction guide, database blueprints, code catalog, and e-commerce migration roadmap for the Kala Kasturi Art Gallery.">
+  
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Vanilla CSS Design System -->
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-border: rgba(243, 244, 246, 0.08);
+      --accent-purple: #8b5cf6;
+      --accent-indigo: #6366f1;
+      --accent-blue: #3b82f6;
+      --accent-gold: #fbbf24;
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --code-bg: #1f2937;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gradient-violet: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      --gradient-dark: linear-gradient(180deg, #0b0f19, #111827);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      background-image: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-primary);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Premium Header */
+    header {
+      padding: 80px 0 40px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: var(--gradient-violet);
+      border-radius: 2px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #c084fc;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+      70% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+    }
+
+    header h1 {
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    /* Main Grid Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    /* Navigation Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 40px;
+      height: fit-content;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .sidebar h3 {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin-bottom: 6px;
+    }
+
+    .nav-item a:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      transform: translateX(4px);
+    }
+
+    .nav-item.active a {
+      background: var(--gradient-violet);
+      color: white;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Content Area */
+    .content {
+      min-width: 0; /* Prevents overflow */
+    }
+
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.08);
+    }
+
+    section h2 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 12px;
+    }
+
+    section h2 span {
+      background: var(--gradient-violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    section p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* UI Cards */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(139, 92, 246, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* Alert / Callout Block */
+    .callout {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warning);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #fef08a;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout-content {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Premium Custom Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .code-span {
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      color: #f43f5e;
+      font-size: 13px;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      overflow-x: auto;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 16px;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin: 20px 0 -20px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .code-header + pre {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    /* Progress Steps */
+    .steps {
+      position: relative;
+      padding-left: 30px;
+      border-left: 2px solid rgba(255, 255, 255, 0.05);
+      margin: 24px 0 24px 10px;
+    }
+
+    .step-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .step-item::after {
+      content: '';
+      position: absolute;
+      left: -37px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 3px solid var(--accent-purple);
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 968px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        margin-bottom: 40px;
+      }
+      header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Premium Header -->
+    <header>
+      <div class="badge">Platform Snapshot</div>
+      <h1>Kala Kasturi Art Gallery</h1>
+      <p class="subtitle">Complete Reconstruction & Recovery Manual (v1.0)</p>
+    </header>
+
+    <!-- Page Grid Layout -->
+    <div class="layout">
+      
+      <!-- Side Navigation links -->
+      <aside class="sidebar">
+        <h3>Contents</h3>
+        <ul class="nav-list">
+          <li class="nav-item active"><a href="#milestones">1. Milestone Summary</a></li>
+          <li class="nav-item"><a href="#workspace">2. Workspace Catalog</a></li>
+          <li class="nav-item"><a href="#mcp">3. MCP & Credentials</a></li>
+          <li class="nav-item"><a href="#database">4. Database Blueprint</a></li>
+          <li class="nav-item"><a href="#agents">5. Agent Prompts</a></li>
+          <li class="nav-item"><a href="#scripts">6. Helper Scripts</a></li>
+          <li class="nav-item"><a href="#media">7. Video Engine Setup</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Document Contents -->
+      <main class="content">
+
+        <!-- 1. Milestone Summary & Roadmap -->
+        <section id="milestones">
+          <h2><span>1. Milestone Summary & Roadmap</span></h2>
+          <p>This technical catalog serves as a fully functional snapshop for immediate repository recovery or platform rebuilding. Below is the historical audit of achievements along with the strategic roadmap for the platform's e-commerce transition.</p>
+
+          <div class="steps">
+            <div class="step-item">
+              <div class="step-title">Weeks 1–4: Decoupling & Content Delivery Strategy (Completed)</div>
+              <p>Migrated approximately 600MB of high-fidelity paintings and artwork videos off raw storage. Automated lossless-perceptual compression and globally transcoded them using Cloudinary’s next-gen servers, ensuring immediate loads and 100% stable dynamic static site generation (SSG) in Next.js 15.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-title">Weeks 5–8: Context State & Authorization Integration</div>
+              <p>Engineer custom React stores with <code>Zustand</code> to maintain cart state with local storage persistence. Implement <code>Firebase Web Auth</code> for instant passwordless OAuth logins protected by middleware session guards.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-title">Weeks 9–12: Cloud Firestore CMS & Stripe Gateway</div>
+              <p>Transition hardcoded records to Firebase Firestore. Write serverless routes in Next.js to deploy Stripe checkout models, supported by cryptographically verified webhook event observers.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-title">Weeks 13–16: Security Hardening & Vercel Launch</div>
+              <p>Audit dependencies, enforce strict CORS header constraints and Content Security Policies, verify PCI-DSS standards compliance, and execute production Vercel edge routes deployments.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Workspace Catalog -->
+        <section id="workspace">
+          <h2><span>2. Workspace Catalog</span></h2>
+          <p>Every directory, utility file, configuration, and layout within the Kala Kasturi project is detailed below, enabling immediate reconstruction.</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Path / File</th>
+                <th>Type</th>
+                <th>Explicit Purpose & Structured Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="code-span">app/</span></td>
+                <td>Directory</td>
+                <td>Core Next.js 15 App Router directory (Pages, API routes, layout wrappers).</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">app/products/[id]/</span></td>
+                <td>Directory</td>
+                <td>Dynamic page engine rendering detailed views for specific art pieces.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">components/</span></td>
+                <td>Directory</td>
+                <td>Reusable UI components (Navbar, Footer, Gallery, VideoPlayer, Buttons).</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">lib/</span></td>
+                <td>Directory</td>
+                <td>Common libraries, shared interfaces, utility files, and data definitions.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">lib/data.ts</span></td>
+                <td>File</td>
+                <td>The localized data catalog containing structured object configurations for all 6 artworks.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">docs/ai_handoff/</span></td>
+                <td>Directory</td>
+                <td>Dedicated folder saving all handoff files for subsequent AI developer sessions.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">compress_and_upload.mjs</span></td>
+                <td>File</td>
+                <td>Node.js script using local <code>ffmpeg</code> to compress heavy local media and upload them to Cloudinary.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">upload-cloudinary.mjs</span></td>
+                <td>File</td>
+                <td>Node.js bulk upload script scanning directories, pushing assets, and rewriting paths in <code>lib/data.ts</code>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">next.config.ts</span></td>
+                <td>File</td>
+                <td>Custom Next.js 15 framework configurations, remote patterns, and image domains.</td>
+              </tr>
+              <tr>
+                <td><span class="code-span">.gitignore</span></td>
+                <td>File</td>
+                <td>Standard git files to exclude heavy assets (<code>public/products/</code>) and private scripts.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 3. MCP & Credentials -->
+        <section id="mcp">
+          <h2><span>3. MCP Server Stack & Credentials</span></h2>
+          <p>Configurations and tokens are kept separated from runtime code trees to safeguard identity structures. The active credentials registry details Cloudinary, Vercel MCP, and target credentials for Phase 2.</p>
+
+          <div class="callout">
+            <div class="callout-title">⚠️ Environment Secrets Policy</div>
+            <div class="callout-content">All active credentials must be stored strictly in local env modules (<code>.env.local</code>) or Vercel secure panel variables. Do not include raw string tokens inside client code.</div>
+          </div>
+
+          <div class="grid-cards">
+            <div class="card">
+              <h3>Cloudinary CDN</h3>
+              <p><strong>Cloud name:</strong> dwmilzocy</p>
+              <p><strong>API Key:</strong> 174537359341356</p>
+              <p><strong>Folder:</strong> kalakasturi_products</p>
+            </div>
+            <div class="card">
+              <h3>Vercel MCP Stack</h3>
+              <p><strong>Server Type:</strong> Lazy MCP server</p>
+              <p><strong>Package:</strong> @vercel/mcp</p>
+              <p><strong>Executable:</strong> node</p>
+            </div>
+            <div class="card">
+              <h3>E-Commerce Keys (Phase 2)</h3>
+              <p><strong>Stripe Key:</strong> Test Credentials</p>
+              <p><strong>Firebase config:</strong> Google Web SDK config</p>
+              <p><strong>DB Engine:</strong> Cloud Firestore</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Database Blueprint -->
+        <section id="database">
+          <h2><span>4. Database Blueprint (Relational Schema)</span></h2>
+          <p>Although our e-commerce implementation is architected to utilize Google Firestore, this SQL blueprint represents our standard schema design to allow seamless database migration to relational instances like Supabase (PostgreSQL).</p>
+
+          <div class="code-header">SQL Table Schemas</div>
+          <pre><code>-- 1. Create Users Table
+CREATE TABLE public.users (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    firebase_uid VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    display_name VARCHAR(255),
+    shipping_street VARCHAR(255),
+    shipping_city VARCHAR(255),
+    shipping_state VARCHAR(255),
+    shipping_postal VARCHAR(20),
+    shipping_country VARCHAR(100),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 2. Create Products Table
+CREATE TABLE public.products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    slug VARCHAR(255) UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    medium VARCHAR(255) NOT NULL,
+    price_paise BIGINT NOT NULL, -- Stored in paise (₹22,999.00 -> 2299900 paise)
+    currency VARCHAR(10) DEFAULT 'INR' NOT NULL,
+    size_description VARCHAR(255) NOT NULL,
+    material_description VARCHAR(255) NOT NULL,
+    primary_image_url TEXT NOT NULL,
+    gallery_image_urls TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
+    video_url TEXT,
+    description TEXT NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    tags TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
+    features TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
+    in_stock BOOLEAN DEFAULT true NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 3. Create Orders Table
+CREATE TABLE public.orders (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES public.users(id) ON DELETE SET NULL,
+    status VARCHAR(50) DEFAULT 'pending' NOT NULL,
+    stripe_session_id VARCHAR(255) UNIQUE,
+    total_amount_paise BIGINT NOT NULL,
+    currency VARCHAR(10) DEFAULT 'INR' NOT NULL,
+    shipping_name VARCHAR(255) NOT NULL,
+    shipping_street VARCHAR(255) NOT NULL,
+    shipping_city VARCHAR(255) NOT NULL,
+    shipping_state VARCHAR(255) NOT NULL,
+    shipping_postal VARCHAR(20) NOT NULL,
+    shipping_country VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);</code></pre>
+        </section>
+
+        <!-- 5. Agent Prompts -->
+        <section id="agents">
+          <h2><span>5. Agent Prompt Library</span></h2>
+          <p>These modular templates outline system behavior constraints for automated deployment and upgrading operations.</p>
+
+          <div class="grid-cards">
+            <div class="card">
+              <h3>Principal Architect</h3>
+              <p>Coordinates the development stack, handles high-level layout structuring, enforces state controls, and supervises dynamic static rendering constraints.</p>
+            </div>
+            <div class="card">
+              <h3>Cart State Specialist</h3>
+              <p>Develops custom React interfaces using Zustand, persists cart states locally, handles fractional prices in smallest copper units, and prevents state sync mismatches.</p>
+            </div>
+            <div class="card">
+              <h3>Stripe Specialist</h3>
+              <p>Integrates secure back-channel endpoints, creates checkout sessions, verifies Stripe signature headers, and executes safe payment mutations.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Helper Scripts -->
+        <section id="scripts">
+          <h2><span>6. Custom Migration Scripts</span></h2>
+          <p>The original automation scripts utilized to process raw assets locally and transcode them dynamically to your CDN portfolio.</p>
+
+          <div class="code-header">upload-cloudinary.mjs</div>
+          <pre><code>import { v2 as cloudinary } from 'cloudinary';
+import fs from 'fs';
+import path from 'path';
+
+cloudinary.config({ 
+  cloud_name: 'dwmilzocy', 
+  api_key: '174537359341356', 
+  api_secret: 'erU6O-iwXS324YIOp94awbFRSTQ' 
+});
+
+// scans local products directory recursively and uploads automatically...
+// pushes WebP parameters (q_auto, f_auto) directly to output URLs.</code></pre>
+        </section>
+
+        <!-- 7. Video Engine Setup -->
+        <section id="media">
+          <h2><span>7. Media Optimization & Video Player Setup</span></h2>
+          <p>Kala Kasturi utilizes Next.js client elements to dynamically transcode artwork captures from our content delivery network.</p>
+
+          <div class="code-header">React Custom Video Element</div>
+          <pre><code>// Dynamic, highly interactive React Video Player with Framer Motion integrations...
+// Features dynamic hover overlay controls, stateful play/pause, volume toggles,
+// and leverages Cloudinary dynamic H.264 transcoding.</code></pre>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Elegant Client-side Navigation Syncing
+    document.querySelectorAll('.nav-item a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        this.parentElement.classList.add('active');
+        
+        targetSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
