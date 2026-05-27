@@ -138,18 +138,21 @@ const DigitalSerenity = () => {
           <div className="text-center max-w-5xl mx-auto relative my-12">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-slate-50 text-decoration-animate" style={{ fontFamily: 'var(--font-merriweather)' }}>
               <div className="mb-3 md:mb-4">
-                <span className="word-animate" data-delay="0">Soul</span>
-                <span className="word-animate" data-delay="150">of</span>
-                <span className="word-animate italic font-serif font-light text-[#C19A6B]" data-delay="300"> Indian Art</span>
+                <span className="word-animate" data-delay="0">Sacred</span>
+                <span className="word-animate" data-delay="150">Realism</span>
+                <span className="word-animate" data-delay="300">in</span>
+                <span className="word-animate italic font-serif font-light text-[#C19A6B]" data-delay="450"> Every Stroke</span>
               </div>
               <div className="text-[11px] sm:text-xs md:text-sm font-sans font-normal text-[#A3A3A3] leading-relaxed tracking-normal max-w-xl mx-auto py-2">
-                <span className="word-animate" data-delay="450">Timeless</span>
-                <span className="word-animate" data-delay="500">masterpieces</span>
-                <span className="word-animate" data-delay="550">connecting</span>
-                <span className="word-animate" data-delay="600">heritage</span>
-                <span className="word-animate" data-delay="650">with</span>
-                <span className="word-animate" data-delay="700">modern</span>
-                <span className="word-animate" data-delay="750">spaces.</span>
+                <span className="word-animate" data-delay="600">Traditional</span>
+                <span className="word-animate" data-delay="650">Indian</span>
+                <span className="word-animate" data-delay="700">art</span>
+                <span className="word-animate" data-delay="750">born</span>
+                <span className="word-animate" data-delay="800">in</span>
+                <span className="word-animate" data-delay="850">the</span>
+                <span className="word-animate" data-delay="900">heart</span>
+                <span className="word-animate" data-delay="950">of</span>
+                <span className="word-animate text-white font-semibold" data-delay="1000">Rishikesh.</span>
               </div>
             </h1>
             
