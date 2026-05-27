@@ -10,7 +10,7 @@ import ProductCard from '@/components/ProductCard';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
-const ThreeDCarousel = dynamic(() => import('@/components/ThreeDCarousel'), { ssr: false });
+const CinematicReel = dynamic(() => import('@/components/CinematicReel'), { ssr: false });
 
 const categories = ["All", "Abstracts", "Portraits", "Wabi-Sabi", "Pooja Essentials"];
 
@@ -25,7 +25,7 @@ function ProductCardSkeleton() {
         </div>
       </div>
       
-      {/* Information Row Skeleton reflecting original titles, category chips, and buy buttons */}
+      {/* Information Row Skeleton reflecting original titles, category chips, and buy flow outline */}
       <div className="flex justify-between items-start gap-2">
         <div className="flex flex-col min-w-0 flex-grow gap-2">
           {/* Main Title Shimmer */}
@@ -41,7 +41,7 @@ function ProductCardSkeleton() {
         </div>
         
         {/* Curated pricing layout box */}
-        <div className="h-7 bg-neutral-900 rounded-lg w-12 border border-white/5 flex-shrink-[#C19A6B] flex-shrink-0" />
+        <div className="h-7 bg-neutral-900 rounded-lg w-12 border border-white/5 flex-shrink-0" />
       </div>
     </div>
   );
@@ -50,6 +50,7 @@ function ProductCardSkeleton() {
 export default function CollectionsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   
   // Dynamic product loading states from Firestore
   const [products, setProducts] = useState<any[]>([]);
@@ -79,20 +80,31 @@ export default function CollectionsPage() {
     : products.filter(p => p.category === activeCategory);
 
   return (
-    <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-[72px] md:pt-[138px] pb-24 px-6 font-sans">
+    <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-[72px] md:pt-[138px] pb-24 px-4 sm:px-6 font-sans">
       <div className="max-w-[1400px] mx-auto">
-        <div className="mb-12">
-          <ThreeDCarousel />
+        
+        {/* Top-Tier: Cinematic Spotlight Filmstrip */}
+        <div className="mb-14">
+          <CinematicReel />
         </div>
 
+        {/* Filter Navigation Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="hidden md:flex flex-wrap items-center gap-2 bg-[#1A1A1A] p-1.5 rounded-full border border-white/10">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="hidden md:flex flex-wrap items-center gap-2 bg-[#0A0A0A] p-1.5 rounded-full border border-white/10"
+          >
             {categories.map(cat => (
               <button 
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${activeCategory === cat ? 'bg-white text-black' : 'text-[#A3A3A3] hover:text-white'}`}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === cat 
+                    ? 'bg-white text-black font-semibold shadow-lg' 
+                    : 'text-[#A3A3A3] hover:text-white'
+                }`}
               >
                 {cat}
               </button>
@@ -101,12 +113,13 @@ export default function CollectionsPage() {
 
           <button 
             onClick={() => setIsFilterOpen(true)}
-            className="md:hidden flex items-center justify-center gap-2 bg-[#1A1A1A] border border-white/10 py-3 px-6 rounded-full font-medium"
+            className="md:hidden flex items-center justify-center gap-2 bg-[#0A0A0A] border border-white/10 py-3 px-6 rounded-full font-medium"
           >
-            <Filter className="w-4 h-4" /> Filter Artworks
+            <Filter className="w-4 h-4 text-[#C19A6B]" /> Filter Artworks
           </button>
         </div>
 
+        {/* Mobile Filter Drawer Overlay */}
         <AnimatePresence>
           {isFilterOpen && (
             <motion.div 
@@ -116,8 +129,8 @@ export default function CollectionsPage() {
               className="fixed inset-0 z-50 bg-[#000000] p-6 flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between mb-12 mt-10">
-                <span className="text-2xl font-bold tracking-tight">Filters</span>
-                <button onClick={() => setIsFilterOpen(false)} className="p-2 bg-white/10 rounded-full">
+                <span className="text-2xl font-bold tracking-tight text-white">Filters</span>
+                <button onClick={() => setIsFilterOpen(false)} className="p-2.5 bg-white/10 rounded-full">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -126,7 +139,9 @@ export default function CollectionsPage() {
                   <button 
                     key={cat}
                     onClick={() => { setActiveCategory(cat); setIsFilterOpen(false); }}
-                    className={`text-left text-2xl font-medium py-4 border-b border-white/10 ${activeCategory === cat ? 'text-white' : 'text-[#A3A3A3]'}`}
+                    className={`text-left text-2xl font-medium py-4 border-b border-white/10 ${
+                      activeCategory === cat ? 'text-white border-[#C19A6B]' : 'text-[#A3A3A3]'
+                    }`}
                   >
                     {cat}
                   </button>
@@ -136,18 +151,35 @@ export default function CollectionsPage() {
           )}
         </AnimatePresence>
 
+        {/* Bottom-Tier: Layout-Fluid Masonry Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
+          className="columns-2 sm:columns-3 xl:columns-4 gap-4 sm:gap-6 lg:gap-8 space-y-6 sm:space-y-8 [column-fill:auto]"
         >
           <AnimatePresence mode="popLayout">
             {isLoading ? (
               Array.from({ length: 8 }).map((_, idx) => (
-                <ProductCardSkeleton key={`skeleton-${idx}`} />
+                <div key={`skeleton-wrap-${idx}`} className="break-inside-avoid mb-6 block">
+                  <ProductCardSkeleton />
+                </div>
               ))
             ) : (
               filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <motion.div 
+                  layout
+                  key={product.id} 
+                  onMouseEnter={() => setHoveredId(product.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className={`break-inside-avoid mb-6 sm:mb-8 block rounded-2xl border transition-all duration-500 will-change-[transform,opacity,border-color,box-shadow] ${
+                    hoveredId === product.id 
+                      ? 'border-[#C19A6B]/50 scale-[1.02] shadow-[0_20px_40px_rgba(193,154,107,0.1)] opacity-100 z-20' 
+                      : hoveredId !== null 
+                        ? 'border-transparent opacity-35 scale-[0.98] z-0' 
+                        : 'border-transparent opacity-100'
+                  }`}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
               ))
             )}
           </AnimatePresence>
