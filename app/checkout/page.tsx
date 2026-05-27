@@ -254,7 +254,7 @@ export default function CheckoutPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="e.g. +91 98765 43210"
+                      placeholder="e.g. +91 90334 59353"
                       className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B] outline-none transition-colors"
                     />
                   </div>
