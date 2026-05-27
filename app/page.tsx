@@ -40,7 +40,7 @@ export default function Page() {
         <section className="w-full overflow-hidden relative">
           <motion.div style={{ y: heroY, scale: 1.05 }} className="w-full relative origin-top">
             <Image
-              src="/upload-hero-bg.png?v=3"
+              src="/upload-hero-bg.png"
               alt="Kalakasturi Art Studio"
               width={3840}
               height={2160}
