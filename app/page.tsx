@@ -44,7 +44,7 @@ export default function Page() {
                 alt="Kalakasturi Art Studio"
                 width={3840}
                 height={2160}
-                className="w-full h-screen object-cover md:h-auto"
+                className="w-full h-[70vh] object-cover md:h-auto"
                 sizes="100vw"
                 quality={75}
                 priority
