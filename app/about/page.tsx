@@ -110,11 +110,10 @@ export default function AboutPage() {
             className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-2 border-[#C19A6B]/30 shadow-[0_15px_40px_rgba(0,0,0,0.8)] flex-shrink-0"
           >
             <Image 
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" 
-              alt="KalaKasturi Art Studio" 
+              src="/ankita-profile.jpg" 
+              alt="Ankita - KalaKasturi Art Studio" 
               fill 
               className="object-cover"
-              referrerPolicy="no-referrer"
             />
           </motion.div>
 
@@ -135,7 +134,7 @@ export default function AboutPage() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4 text-white"
             >
-              About KalaKasturi
+              Meet Ankita
             </motion.h1>
 
             <motion.p 
@@ -144,7 +143,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-2xl mb-6 font-light"
             >
-              Based in the spiritual heart of <span className="text-white font-medium flex-inline gap-1"><MapPin className="inline w-3.5 h-3.5 text-[#C19A6B]" /> Rishikesh, Uttarakhand</span>, KalaKasturi bridges classical Indian heritage with contemporary aesthetic spacing. Specializing in handcrafted Spiritual paintings, vibrant folk narratives, and hyper-detailed wildlife art on live canvas.
+              Hello! I am Ankita, the artist and founder behind KalaKasturi. Based in the spiritual heart of <span className="text-white font-medium flex-inline gap-1"><MapPin className="inline w-3.5 h-3.5 text-[#C19A6B]" /> Rishikesh, Uttarakhand</span>, I focus on bridging classical Indian heritage with contemporary aesthetic spacing. I specialize in handcrafted Spiritual paintings, vibrant folk narratives, and hyper-detailed wildlife art on live canvas.
             </motion.p>
 
             {/* Studio Badges */}
@@ -177,12 +176,11 @@ export default function AboutPage() {
               <div className="relative w-14 h-14 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] p-[2px] flex items-center justify-center flex-shrink-0">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
                   <Image 
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2000" 
-                    alt="Instagram Profile avatar" 
+                    src="/ankita-profile.jpg" 
+                    alt="Ankita's Instagram Profile avatar" 
                     width={48} 
                     height={48} 
                     className="object-cover"
-                    referrerPolicy="no-referrer"
                   />
                 </div>
               </div>
@@ -379,11 +377,10 @@ export default function AboutPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full overflow-hidden relative border border-white/10">
                         <Image 
-                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2000" 
-                          alt="Avatar micro" 
+                          src="/ankita-profile.jpg" 
+                          alt="Ankita micro" 
                           fill 
                           className="object-cover"
-                          referrerPolicy="no-referrer"
                         />
                       </div>
                       <div>
