@@ -39,14 +39,16 @@ export default function Page() {
         {/* Pure Image Hero Section */}
         <section className="w-full overflow-hidden relative">
           <motion.div style={{ y: heroY, scale: 1.05 }} className="w-full relative origin-top">
-            <Image
-              src="/upload-hero-bg.png"
-              alt="Kalakasturi Art Studio"
-              width={3840}
-              height={2160}
-              className="w-full h-auto"
-              priority
-            />
+              <Image
+                src="/upload-hero-bg.png"
+                alt="Kalakasturi Art Studio"
+                width={3840}
+                height={2160}
+                className="w-full h-auto"
+                sizes="100vw"
+                quality={75}
+                priority
+              />
           </motion.div>
         </section>
 
@@ -71,7 +73,7 @@ export default function Page() {
                 { title: "Courses", image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&q=80" }
               ].map((card, i) => (
                 <div key={i} className="group relative rounded-3xl aspect-square md:aspect-[3/4] lg:aspect-[4/5] overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-shadow duration-500">
-                  <Image src={card.image} alt={card.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <Image src={card.image} alt={card.title} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
                   <div className="absolute inset-x-0 bottom-0 p-4 lg:p-8 translate-y-2 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <h3 className="text-white font-medium text-lg sm:text-xl lg:text-3xl text-center drop-shadow-md">{card.title}</h3>
