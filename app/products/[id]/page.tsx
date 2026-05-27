@@ -8,6 +8,9 @@ import ProductDetailClient from '@/components/ProductDetailClient';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 
+// Force dynamic rendering so pages are not pre-built without Firebase env vars
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }

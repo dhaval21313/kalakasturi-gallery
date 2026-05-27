@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
+
+// Force dynamic rendering — this route must not be statically pre-rendered at build time
+export const dynamic = 'force-dynamic';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { artProducts } from '@/lib/data';
 

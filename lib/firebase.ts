@@ -12,8 +12,15 @@ const firebaseConfig = {
 };
 
 // Singleton pattern initialization to prevent multiple connection attempts
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
-const auth = getAuth(app);
+// Guard ensures initialization only runs when API key is present (prevents build-time crashes)
+const app =
+  process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+    ? getApps().length === 0
+      ? initializeApp(firebaseConfig)
+      : getApp()
+    : (null as unknown as ReturnType<typeof initializeApp>);
+
+const db = app ? getFirestore(app) : (null as unknown as ReturnType<typeof getFirestore>);
+const auth = app ? getAuth(app) : (null as unknown as ReturnType<typeof getAuth>);
 
 export { app, db, auth };
