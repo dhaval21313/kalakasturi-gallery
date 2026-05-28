@@ -131,19 +131,19 @@ const DigitalSerenity = () => {
   return (
     <>
       <style>{pageStyles}</style>
-      <div className="bg-transparent text-slate-100 font-primary overflow-hidden relative">
+      <div className="bg-transparent text-slate-100 font-primary overflow-hidden relative w-full px-0 mx-0">
         
         {/* Responsive Main Content Padding */}
-        <div className="relative z-10 p-0 flex flex-col justify-center items-center min-h-[60vh]">
-          <div className="text-center max-w-5xl mx-auto relative my-12">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-slate-50 text-decoration-animate" style={{ fontFamily: 'var(--font-merriweather)' }}>
-              <div className="mb-3 md:mb-4">
+        <div className="relative z-10 p-0 flex flex-col justify-center items-center min-h-[60vh] w-full px-0 mx-0">
+          <div className="text-center w-full relative my-12 px-0 mx-0 max-w-none">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-snug text-slate-50 text-decoration-animate w-full px-0 mx-0 max-w-none" style={{ fontFamily: 'var(--font-merriweather)' }}>
+              <div className="mb-3 md:mb-4 w-full">
                 <span className="word-animate" data-delay="0">Sacred</span>
                 <span className="word-animate" data-delay="150">Realism</span>
                 <span className="word-animate" data-delay="300">in</span>
                 <span className="word-animate italic font-serif font-light text-[#C19A6B]" data-delay="450"> Every Stroke</span>
               </div>
-              <div className="text-[11px] sm:text-xs md:text-sm font-sans font-normal text-[#A3A3A3] leading-relaxed tracking-normal max-w-xl mx-auto py-2">
+              <div className="text-[13px] sm:text-[14.5px] md:text-[16.5px] font-sans font-normal text-[#A3A3A3] leading-relaxed tracking-normal w-full px-0 mx-0 max-w-none py-2">
                 <span className="word-animate" data-delay="600">Traditional</span>
                 <span className="word-animate" data-delay="650">Indian</span>
                 <span className="word-animate" data-delay="700">fine</span>
