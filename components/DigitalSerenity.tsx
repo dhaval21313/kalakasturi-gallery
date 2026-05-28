@@ -150,13 +150,13 @@ const DigitalSerenity = () => {
                 <span className="word-animate" data-delay="750">art</span>
                 <span className="word-animate" data-delay="800">and</span>
                 <span className="word-animate" data-delay="850">archival</span>
-                <span className="word-animate text-white font-semibold" data-delay="900">prints.</span>
-                <span className="word-animate" data-delay="955">Bridging</span>
-                <span className="word-animate" data-delay="1010">timeless</span>
-                <span className="word-animate" data-delay="1065">heritage</span>
-                <span className="word-animate" data-delay="1120">with</span>
-                <span className="word-animate" data-delay="1175">modern</span>
-                <span className="word-animate text-white font-semibold" data-delay="1230">spaces.</span>
+                <span className="word-animate" data-delay="900">prints</span>
+                <span className="word-animate" data-delay="950">bridging</span>
+                <span className="word-animate" data-delay="1000">timeless</span>
+                <span className="word-animate" data-delay="1050">heritage</span>
+                <span className="word-animate" data-delay="1100">with</span>
+                <span className="word-animate" data-delay="1150">modern</span>
+                <span className="word-animate" data-delay="1200">spaces.</span>
               </div>
             </h1>
             
@@ -168,10 +168,6 @@ const DigitalSerenity = () => {
                   </div>
                 </Link>
             </div>
-            
-            {/* Responsive Detail Line Offsets */}
-            <div className="absolute -left-6 sm:-left-8 top-1/2 transform -translate-y-1/2 w-3 sm:w-4 h-px bg-slate-300 opacity-0" style={{ animation: 'word-appear 1s ease-out forwards', animationDelay: '2.0s' }}></div>
-            <div className="absolute -right-6 sm:-right-8 top-1/2 transform -translate-y-1/2 w-3 sm:w-4 h-px bg-slate-300 opacity-0" style={{ animation: 'word-appear 1s ease-out forwards', animationDelay: '2.2s' }}></div>
           </div>
         </div>
 

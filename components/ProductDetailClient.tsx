@@ -14,7 +14,9 @@ import {
   Pause, 
   BadgeCheck, 
   Truck, 
-  Maximize2 
+  Maximize2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { useCartStore } from '../lib/store/cartStore';
 
@@ -47,6 +49,47 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const rId = useRef<number | null>(null);
 
   const images = product.images && product.images.length > 0 ? product.images : (product.image ? [product.image] : []);
+  
+  // Slide total count
+  const totalItems = images.length + (product.video ? 1 : 0);
+  const activeIndex = activeMedia === 'video' ? images.length : activeImgIndex;
+
+  const goToIndex = (index: number) => {
+    const targetIndex = (index + totalItems) % totalItems;
+    if (product.video && targetIndex === images.length) {
+      setActiveMedia('video');
+    } else {
+      setActiveMedia('photo');
+      setActiveImgIndex(targetIndex);
+    }
+  };
+
+  const handleNext = () => goToIndex(activeIndex + 1);
+  const handlePrev = () => goToIndex(activeIndex - 1);
+
+  // Swipe touch tracking
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    if (distance > minSwipeDistance) {
+      handleNext();
+    } else if (distance < -minSwipeDistance) {
+      handlePrev();
+    }
+  };
 
   // Calculate discount percentage
   const salesVal = parseInt(product.price.replace(/[^\d]/g, ''), 10);
@@ -103,7 +146,56 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         {/* Visual View Stage Frame */}
         <div className="relative aspect-[4/5] w-full rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
           {images.length > 0 ? (
-            <div className="w-full h-full relative">
+            <div 
+              className="w-full h-full relative group/stage select-none"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
+              
+              {/* Premium Progress Indicators */}
+              {totalItems > 1 && (
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md z-30 shadow-md">
+                  {Array.from({ length: totalItems }).map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        goToIndex(idx);
+                      }}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === activeIndex ? 'bg-[#C19A6B] w-3.5' : 'bg-white/30 hover:bg-white/60'}`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Prev / Next Swipe Arrows */}
+              {totalItems > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePrev();
+                    }}
+                    className="absolute top-1/2 -translate-y-1/2 left-4 w-10 h-10 rounded-full bg-black/40 hover:bg-[#C19A6B] hover:text-black border border-white/10 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 z-30 opacity-80 md:opacity-0 md:group-hover/stage:opacity-100 focus:opacity-100 cursor-pointer shadow-lg"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNext();
+                    }}
+                    className="absolute top-1/2 -translate-y-1/2 right-4 w-10 h-10 rounded-full bg-black/40 hover:bg-[#C19A6B] hover:text-black border border-white/10 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 z-30 opacity-80 md:opacity-0 md:group-hover/stage:opacity-100 focus:opacity-100 cursor-pointer shadow-lg"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
               <AnimatePresence mode="wait">
                 {activeMedia === 'photo' ? (
                   <motion.div
@@ -125,6 +217,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                       priority
                       referrerPolicy="no-referrer"
                       sizes="(max-width: 1024px) 100vw, 800px"
+                      draggable="false"
                     />
                     <div className="absolute bottom-4 right-4 bg-black/60 p-2.5 rounded-full border border-white/10 backdrop-blur-md z-20 pointer-events-none">
                       <Maximize2 className="w-4 h-4 text-neutral-300" />
@@ -147,7 +240,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover animate-fade-in"
                       />
                     )}
                     {/* Custom video control bar overlaid dynamically */}
@@ -187,13 +280,13 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         {product.video && (
           <div className="flex justify-center gap-3 mt-1">
             <button
-              onClick={() => setActiveMedia('photo')}
+              onClick={() => goToIndex(0)}
               className={`px-5 py-2 rounded-full text-xs uppercase tracking-wider font-semibold border transition-all ${activeMedia === 'photo' ? 'bg-white text-black border-white' : 'bg-transparent border-white/10 text-neutral-400 hover:text-white'}`}
             >
               📸 High-Res Photo
             </button>
             <button
-              onClick={() => setActiveMedia('video')}
+              onClick={() => goToIndex(images.length)}
               className={`px-5 py-2 rounded-full text-xs uppercase tracking-wider font-semibold border transition-all ${activeMedia === 'video' ? 'bg-white text-black border-white' : 'bg-transparent border-white/10 text-neutral-400 hover:text-white'}`}
             >
               🎥 Studio Video View
@@ -202,24 +295,35 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         )}
 
         {/* Slider Thumbnail list */}
-        {images.length > 1 && activeMedia === 'photo' && (
+        {totalItems > 1 && (
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-2 justify-center lg:justify-start">
-            {images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveImgIndex(i)}
-                className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden border bg-neutral-900 transition-all ${i === activeImgIndex ? 'border-[#C19A6B] scale-105 shadow-[0_0_10px_rgba(193,154,107,0.3)]' : 'border-white/10 hover:border-white/20'}`}
-              >
-                <Image
-                  src={img}
-                  alt={`View detail thumbnail ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                  referrerPolicy="no-referrer"
-                />
-              </button>
-            ))}
+            {Array.from({ length: totalItems }).map((_, i) => {
+              const isVideoItem = product.video && i === images.length;
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={i}
+                  onClick={() => goToIndex(i)}
+                  className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden border bg-neutral-900 transition-all duration-300 ${isActive ? 'border-[#C19A6B] scale-105 shadow-[0_0_10px_rgba(193,154,107,0.3)]' : 'border-white/10 hover:border-white/20'}`}
+                >
+                  {isVideoItem ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-black/60 hover:bg-black transition-colors text-[#C19A6B]">
+                      <Play className="w-5 h-5 fill-current mb-1" />
+                      <span className="text-[8px] uppercase tracking-wider font-semibold">Video</span>
+                    </div>
+                  ) : (
+                    <Image
+                      src={images[i]}
+                      alt={`View detail thumbnail ${i + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
