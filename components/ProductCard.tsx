@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
@@ -25,6 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const [imgIndex, setImgIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -50,25 +51,29 @@ export default function ProductCard({ product }: { product: Product }) {
     setImgIndex(0);
   };
 
-  // Support mobile swipe gesture mapping
-  const touchStartX = useRef(0);
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    setIsHovered(true);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!containerRef.current || images.length === 0) return;
-    const currentX = e.touches[0].clientX;
-    const diff = currentX - touchStartX.current;
-    
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        setImgIndex((prev) => (prev - 1 + images.length) % images.length);
-      } else {
-        setImgIndex((prev) => (prev + 1) % images.length);
+  // Sync programatic scroll with active index
+  useEffect(() => {
+    if (scrollRef.current) {
+      const width = scrollRef.current.clientWidth;
+      if (width > 0) {
+        scrollRef.current.scrollTo({
+          left: imgIndex * width,
+          behavior: isHovered ? 'smooth' : 'instant'
+        });
       }
-      touchStartX.current = currentX; 
+    }
+  }, [imgIndex, isHovered]);
+
+  // Read scroll-snap indices dynamically to support native mobile swipes
+  const handleScroll = () => {
+    if (scrollRef.current && !isHovered) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      if (clientWidth > 0) {
+        const newIndex = Math.round(scrollLeft / clientWidth);
+        if (newIndex >= 0 && newIndex < images.length && newIndex !== imgIndex) {
+          setImgIndex(newIndex);
+        }
+      }
     }
   };
 
@@ -88,33 +93,31 @@ export default function ProductCard({ product }: { product: Product }) {
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           className="relative w-full h-full"
         >
           {images.length > 0 ? (
-            <div className="absolute inset-0 w-full h-full">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={imgIndex}
-                  initial={{ opacity: 0.6 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0.6 }}
-                  transition={{ duration: 0.2 }}
-                  className="relative w-full h-full overflow-hidden"
+            <div 
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="absolute inset-0 w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
+            >
+              {images.map((img, idx) => (
+                <div 
+                  key={idx} 
+                  className="w-full h-full flex-shrink-0 snap-center relative"
                 >
                   <Image 
-                    src={images[imgIndex]} 
-                    alt={`${product.title} image view ${imgIndex + 1}`} 
+                    src={img} 
+                    alt={`${product.title} image view ${idx + 1}`} 
                     fill 
                     className="object-cover transition-transform duration-700 ease-out scale-100 group-hover/box:scale-110"
                     referrerPolicy="no-referrer"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     quality={95}
-                    priority={product.id === 'vishwamitra'}
+                    priority={product.id === 'vishwamitra' && idx === 0}
                   />
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              ))}
             </div>
           ) : (
             /* High-Fidelity Custom Artistic Placeholder for Charlie or missing images */
