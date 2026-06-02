@@ -3,20 +3,99 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-warm-ivory: #FAF6EE;
+  --color-antique-gold: #C19A6B;
+  --color-light-sand: #D8CCB5;
+  --color-dark-charcoal: #0D0D0D;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0D0D0D;
+  --foreground: #D8CCB5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background-color: #0D0D0D !important;
+  color: #D8CCB5 !important;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Global Heading Overrides -> Warm Ivory (#FAF6EE) */
+h1, h2, h3, h4, h5, h6,
+.text-white,
+.text-slate-50,
+.text-slate-100,
+.text-neutral-50,
+.text-neutral-100 {
+  color: #FAF6EE !important;
+}
+
+/* Global Body & Secondary Overrides -> Light Sand (#D8CCB5) */
+p, li, label,
+.text-\[\#F5F5F5\],
+.text-\[\#A3A3A3\],
+.text-\[\#D4D4D4\],
+.text-slate-200,
+.text-slate-300,
+.text-slate-400,
+.text-neutral-200,
+.text-neutral-300,
+.text-neutral-400,
+.text-neutral-500 {
+  color: #D8CCB5 !important;
+}
+
+/* Global Background Overrides -> Keep Dark Charcoal (#0D0D0D) */
+.bg-black,
+.bg-\[\#000000\],
+.bg-neutral-900\/60,
+.bg-neutral-950\/80 {
+  background-color: #0D0D0D !important;
+}
+
+/* Card & Section background highlights -> Slightly deeper dark charcoal */
+.bg-neutral-950,
+.bg-\[\#050505\],
+.bg-\[\#0F0F0F\],
+.bg-neutral-950\/50,
+.bg-neutral-950\/40 {
+  background-color: #070707 !important;
+}
+
+/* Preserve Accent Colors -> Antique Gold (#C19A6B) */
+.text-\[\#C19A6B\],
+.text-antique-gold,
+.text-amber-500,
+.text-amber-400,
+.group-hover\/btn\:text-white:hover,
+.hover\:text-\[\#C19A6B\]:hover,
+.group-hover\:text-\[\#C19A6B\]:hover {
+  color: #C19A6B !important;
+}
+
+.bg-\[\#C19A6B\],
+.bg-antique-gold {
+  background-color: #C19A6B !important;
+}
+
+.border-\[\#C19A6B\],
+.border-antique-gold,
+.border-\[\#C19A6B\]\/20,
+.border-\[\#C19A6B\]\/30,
+.border-\[\#C19A6B\]\/50 {
+  border-color: #C19A6B !important;
+}
+
+/* Revert contrast-specific colors for readability on buttons/badges */
+.text-black,
+.text-neutral-900,
+.text-zinc-950,
+.text-stone-950,
+.text-neutral-800 {
+  color: revert !important;
+}
+
+/* Preserve original animation states */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-50% - 0.75rem)); }
@@ -28,10 +107,4 @@
 
 .animate-marquee-reverse {
   animation: marquee 40s linear infinite reverse;
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
