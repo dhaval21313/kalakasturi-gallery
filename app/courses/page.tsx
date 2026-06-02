@@ -133,6 +133,8 @@ const TRANSLATIONS = {
     success: "✅ Thank you for your inquiry! We will contact you within 24–48 hours with course details and availability.",
     requiredError: "Please fill in all required fields marked with *",
     consentError: "Please agree to be contacted regarding course information",
+    invalidEmail: "Please enter a valid email address.",
+    invalidPhone: "Please enter a valid phone number (minimum 8 digits).",
     courses: [
       { value: "Drawing & Sketching", label: "Drawing & Sketching" },
       { value: "Watercolor Painting", label: "Watercolor Painting" },
@@ -177,6 +179,8 @@ const TRANSLATIONS = {
     success: "✅ धन्यवाद! आपकी पूछताछ प्राप्त हो गई है। हम 24–48 घंटों के भीतर आपसे संपर्क करेंगे और पाठ्यक्रम की जानकारी तथा उपलब्धता साझा करेंगे।",
     requiredError: "कृपया * वाले सभी अनिवार्य फ़ील्ड भरें",
     consentError: "कृपया पूछताछ संबंधी जानकारी हेतु संपर्क किए जाने की सहमति दें",
+    invalidEmail: "कृपया एक वैध ईमेल पता दर्ज करें।",
+    invalidPhone: "कृपया एक वैध फ़ोन नंबर दर्ज करें (न्यूनतम 8 अंक)।",
     courses: [
       { value: "Drawing & Sketching", label: "ड्रॉइंग एवं स्केचिंग" },
       { value: "Watercolor Painting", label: "वॉटरकलर पेंटिंग" },
@@ -216,12 +220,14 @@ export default function CoursesPage() {
   const [goal, setGoal] = useState('');
   const [howHeard, setHowHeard] = useState('');
   const [agreeConsent, setAgreeConsent] = useState(false);
+  const [website, setWebsite] = useState(''); // Spam honeypot field
 
   const whatsappUrl = "https://wa.me/919429188049?text=Hello%20Ankita,%20I'm%20interested%20in%20enrolling%20in%20your%20art%20courses!";
 
   const openInquiryForm = (courseId: string) => {
     setSubmitSuccess(false);
     setErrorMessage('');
+    setWebsite(''); // reset honeypot
     
     // Map course ID to the specific select choice
     if (courseId === 'creative-foundations') {
@@ -245,41 +251,65 @@ export default function CoursesPage() {
 
     const t = TRANSLATIONS[formLanguage];
 
+    // Basic required check
     if (!fullName.trim() || !email.trim() || !phone.trim() || !selectedCourse || !experienceLevel || !learningMode) {
       setErrorMessage(t.requiredError);
       return;
     }
 
+    // Consent check
     if (!agreeConsent) {
       setErrorMessage(t.consentError);
       return;
     }
 
+    // Validation patterns
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const PHONE_REGEX = /^[\d\s()+-]{8,20}$/;
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      setErrorMessage(t.invalidEmail);
+      return;
+    }
+
+    if (!PHONE_REGEX.test(phone.trim())) {
+      setErrorMessage(t.invalidPhone);
+      return;
+    }
+
     setIsSubmitting(true);
 
-    try {
-      const data = {
-        fullName: fullName.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        age: age.trim() || null,
-        course: selectedCourse,
-        experienceLevel,
-        learningMode,
-        preferredDays: preferredDays.trim() || null,
-        goal: goal.trim() || null,
-        howHeard: howHeard || null,
-        submittedAt: serverTimestamp ? serverTimestamp() : new Date().toISOString(),
-        language: formLanguage
-      };
+    const payload = {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      age: age.trim() || null,
+      course: selectedCourse,
+      experienceLevel,
+      learningMode,
+      preferredDays: preferredDays.trim() || null,
+      goal: goal.trim() || null,
+      howHeard: howHeard || null,
+      language: formLanguage,
+      website // Spam Honeypot Field!
+    };
 
-      if (db) {
-        await addDoc(collection(db, "course_inquiries"), data);
-      } else {
-        console.warn("Firestore db is not initialized. Saving locally.");
-        const inquiries = JSON.parse(localStorage.getItem('course_inquiries') || '[]');
-        inquiries.push({ ...data, submittedAt: new Date().toISOString() });
-        localStorage.setItem('course_inquiries', JSON.stringify(inquiries));
+    try {
+      // 1. Submit to Next.js secure API route (handles honeypot, DB write, lead email, auto-responder)
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const resData = await response.json();
+
+      if (!response.ok || !resData.success) {
+        throw new Error(resData?.message || "Secure API submission failed. Triggering robust local fallback.");
+      }
+
+      if (resData.etherealUrl) {
+        console.log("Mock SMTP auto-responder successfully sent! Preview URL:", resData.etherealUrl);
       }
 
       setSubmitSuccess(true);
@@ -295,9 +325,50 @@ export default function CoursesPage() {
       setGoal('');
       setHowHeard('');
       setAgreeConsent(false);
-    } catch (error) {
-      console.error("Error submitting art inquiry: ", error);
-      setErrorMessage(formLanguage === 'en' ? "Failed to submit inquiry. Please try again or contact Ankita via WhatsApp." : "पूछताछ भेजने में त्रुटि हुई। कृपया पुनः प्रयास करें या व्हाट्सऐप पर संपर्क करें।");
+      setWebsite('');
+    } catch (apiError) {
+      console.warn("Secure API processing failed. Activating local resilience fallback:", apiError);
+      
+      // 2. Offline Resilience Fallback (Direct client-side Firestore connection or localStorage)
+      try {
+        const clientData = {
+          ...payload,
+          submittedAt: serverTimestamp ? serverTimestamp() : new Date().toISOString(),
+          fallbackProcessed: true
+        };
+
+        if (db) {
+          await addDoc(collection(db, "course_inquiries"), clientData);
+          console.log("Offline Fallback: Successfully wrote to Firestore directly via Client SDK.");
+        } else {
+          console.warn("Offline Fallback: Firestore is not configured. Saving to localStorage queue.");
+          const inquiries = JSON.parse(localStorage.getItem('course_inquiries') || '[]');
+          inquiries.push({ ...clientData, submittedAt: new Date().toISOString() });
+          localStorage.setItem('course_inquiries', JSON.stringify(inquiries));
+        }
+
+        setSubmitSuccess(true);
+        
+        // Reset Form fields on successful local fallback
+        setFullName('');
+        setEmail('');
+        setPhone('');
+        setAge('');
+        setExperienceLevel('');
+        setLearningMode('');
+        setPreferredDays('');
+        setGoal('');
+        setHowHeard('');
+        setAgreeConsent(false);
+        setWebsite('');
+      } catch (fallbackErr) {
+        console.error("Critical: Form resilience fallback also failed:", fallbackErr);
+        setErrorMessage(
+          formLanguage === 'en' 
+            ? "Submission failed. Please check your network connection or message Ankita directly via WhatsApp." 
+            : "पूछताछ भेजने में असमर्थ। कृपया अपना नेटवर्क कनेक्शन जांचें या व्हाट्सऐप पर संपर्क करें।"
+        );
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -653,6 +724,18 @@ export default function CoursesPage() {
                 ) : (
                   <form onSubmit={handleInquirySubmit} className="space-y-5 py-2">
                     
+                    {/* Honeypot field for spam prevention */}
+                    <div style={{ position: 'absolute', left: '-5000px', top: '-5000px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
+                      <input 
+                        type="text" 
+                        name="website" 
+                        value={website} 
+                        onChange={(e) => setWebsite(e.target.value)} 
+                        tabIndex={-1} 
+                        placeholder="Do not fill this if you are human" 
+                      />
+                    </div>
+
                     {/* Error Alerts */}
                     {errorMessage && (
                       <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-xs text-red-400">
