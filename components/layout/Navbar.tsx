@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingCart, Menu, X, Palette, Sparkles, Compass, LogIn } from 'lucide-react';
 import { useCartStore } from '../../lib/store/cartStore';
@@ -19,12 +19,19 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const { isCartOpen, openCart, closeCart, getTotalItems } = useCartStore();
   const totalItems = getTotalItems();
+
+  const isActive = (href: string) => {
+    if (href === '#') return isCartOpen;
+    if (href === '/') return pathname === '/';
+    return pathname?.startsWith(href);
+  };
 
   const handleOpenCheckout = () => {
     closeCart();
@@ -100,13 +107,13 @@ export default function Navbar() {
 
               {/* Line 2: Centered Links */}
               <div className="flex items-center gap-10 text-sm font-medium tracking-wide text-[#A3A3A3]">
-                <Link href="/collections" className="hover:text-white transition-colors duration-200">Gallery</Link>
-                <Link href="/courses" className="hover:text-white transition-colors duration-200">Courses</Link>
-                <Link href="/about" className="hover:text-white transition-colors duration-200">About</Link>
-                <Link href="/login" className="hover:text-white transition-colors duration-200">Login</Link>
+                <Link href="/collections" className={`${isActive('/collections') ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-colors duration-200`}>Gallery</Link>
+                <Link href="/courses" className={`${isActive('/courses') ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-colors duration-200`}>Courses</Link>
+                <Link href="/about" className={`${isActive('/about') ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-colors duration-200`}>About</Link>
+                <Link href="/login" className={`${isActive('/login') ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-colors duration-200`}>Login</Link>
                 <button 
                   onClick={openCart}
-                  className="hover:text-white transition-colors duration-200 relative flex items-center gap-1.5 cursor-pointer bg-transparent border-0"
+                  className={`${isActive('#') ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-colors duration-200 relative flex items-center gap-1.5 cursor-pointer bg-transparent border-0`}
                 >
                   Cart
                   {totalItems > 0 ? (
@@ -114,7 +121,7 @@ export default function Navbar() {
                       {totalItems}
                     </span>
                   ) : (
-                    <span className="w-1.5 h-1.5 bg-[#C19A6B] rounded-full" />
+                    <span className={`w-1.5 h-1.5 ${isActive('#') ? 'bg-warm-ivory' : 'bg-[#C19A6B]'} rounded-full`} />
                   )}
                 </button>
               </div>
@@ -160,7 +167,7 @@ export default function Navbar() {
                         router.push(item.href);
                       }
                     }}
-                    className="group hover:text-white transition-all duration-300 relative py-1.5 cursor-pointer bg-transparent border-0"
+                    className={`group ${isActive(item.href) ? 'text-warm-ivory font-semibold' : 'hover:text-white'} transition-all duration-300 relative py-1.5 cursor-pointer bg-transparent border-0`}
                   >
                     <span className="relative font-medium tracking-wider text-[12px] uppercase flex items-center gap-1">
                       {item.name}
@@ -169,7 +176,7 @@ export default function Navbar() {
                           {totalItems}
                         </span>
                       )}
-                      <span className="absolute bottom-[-2px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-red-500 to-amber-400 transition-all duration-300 group-hover:w-full" />
+                      <span className={`absolute bottom-[-2px] left-0 ${isActive(item.href) ? 'w-full' : 'w-0'} h-[1.5px] bg-gradient-to-r from-red-500 to-amber-400 transition-all duration-300 group-hover:w-full`} />
                     </span>
                   </button>
                 ))}
@@ -245,7 +252,7 @@ export default function Navbar() {
                 }} 
                 className="flex items-center justify-between border-b border-white/10 pb-4 group w-full text-left bg-transparent border-t-0 border-x-0 cursor-pointer"
               >
-                <span className="text-lg font-medium tracking-wide text-[#A3A3A3] group-hover:text-white transition-colors flex items-center gap-2">
+                <span className={`text-lg font-medium tracking-wide ${isActive(item.href) ? 'text-warm-ivory font-semibold' : 'text-[#A3A3A3] group-hover:text-white'} transition-colors flex items-center gap-2`}>
                   {item.name}
                   {item.name === 'Cart' && totalItems > 0 && (
                     <span className="px-2 py-0.5 bg-red-500 text-white text-xs font-bold rounded-full font-mono">

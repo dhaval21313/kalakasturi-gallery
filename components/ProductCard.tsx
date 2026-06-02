@@ -179,7 +179,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="flex flex-col min-w-0 flex-grow">
           {/* Linked Title for easy navigation */}
           <Link href={`/products/${product.id}`} className="hover:text-[#C19A6B] transition-colors duration-200 truncate">
-            <h3 className="text-sm sm:text-base md:text-lg font-medium tracking-tight mb-0.5 sm:mb-1 truncate text-white">{product.title}</h3>
+            <h3 className="text-sm sm:text-base md:text-lg font-medium tracking-tight mb-0.5 sm:mb-1 truncate text-warm-ivory">{product.title}</h3>
           </Link>
           <p className="text-[11px] sm:text-xs text-[#A3A3A3] mb-1.5 sm:mb-2 italic truncate">{product.medium}</p>
           <div className="flex flex-wrap items-center gap-1.5 mt-0.5 w-full">

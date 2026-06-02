@@ -116,12 +116,12 @@ const DigitalSerenity = () => {
     @keyframes grid-draw { 0% { stroke-dashoffset: 1000; opacity: 0; } 50% { opacity: 0.3; } 100% { stroke-dashoffset: 0; opacity: 0.15; } }
     @keyframes pulse-glow { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.1); } }
     .word-animate { display: inline-block; opacity: 0; margin: 0 0.1em; transition: color 0.3s ease, transform 0.3s ease; }
-    .word-animate:hover { color: #cbd5e1; /* slate-300 */ transform: translateY(-2px); }
+    .word-animate:hover { color: #FAF6EE; transform: translateY(-2px); }
     .grid-line { stroke: #94a3b8; /* slate-400 */ stroke-width: 0.5; opacity: 0; stroke-dasharray: 5 5; stroke-dashoffset: 1000; animation: grid-draw 2s ease-out forwards; }
-    .detail-dot { fill: #cbd5e1; /* slate-300 */ opacity: 0; animation: pulse-glow 3s ease-in-out infinite; }
-    .corner-element-animate { position: absolute; width: 40px; height: 40px; border: 1px solid rgba(203, 213, 225, 0.2); opacity: 0; animation: word-appear 1s ease-out forwards; }
+    .detail-dot { fill: #FAF6EE; opacity: 0; animation: pulse-glow 3s ease-in-out infinite; }
+    .corner-element-animate { position: absolute; width: 40px; height: 40px; border: 1px solid rgba(250, 246, 238, 0.2); opacity: 0; animation: word-appear 1s ease-out forwards; }
     .text-decoration-animate { position: relative; }
-    .text-decoration-animate::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1, transparent); animation: underline-grow 2s ease-out forwards; animation-delay: 2s; }
+    .text-decoration-animate::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg, transparent, #FAF6EE, transparent); animation: underline-grow 2s ease-out forwards; animation-delay: 2s; }
     @keyframes underline-grow { to { width: 100%; } }
     .floating-element-animate { position: absolute; width: 2px; height: 2px; background: #cbd5e1; border-radius: 50%; opacity: 0; animation: float 4s ease-in-out infinite; animation-play-state: paused; }
     @keyframes float { 0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; } 25% { transform: translateY(-10px) translateX(5px); opacity: 0.6; } 50% { transform: translateY(-5px) translateX(-3px); opacity: 0.4; } 75% { transform: translateY(-15px) translateX(7px); opacity: 0.8; } }
@@ -136,14 +136,14 @@ const DigitalSerenity = () => {
         {/* Responsive Main Content Padding */}
         <div className="relative z-10 p-0 flex flex-col justify-center items-center min-h-[60vh] w-full px-0 mx-0">
           <div className="text-center w-full relative my-12 px-0 mx-0 max-w-none">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-snug text-slate-50 text-decoration-animate w-full px-0 mx-0 max-w-none" style={{ fontFamily: 'var(--font-merriweather)' }}>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-snug text-warm-ivory text-decoration-animate w-full px-0 mx-0 max-w-none" style={{ fontFamily: 'var(--font-merriweather)' }}>
               <div className="mb-3 md:mb-4 w-full">
                 <span className="word-animate" data-delay="0">Sacred</span>
                 <span className="word-animate" data-delay="150">Realism</span>
                 <span className="word-animate" data-delay="300">in</span>
                 <span className="word-animate italic font-serif font-light text-[#C19A6B]" data-delay="450"> Every Stroke</span>
               </div>
-              <div className="text-[13px] sm:text-[14.5px] md:text-[16.5px] font-sans font-normal text-[#A3A3A3] leading-relaxed tracking-normal w-full px-0 mx-0 max-w-none py-2">
+              <div className="text-[13px] sm:text-[14.5px] md:text-[16.5px] font-sans font-normal text-warm-ivory leading-relaxed tracking-normal w-full px-0 mx-0 max-w-none py-2">
                 <span className="word-animate" data-delay="600">Traditional</span>
                 <span className="word-animate" data-delay="650">Indian</span>
                 <span className="word-animate" data-delay="700">fine</span>
