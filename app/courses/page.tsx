@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { 
   GraduationCap, 
   Calendar, 
@@ -103,9 +105,203 @@ const COURSES = [
   }
 ];
 
+const TRANSLATIONS = {
+  en: {
+    formTitle: "🎨 Art Course Inquiry",
+    formSubtitle: "Interested in joining an art class? Fill out the form below and we'll get back to you soon.",
+    fullName: "Full Name",
+    email: "Email Address",
+    phone: "Phone / WhatsApp",
+    age: "Age",
+    selectCourse: "Select Course",
+    chooseCoursePlaceholder: "Choose a Course",
+    expLevel: "Experience Level",
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+    learningMode: "Preferred Learning Mode",
+    online: "Online",
+    inPerson: "In-Person",
+    either: "Either",
+    preferredDays: "Preferred Days & Time",
+    achieveGoal: "What would you like to learn or achieve?",
+    howHeard: "How did you hear about us?",
+    selectHeardPlaceholder: "Select",
+    consent: "I agree to be contacted regarding course information.",
+    submit: "Submit Inquiry",
+    submitting: "Submitting...",
+    success: "✅ Thank you for your inquiry! We will contact you within 24–48 hours with course details and availability.",
+    requiredError: "Please fill in all required fields marked with *",
+    consentError: "Please agree to be contacted regarding course information",
+    courses: [
+      { value: "Drawing & Sketching", label: "Drawing & Sketching" },
+      { value: "Watercolor Painting", label: "Watercolor Painting" },
+      { value: "Acrylic Painting", label: "Acrylic Painting" },
+      { value: "Oil Painting", label: "Oil Painting" },
+      { value: "Mixed Media", label: "Mixed Media" },
+      { value: "One-on-One Art Classes", label: "One-on-One Art Classes" },
+      { value: "Not Sure Yet", label: "Not Sure Yet" }
+    ],
+    heardOptions: [
+      { value: "Instagram", label: "Instagram" },
+      { value: "Facebook", label: "Facebook" },
+      { value: "Google", label: "Google" },
+      { value: "Friend/Family", label: "Friend/Family" },
+      { value: "Other", label: "Other" }
+    ]
+  },
+  hi: {
+    formTitle: "🎨 कला पाठ्यक्रम पूछताछ फ़ॉर्म",
+    formSubtitle: "कला कक्षा में रुचि है? नीचे दिया गया फ़ॉर्म भरें और हम जल्द ही आपसे संपर्क करेंगे।",
+    fullName: "पूरा नाम",
+    email: "ईमेल पता",
+    phone: "फ़ोन / व्हाट्सऐप नंबर",
+    age: "आयु",
+    selectCourse: "पाठ्यक्रम चुनें",
+    chooseCoursePlaceholder: "पाठ्यक्रम चुनें",
+    expLevel: "अनुभव स्तर",
+    beginner: "शुरुआती (Beginner)",
+    intermediate: "मध्यम (Intermediate)",
+    advanced: "उन्नत (Advanced)",
+    learningMode: "सीखने का माध्यम",
+    online: "ऑनलाइन",
+    inPerson: "ऑफ़लाइन (प्रत्यक्ष)",
+    either: "दोनों में से कोई भी",
+    preferredDays: "पसंदीदा दिन एवं समय",
+    achieveGoal: "आप क्या सीखना या हासिल करना चाहते हैं?",
+    howHeard: "आपको हमारे बारे में कैसे पता चला?",
+    selectHeardPlaceholder: "विकल्प चुनें",
+    consent: "मैं पाठ्यक्रम संबंधी जानकारी प्राप्त करने हेतु संपर्क किए जाने की सहमति देता/देती हूँ।",
+    submit: "पूछताछ भेजें",
+    submitting: "भेजा जा रहा है...",
+    success: "✅ धन्यवाद! आपकी पूछताछ प्राप्त हो गई है। हम 24–48 घंटों के भीतर आपसे संपर्क करेंगे और पाठ्यक्रम की जानकारी तथा उपलब्धता साझा करेंगे।",
+    requiredError: "कृपया * वाले सभी अनिवार्य फ़ील्ड भरें",
+    consentError: "कृपया पूछताछ संबंधी जानकारी हेतु संपर्क किए जाने की सहमति दें",
+    courses: [
+      { value: "Drawing & Sketching", label: "ड्रॉइंग एवं स्केचिंग" },
+      { value: "Watercolor Painting", label: "वॉटरकलर पेंटिंग" },
+      { value: "Acrylic Painting", label: "एक्रीलिक पेंटिंग" },
+      { value: "Oil Painting", label: "ऑयल पेंटिंग" },
+      { value: "Mixed Media", label: "मिक्स्ड मीडिया" },
+      { value: "One-on-One Art Classes", label: "व्यक्तिगत (वन-ऑन-वन) कला कक्षाएँ" },
+      { value: "Not Sure Yet", label: "अभी निश्चित नहीं हूँ" }
+    ],
+    heardOptions: [
+      { value: "Instagram", label: "इंस्टाग्राम" },
+      { value: "Facebook", label: "फेसबुक" },
+      { value: "Google", label: "गूगल" },
+      { value: "Friend/Family", label: "मित्र / परिवार" },
+      { value: "Other", label: "अन्य" }
+    ]
+  }
+};
+
 export default function CoursesPage() {
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [formLanguage, setFormLanguage] = useState<'en' | 'hi'>('en');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Form Field States
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [age, setAge] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [experienceLevel, setExperienceLevel] = useState('');
+  const [learningMode, setLearningMode] = useState('');
+  const [preferredDays, setPreferredDays] = useState('');
+  const [goal, setGoal] = useState('');
+  const [howHeard, setHowHeard] = useState('');
+  const [agreeConsent, setAgreeConsent] = useState(false);
+
   const whatsappUrl = "https://wa.me/919429188049?text=Hello%20Ankita,%20I'm%20interested%20in%20enrolling%20in%20your%20art%20courses!";
+
+  const openInquiryForm = (courseId: string) => {
+    setSubmitSuccess(false);
+    setErrorMessage('');
+    
+    // Map course ID to the specific select choice
+    if (courseId === 'creative-foundations') {
+      setSelectedCourse('Drawing & Sketching');
+    } else if (courseId === 'oil-painting-masterclass') {
+      setSelectedCourse('Oil Painting');
+    } else if (courseId === 'kids-art-adventure') {
+      setSelectedCourse('Mixed Media');
+    } else if (courseId === 'women-seniors-circle') {
+      setSelectedCourse('Watercolor Painting');
+    } else {
+      setSelectedCourse('');
+    }
+    
+    setIsFormModalOpen(true);
+  };
+
+  const handleInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    const t = TRANSLATIONS[formLanguage];
+
+    if (!fullName.trim() || !email.trim() || !phone.trim() || !selectedCourse || !experienceLevel || !learningMode) {
+      setErrorMessage(t.requiredError);
+      return;
+    }
+
+    if (!agreeConsent) {
+      setErrorMessage(t.consentError);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const data = {
+        fullName: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        age: age.trim() || null,
+        course: selectedCourse,
+        experienceLevel,
+        learningMode,
+        preferredDays: preferredDays.trim() || null,
+        goal: goal.trim() || null,
+        howHeard: howHeard || null,
+        submittedAt: serverTimestamp ? serverTimestamp() : new Date().toISOString(),
+        language: formLanguage
+      };
+
+      if (db) {
+        await addDoc(collection(db, "course_inquiries"), data);
+      } else {
+        console.warn("Firestore db is not initialized. Saving locally.");
+        const inquiries = JSON.parse(localStorage.getItem('course_inquiries') || '[]');
+        inquiries.push({ ...data, submittedAt: new Date().toISOString() });
+        localStorage.setItem('course_inquiries', JSON.stringify(inquiries));
+      }
+
+      setSubmitSuccess(true);
+      
+      // Reset Form fields
+      setFullName('');
+      setEmail('');
+      setPhone('');
+      setAge('');
+      setExperienceLevel('');
+      setLearningMode('');
+      setPreferredDays('');
+      setGoal('');
+      setHowHeard('');
+      setAgreeConsent(false);
+    } catch (error) {
+      console.error("Error submitting art inquiry: ", error);
+      setErrorMessage(formLanguage === 'en' ? "Failed to submit inquiry. Please try again or contact Ankita via WhatsApp." : "पूछताछ भेजने में त्रुटि हुई। कृपया पुनः प्रयास करें या व्हाट्सऐप पर संपर्क करें।");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-28 pb-24 px-4 sm:px-6 md:px-12 font-sans relative overflow-x-hidden">
@@ -236,18 +432,16 @@ export default function CoursesPage() {
                 </div>
 
                 {/* Enquire Button CTA */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group/btn relative inline-flex w-full items-center justify-center rounded-full p-[2px] transition-all duration-300 hover:scale-[1.01] h-12 overflow-hidden"
+                <button
+                  onClick={() => openInquiryForm(course.id)}
+                  className="group/btn relative inline-flex w-full items-center justify-center rounded-full p-[2px] transition-all duration-300 hover:scale-[1.01] h-12 overflow-hidden cursor-pointer"
                 >
                   <span className="absolute inset-[-1000%] animate-spin [animation-duration:5s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-40 group-hover/btn:opacity-90 transition-opacity" />
                   <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] font-bold text-xs uppercase tracking-widest text-[#C19A6B] backdrop-blur-2xl transition-all duration-300 group-hover/btn:bg-black group-hover/btn:text-white">
                     Enquire / Register Interest
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </div>
-                </a>
+                </button>
               </motion.div>
             );
           })}
@@ -358,6 +552,341 @@ export default function CoursesPage() {
                 >
                   Close Window
                 </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Art Course Inquiry Form Modal */}
+      <AnimatePresence>
+        {isFormModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsFormModalOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            />
+
+            {/* Modal Body */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative w-full max-w-2xl bg-[#050505] border border-white/10 rounded-3xl p-6 sm:p-8 overflow-hidden shadow-2xl z-10 max-h-[90vh] flex flex-col justify-between"
+            >
+              {/* Glow Accent */}
+              <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full bg-[#C19A6B]/5 blur-[120px] pointer-events-none" />
+              <div className="absolute -bottom-32 -right-32 w-64 h-64 rounded-full bg-[#C19A6B]/5 blur-[120px] pointer-events-none" />
+
+              {/* Close Button */}
+              <button 
+                onClick={() => setIsFormModalOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors border border-white/5 z-20 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Header */}
+              <div className="mb-6 relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4 pr-10">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2" style={{ fontFamily: 'var(--font-merriweather), serif' }}>
+                    {TRANSLATIONS[formLanguage].formTitle}
+                  </h3>
+                  <p className="text-xs text-neutral-400 mt-1">
+                    {TRANSLATIONS[formLanguage].formSubtitle}
+                  </p>
+                </div>
+
+                {/* Language Selector Toggle */}
+                <div className="flex items-center gap-1.5 bg-neutral-950 p-1.5 rounded-full border border-white/5 self-start sm:self-center">
+                  <button
+                    type="button"
+                    onClick={() => setFormLanguage('en')}
+                    className={`px-3.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full transition-all cursor-pointer ${
+                      formLanguage === 'en' 
+                        ? 'bg-[#C19A6B] text-black' 
+                        : 'text-neutral-400 hover:text-white bg-transparent'
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormLanguage('hi')}
+                    className={`px-3.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full transition-all cursor-pointer ${
+                      formLanguage === 'hi' 
+                        ? 'bg-[#C19A6B] text-black' 
+                        : 'text-neutral-400 hover:text-white bg-transparent'
+                    }`}
+                  >
+                    हिंदी
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Content - Scrollable */}
+              <div className="overflow-y-auto pr-1 flex-1 hide-scrollbar max-h-[60vh]">
+                {submitSuccess ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="py-12 px-4 text-center"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center mx-auto mb-6 text-emerald-400">
+                      <Check className="w-8 h-8" />
+                    </div>
+                    <p className="text-base sm:text-lg font-medium text-emerald-400 max-w-md mx-auto leading-relaxed">
+                      {TRANSLATIONS[formLanguage].success}
+                    </p>
+                    <button 
+                      onClick={() => setIsFormModalOpen(false)}
+                      className="mt-8 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white border border-white/10 text-xs font-semibold uppercase tracking-widest rounded-full transition-all cursor-pointer"
+                    >
+                      {formLanguage === 'en' ? 'Close Window' : 'खिड़की बंद करें'}
+                    </button>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleInquirySubmit} className="space-y-5 py-2">
+                    
+                    {/* Error Alerts */}
+                    {errorMessage && (
+                      <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-xs text-red-400">
+                        {errorMessage}
+                      </div>
+                    )}
+
+                    {/* Inputs Row 1 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].fullName} *
+                        </label>
+                        <input 
+                          type="text" 
+                          required
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 focus:ring-0 focus:ring-offset-0"
+                          placeholder={formLanguage === 'en' ? "Ankita" : "अंकिता"}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].email} *
+                        </label>
+                        <input 
+                          type="email" 
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 focus:ring-0 focus:ring-offset-0"
+                          placeholder="ankita@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Inputs Row 2 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].phone} *
+                        </label>
+                        <input 
+                          type="tel" 
+                          required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 focus:ring-0 focus:ring-offset-0"
+                          placeholder="+91 99999-99999"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].age}
+                        </label>
+                        <input 
+                          type="number" 
+                          value={age}
+                          onChange={(e) => setAge(e.target.value)}
+                          className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 focus:ring-0 focus:ring-offset-0"
+                          placeholder={formLanguage === 'en' ? "24" : "२४"}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Dropdowns Row 3 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].selectCourse} *
+                        </label>
+                        <div className="relative">
+                          <select 
+                            required
+                            value={selectedCourse}
+                            onChange={(e) => setSelectedCourse(e.target.value)}
+                            className="w-full bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white appearance-none cursor-pointer focus:ring-0 focus:ring-offset-0"
+                          >
+                            <option value="" disabled className="bg-[#050505] text-neutral-600">
+                              {TRANSLATIONS[formLanguage].chooseCoursePlaceholder}
+                            </option>
+                            {TRANSLATIONS[formLanguage].courses.map((opt) => (
+                              <option key={opt.value} value={opt.value} className="bg-[#050505] text-white">
+                                {opt.label}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#C19A6B]">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                          {TRANSLATIONS[formLanguage].howHeard}
+                        </label>
+                        <div className="relative">
+                          <select 
+                            value={howHeard}
+                            onChange={(e) => setHowHeard(e.target.value)}
+                            className="w-full bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white appearance-none cursor-pointer focus:ring-0 focus:ring-offset-0"
+                          >
+                            <option value="" disabled className="bg-[#050505] text-neutral-600">
+                              {TRANSLATIONS[formLanguage].selectHeardPlaceholder}
+                            </option>
+                            {TRANSLATIONS[formLanguage].heardOptions.map((opt) => (
+                              <option key={opt.value} value={opt.value} className="bg-[#050505] text-white">
+                                {opt.label}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#C19A6B]">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Radio Options Group 1: Experience Level */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                        {TRANSLATIONS[formLanguage].expLevel} *
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {['Beginner', 'Intermediate', 'Advanced'].map((level) => {
+                          const isSelected = experienceLevel === level;
+                          const labels = {
+                            en: { Beginner: 'Beginner', Intermediate: 'Intermediate', Advanced: 'Advanced' },
+                            hi: { Beginner: 'शुरुआती (Beginner)', Intermediate: 'मध्यम (Intermediate)', Advanced: 'उन्नत (Advanced)' }
+                          };
+                          return (
+                            <button
+                              type="button"
+                              key={level}
+                              onClick={() => setExperienceLevel(level)}
+                              className={`py-3 rounded-2xl border text-[11px] font-medium transition-all text-center cursor-pointer ${
+                                isSelected 
+                                  ? 'bg-[#C19A6B]/15 border-[#C19A6B] text-white font-bold' 
+                                  : 'bg-neutral-950/50 border-white/5 text-neutral-400 hover:border-white/10 hover:text-white'
+                              }`}
+                            >
+                              {labels[formLanguage][level as keyof typeof labels['en']]}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Radio Options Group 2: Learning Mode */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                        {TRANSLATIONS[formLanguage].learningMode} *
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {['Online', 'In-Person', 'Either'].map((mode) => {
+                          const isSelected = learningMode === mode;
+                          const labels = {
+                            en: { Online: 'Online', 'In-Person': 'In-Person', Either: 'Either' },
+                            hi: { Online: 'ऑनलाइन', 'In-Person': 'ऑफ़लाइन (प्रत्यक्ष)', Either: 'दोनों में से कोई भी' }
+                          };
+                          return (
+                            <button
+                              type="button"
+                              key={mode}
+                              onClick={() => setLearningMode(mode)}
+                              className={`py-3 rounded-2xl border text-[11px] font-medium transition-all text-center cursor-pointer ${
+                                isSelected 
+                                  ? 'bg-[#C19A6B]/15 border-[#C19A6B] text-white font-bold' 
+                                  : 'bg-neutral-950/50 border-white/5 text-neutral-400 hover:border-white/10 hover:text-white'
+                              }`}
+                            >
+                              {labels[formLanguage][mode as keyof typeof labels['en']]}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Preferred Days & Time */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                        {TRANSLATIONS[formLanguage].preferredDays}
+                      </label>
+                      <input 
+                        type="text" 
+                        value={preferredDays}
+                        onChange={(e) => setPreferredDays(e.target.value)}
+                        className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 focus:ring-0 focus:ring-offset-0"
+                        placeholder={formLanguage === 'en' ? "Weekends, mornings preferred" : "सप्ताहांत, सुबह का समय"}
+                      />
+                    </div>
+
+                    {/* What would you like to achieve */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C19A6B] font-bold">
+                        {TRANSLATIONS[formLanguage].achieveGoal}
+                      </label>
+                      <textarea 
+                        rows={3}
+                        value={goal}
+                        onChange={(e) => setGoal(e.target.value)}
+                        className="bg-neutral-950/80 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#C19A6B]/50 transition-colors text-white placeholder-neutral-600 resize-none focus:ring-0 focus:ring-offset-0"
+                        placeholder={formLanguage === 'en' ? "Learn classical shading and start acrylic painting..." : "शास्त्रीय शेडिंग सीखना और एक्रेलिक पेंटिंग शुरू करना..."}
+                      />
+                    </div>
+
+                    {/* Consent checkbox */}
+                    <label className="flex gap-3 items-start text-xs text-neutral-400 font-light cursor-pointer select-none py-1">
+                      <input 
+                        type="checkbox"
+                        checked={agreeConsent}
+                        onChange={(e) => setAgreeConsent(e.target.checked)}
+                        className="w-4.5 h-4.5 rounded border border-white/10 bg-neutral-950 text-[#C19A6B] focus:ring-0 mt-0.5 focus:ring-offset-0 cursor-pointer"
+                      />
+                      <span className="leading-snug">{TRANSLATIONS[formLanguage].consent}</span>
+                    </label>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="group/sub relative inline-flex w-full items-center justify-center rounded-full p-[2px] transition-all duration-300 hover:scale-[1.01] h-12 overflow-hidden cursor-pointer mt-4"
+                    >
+                      <span className="absolute inset-[-1000%] animate-spin [animation-duration:6s] bg-[conic-gradient(from_90deg_at_50%_50%,#C19A6B,#000000,#C19A6B)] opacity-40 group-hover/sub:opacity-90 transition-opacity" />
+                      <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] font-bold text-xs uppercase tracking-widest text-[#C19A6B] backdrop-blur-2xl transition-all duration-300 group-hover/sub:bg-black group-hover/sub:text-white">
+                        {isSubmitting ? TRANSLATIONS[formLanguage].submitting : TRANSLATIONS[formLanguage].submit}
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover/sub:translate-x-1" />
+                      </div>
+                    </button>
+
+                  </form>
+                )}
               </div>
             </motion.div>
           </div>
