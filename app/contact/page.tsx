@@ -50,7 +50,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-medium text-white mb-1">Email</h3>
                   <p className="text-[#A3A3A3] mb-2">Our friendly team is here to help.</p>
-                  <a href="mailto:hello@kalakasturi.com" className="text-white hover:text-[#A3A3A3] font-medium transition-colors">hello@kalakasturi.com</a>
+                  <a href="mailto:care.kalakasturi@gmail.com" className="text-white hover:text-[#A3A3A3] font-medium transition-colors">care.kalakasturi@gmail.com</a>
                 </div>
               </motion.div>
 

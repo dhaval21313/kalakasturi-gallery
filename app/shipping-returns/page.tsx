@@ -116,7 +116,7 @@ export default function ShippingReturnsPage() {
               <ul className="list-disc pl-5 flex flex-col gap-1.5 text-xs sm:text-sm text-neutral-400">
                 <li><strong>Stock Prints &amp; Unpinned Catalog Items:</strong> Eligible for returns or exchanges within 14 calendar days from delivery step. The item must arrive pristine back in its original packaging.</li>
                 <li><strong>Original Paintings:</strong> Because each piece constitutes non-reproducible manual labor and heavy-duty shipping costs, all sales of original works are final once loaded onto carriers.</li>
-                <li><strong>Damaged Transits:</strong> If you receive structural box damage, photograph the parcel before opening and contact us with a brief clip immediately at <a href="mailto:hello@kalakasturi.com" className="text-white hover:underline">hello@kalakasturi.com</a> so we can process your insurance claim.</li>
+                <li><strong>Damaged Transits:</strong> If you receive structural box damage, photograph the parcel before opening and contact us with a brief clip immediately at <a href="mailto:care.kalakasturi@gmail.com" className="text-white hover:underline">care.kalakasturi@gmail.com</a> so we can process your insurance claim.</li>
               </ul>
             </section>
 
