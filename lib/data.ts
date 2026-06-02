@@ -181,13 +181,18 @@ export const artProducts = [
     originalMrp: "₹999",
     size: "24 × 36 inches (Approx. 61 × 91.4 cm) – Multi-Ratio support",
     material: "Instant Digital Download (JPG & PNG)",
-    image: "",
-    images: [],
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402349/kalakasturi_products/ghoeqbjyzdwvglpr1xol.png",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402349/kalakasturi_products/ghoeqbjyzdwvglpr1xol.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402351/kalakasturi_products/ojgyrmw8umdmajdkny4o.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402352/kalakasturi_products/pppxogpimvfq7xo7uhpb.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402355/kalakasturi_products/sv3daf4knnyuvev4lpcc.png"
+    ],
     description: "Invoke strength, devotion, and divine protection with this powerful Hanuman digital artwork. This monochrome illustration captures the fearless energy and spiritual presence of Lord Hanuman, making it a meaningful addition to meditation rooms, yoga spaces, temples, or peaceful home interiors. Perfect for lovers of Indian mythology, Hindu spiritual art, and sacred decor, this printable artwork blends traditional devotion with modern minimal aesthetics.",
     category: "Pooja Essentials",
     tags: ["Mythology", "Spiritual", "Digital Print", "Hanuman"],
     inStock: true,
-    video: null,
+    video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1780402364/kalakasturi_products/omukp6h6f6yqs6tsjq55.mp4",
     features: [
       "High-resolution digital download including pristine JPG & PNG printable files.",
       "Features a striking minimal monochrome design depicting Lord Hanuman's powerful, fearless energy.",

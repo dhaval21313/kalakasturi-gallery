@@ -407,7 +407,7 @@ export default function CoursesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-sm sm:text-base text-neutral-400 leading-relaxed font-light"
           >
-            Step-by-step guidance under the personal instruction of Ankita. From mastering classical drawing values to engaging in community healing classes, discover a course aligned with your journey.
+            Learn through structured, step-by-step instruction. Whether you're building strong drawing fundamentals or exploring art for personal growth and healing, you'll find a course that supports your creative journey.
           </motion.p>
         </div>
 
