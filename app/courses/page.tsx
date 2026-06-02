@@ -263,7 +263,7 @@ export default function CoursesPage() {
               <Coffee className="w-5 h-5 text-[#C19A6B]" />
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-white mb-0.5">Complementary Wabi-Sabi Studio Amenities</h4>
+              <h4 className="text-sm font-semibold text-white mb-0.5">Complementary Art Supplies for Personal Coaching</h4>
               <p className="text-xs text-neutral-400 font-light">All raw sketch kits, organic easel woods, canvas mounts, and hot green teas are fully included in every course tier.</p>
             </div>
           </div>
