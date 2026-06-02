@@ -67,18 +67,18 @@ export default function Page() {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4 md:gap-6">
               {[
-                { title: "Featured Art", image: "/featured-art.png" },
-                { title: "Prints", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777440/kalakasturi_products/iaslgwspg9u2tyo0f8d8.png" },
-                { title: "Customize Your Art", image: "/customize-featured.png" },
-                { title: "Courses", image: "/courses-featured.png" }
+                { title: "Featured Art", image: "/featured-art.png", href: "/collections" },
+                { title: "Prints", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777440/kalakasturi_products/iaslgwspg9u2tyo0f8d8.png", href: "/collections?category=Prints" },
+                { title: "Customize Your Art", image: "/customize-featured.png", href: "/contact?subject=Customize%20Art" },
+                { title: "Courses", image: "/courses-featured.png", href: "/courses" }
               ].map((card, i) => (
-                <div key={i} className="group relative rounded-3xl aspect-square md:aspect-[3/4] lg:aspect-[4/5] overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-shadow duration-500">
+                <Link href={card.href} key={i} className="group relative rounded-3xl aspect-square md:aspect-[3/4] lg:aspect-[4/5] overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-shadow duration-500 block">
                   <Image src={card.image} alt={card.title} fill quality={95} sizes="(max-width: 768px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
                   <div className="absolute inset-x-0 bottom-0 p-4 lg:p-8 translate-y-2 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <h3 className="text-white font-medium text-lg sm:text-xl lg:text-3xl text-center drop-shadow-md">{card.title}</h3>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </motion.div>

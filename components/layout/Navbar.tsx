@@ -11,7 +11,7 @@ import CartDrawer from '../CartDrawer';
 
 const NAV_ITEMS = [
   { name: 'Gallery', href: '/collections', icon: Palette, color: 'from-pink-500 via-rose-500 to-purple-600' },
-  { name: 'Collection', href: '/collections', icon: Sparkles, color: 'from-amber-400 via-orange-400 to-yellow-500' },
+  { name: 'Courses', href: '/courses', icon: Sparkles, color: 'from-amber-400 via-orange-400 to-yellow-500' },
   { name: 'About', href: '/about', icon: Compass, color: 'from-cyan-400 via-sky-400 to-blue-500' },
   { name: 'Login', href: '/login', icon: LogIn, color: 'from-emerald-400 via-teal-400 to-cyan-500' },
   { name: 'Cart', href: '#', icon: ShoppingCart, color: 'from-purple-500 via-fuchsia-400 to-pink-500' }
@@ -101,7 +101,7 @@ export default function Navbar() {
               {/* Line 2: Centered Links */}
               <div className="flex items-center gap-10 text-sm font-medium tracking-wide text-[#A3A3A3]">
                 <Link href="/collections" className="hover:text-white transition-colors duration-200">Gallery</Link>
-                <Link href="/collections" className="hover:text-white transition-colors duration-200">Collection</Link>
+                <Link href="/courses" className="hover:text-white transition-colors duration-200">Courses</Link>
                 <Link href="/about" className="hover:text-white transition-colors duration-200">About</Link>
                 <Link href="/login" className="hover:text-white transition-colors duration-200">Login</Link>
                 <button 
