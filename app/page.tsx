@@ -70,7 +70,7 @@ export default function Page() {
                 { title: "Featured Art", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777651/kalakasturi_products/hl2panmzd96vyczuh54u.jpg" },
                 { title: "Prints", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777440/kalakasturi_products/iaslgwspg9u2tyo0f8d8.png" },
                 { title: "Customize Your Item", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779808219/kalakasturi_products/bcbysgq7ogmejyraniwx.jpg" },
-                { title: "Courses", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777580/kalakasturi_products/fvx5r6j0dz6eu3rtm6qx.png" }
+                { title: "Courses", image: "/courses-featured.png" }
               ].map((card, i) => (
                 <div key={i} className="group relative rounded-3xl aspect-square md:aspect-[3/4] lg:aspect-[4/5] overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-shadow duration-500">
                   <Image src={card.image} alt={card.title} fill quality={95} sizes="(max-width: 768px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
