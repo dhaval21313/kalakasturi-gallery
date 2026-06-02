@@ -67,7 +67,7 @@ export default function Page() {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4 md:gap-6">
               {[
-                { title: "Featured Art", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777651/kalakasturi_products/hl2panmzd96vyczuh54u.jpg" },
+                { title: "Featured Art", image: "/featured-art.png" },
                 { title: "Prints", image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777440/kalakasturi_products/iaslgwspg9u2tyo0f8d8.png" },
                 { title: "Customize Your Art", image: "/customize-featured.png" },
                 { title: "Courses", image: "/courses-featured.png" }
