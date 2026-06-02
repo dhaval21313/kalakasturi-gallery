@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'motion/react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   GraduationCap, 
   Calendar, 
@@ -13,7 +14,8 @@ import {
   Check, 
   Coffee, 
   MessageSquare,
-  ArrowRight
+  ArrowRight,
+  X
 } from 'lucide-react';
 
 const FADE_UP = {
@@ -102,6 +104,7 @@ const COURSES = [
 ];
 
 export default function CoursesPage() {
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const whatsappUrl = "https://wa.me/919429188049?text=Hello%20Ankita,%20I'm%20interested%20in%20enrolling%20in%20your%20art%20courses!";
 
   return (
@@ -268,18 +271,98 @@ export default function CoursesPage() {
             </div>
           </div>
 
-          <a 
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button 
+            onClick={() => setIsQrModalOpen(true)}
             className="px-6 py-3 bg-[#C19A6B] hover:bg-[#b08b5e] text-black font-semibold text-xs uppercase tracking-widest rounded-full transition-colors inline-flex items-center gap-2 whitespace-nowrap"
           >
             <MessageSquare className="w-4 h-4" />
             Connect via WhatsApp
-          </a>
+          </button>
         </motion.div>
 
       </div>
+
+      {/* WhatsApp QR Modal */}
+      <AnimatePresence>
+        {isQrModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsQrModalOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            />
+
+            {/* Modal Body */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative w-full max-w-sm bg-[#050505] border border-white/10 rounded-3xl p-6 sm:p-8 overflow-hidden shadow-2xl z-10 text-center"
+            >
+              {/* Glow Accent */}
+              <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-[#C19A6B]/10 blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-[#C19A6B]/5 blur-3xl pointer-events-none" />
+
+              {/* Close Button */}
+              <button 
+                onClick={() => setIsQrModalOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors border border-white/5"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Icon */}
+              <div className="w-12 h-12 rounded-full bg-[#C19A6B]/10 border border-[#C19A6B]/20 flex items-center justify-center mx-auto mb-4">
+                <MessageSquare className="w-6 h-6 text-[#C19A6B]" />
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-merriweather), serif' }}>
+                Join the Channel
+              </h3>
+              <p className="text-xs text-[#A3A3A3] font-light mb-6 max-w-xs mx-auto leading-relaxed">
+                Scan the QR code to join the <strong>art_kalakasturi</strong> WhatsApp channel. Ankita shares original artworks, behind-the-scenes processes, and stories with zero noise.
+              </p>
+
+              {/* QR Code Image Container */}
+              <div className="relative w-52 h-52 mx-auto mb-6 rounded-2xl overflow-hidden border border-white/10 p-2 bg-white/5 backdrop-blur-md shadow-inner flex items-center justify-center">
+                <div className="absolute inset-0 bg-[conic-gradient(from_90deg_at_50%_50%,#C19A6B,#000000,#C19A6B)] opacity-10 blur-md pointer-events-none animate-spin [animation-duration:8s]" />
+                <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
+                  <Image 
+                    src="/whatsapp-qr.jpg" 
+                    alt="WhatsApp Channel QR Code" 
+                    fill 
+                    className="object-cover p-1"
+                    quality={100}
+                  />
+                </div>
+              </div>
+
+              {/* Mobile Friendly Link */}
+              <div className="flex flex-col gap-3">
+                <a 
+                  href="https://www.instagram.com/p/DShwPwQEZ3j/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 bg-[#C19A6B] hover:bg-[#b08b5e] text-black font-semibold text-xs uppercase tracking-widest rounded-full transition-colors flex items-center justify-center gap-2"
+                >
+                  Open QR Post on Instagram
+                </a>
+                <button 
+                  onClick={() => setIsQrModalOpen(false)}
+                  className="text-neutral-400 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors py-1"
+                >
+                  Close Window
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
