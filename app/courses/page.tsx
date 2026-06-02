@@ -396,7 +396,7 @@ export default function CoursesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-none"
+            className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-none text-[#FAF6EE]"
             style={{ fontFamily: 'var(--font-merriweather), serif' }}
           >
             Creative Art Courses

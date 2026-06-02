@@ -124,7 +124,7 @@ export default function ContactPage() {
         >
           <div className="flex flex-col gap-10">
             <div>
-              <motion.h1 variants={FADE_UP} className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
+              <motion.h1 variants={FADE_UP} className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-[#FAF6EE]">
                 Let&apos;s Connect.
               </motion.h1>
               <motion.p variants={FADE_UP} className="text-xl text-[#A3A3A3] leading-relaxed max-w-md">

@@ -36,7 +36,7 @@ export default function ShippingReturnsPage() {
             </motion.div>
             <motion.h1 
               variants={FADE_UP}
-              className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4"
+              className="text-4xl sm:text-5xl font-bold tracking-tight text-[#FAF6EE] mb-4"
               style={{ fontFamily: 'var(--font-merriweather), serif' }}
             >
               Shipping &amp; Returns

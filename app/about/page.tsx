@@ -116,7 +116,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white leading-[1.1]"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-[#FAF6EE] leading-[1.1]"
             >
               Meet <span className="text-[#C19A6B] italic font-serif font-light">Ankita</span>
             </motion.h1>
