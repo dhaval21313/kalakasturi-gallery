@@ -34,7 +34,7 @@ export default function Page() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <div ref={containerRef} className="bg-[#000000] text-[#F5F5F5] font-sans overflow-x-hidden pt-[72px] md:pt-[138px]">
+    <div ref={containerRef} className="bg-dark-charcoal text-light-sand font-sans overflow-x-hidden pt-[72px] md:pt-[138px]">
       <main>
         {/* Pure Image Hero Section */}
         <section className="w-full overflow-hidden relative">

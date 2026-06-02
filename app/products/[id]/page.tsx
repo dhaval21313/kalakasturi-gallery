@@ -90,7 +90,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-dark-charcoal text-light-sand flex flex-col items-center justify-center p-6 text-center">
         <div className="w-16 h-16 rounded-full border border-[#C19A6B]/20 flex items-center justify-center mb-6 bg-[#C19A6B]/5">
           <Paintbrush className="w-6 h-6 text-[#C19A6B]" />
         </div>
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-24 pb-24 px-4 sm:px-6 md:px-12 font-sans relative overflow-x-hidden">
+      <div className="bg-dark-charcoal text-light-sand min-h-screen pt-24 pb-24 px-4 sm:px-6 md:px-12 font-sans relative overflow-x-hidden">
         {/* Background gradients */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#1c140c]/40 blur-[130px] pointer-events-none z-0" />
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-[#0a110a]/30 blur-[160px] pointer-events-none z-0" />

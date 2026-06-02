@@ -189,7 +189,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {/* Buy Now button linked to the dynamic product detail page */}
             <Link href={`/products/${product.id}`} className="group relative inline-flex overflow-hidden rounded-full p-[1px] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(255,255,255,0.15)] h-[22px] ml-auto sm:ml-2">
               <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-40 group-hover:opacity-100 transition-opacity duration-200" />
-              <div className="inline-flex h-full items-center justify-center rounded-full bg-[#050505] px-3 font-bold text-[#F5F5F5] backdrop-blur-xl transition-all duration-300 group-hover:bg-black border-0">
+              <div className="inline-flex h-full items-center justify-center rounded-full bg-[#050505] px-3 font-bold text-light-sand backdrop-blur-xl transition-all duration-300 group-hover:bg-black border-0">
                 <span className="relative z-10 flex items-center justify-center gap-1 text-[9px] uppercase tracking-wider whitespace-nowrap text-[#C19A6B]">
                   Buy
                 </span>

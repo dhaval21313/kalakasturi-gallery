@@ -5,7 +5,7 @@ import { Instagram, ShoppingBag, Store } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#000000] py-12 px-6">
+    <footer className="bg-dark-charcoal py-12 px-6 border-t border-white/5">
       <div className="max-w-[1400px] mx-auto flex flex-col items-center justify-center text-center gap-8">
         
         {/* Line 1: Symbol and logo only */}

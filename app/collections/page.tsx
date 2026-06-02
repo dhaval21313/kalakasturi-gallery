@@ -80,7 +80,7 @@ export default function CollectionsPage() {
     : products.filter(p => p.category === activeCategory);
 
   return (
-    <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-[72px] md:pt-[138px] pb-24 px-4 sm:px-6 font-sans">
+    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-[72px] md:pt-[138px] pb-24 px-4 sm:px-6 font-sans">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Top-Tier: Cinematic Spotlight Filmstrip */}
@@ -126,7 +126,7 @@ export default function CollectionsPage() {
               initial={{ opacity: 0, y: "100%" }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: "100%" }}
-              className="fixed inset-0 z-50 bg-[#000000] p-6 flex flex-col md:hidden"
+              className="fixed inset-0 z-50 bg-dark-charcoal p-6 flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between mb-12 mt-10">
                 <span className="text-2xl font-bold tracking-tight text-white">Filters</span>

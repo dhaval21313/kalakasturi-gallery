@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans), Arial, sans-serif;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-allura: var(--font-allura), cursive;
+  --font-merriweather: var(--font-merriweather), serif;
+  
   --color-warm-ivory: #FAF6EE;
   --color-antique-gold: #C19A6B;
   --color-light-sand: #D8CCB5;
@@ -17,7 +20,7 @@
 body {
   background-color: #0D0D0D !important;
   color: #D8CCB5 !important;
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Global Heading Overrides -> Warm Ivory (#FAF6EE) */

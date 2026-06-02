@@ -375,7 +375,7 @@ export default function CoursesPage() {
   };
 
   return (
-    <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-28 pb-24 px-4 sm:px-6 md:px-12 font-sans relative overflow-x-hidden">
+    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-28 pb-24 px-4 sm:px-6 md:px-12 font-sans relative overflow-x-hidden">
       {/* Dynamic atmospheric background blurs */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#1c140c]/40 blur-[130px] pointer-events-none z-0" />
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-[#0a110a]/30 blur-[160px] pointer-events-none z-0" />

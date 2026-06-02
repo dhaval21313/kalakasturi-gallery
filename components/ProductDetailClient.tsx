@@ -358,15 +358,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <div className="flex flex-col border border-white/5 rounded-2xl bg-neutral-950/40 divide-y divide-white/5 overflow-hidden">
           <div className="grid grid-cols-3 p-4 text-xs">
             <span className="text-neutral-400">Dimensions</span>
-            <span className="col-span-2 font-medium text-[#F5F5F5]">{product.size}</span>
+            <span className="col-span-2 font-medium text-light-sand">{product.size}</span>
           </div>
           <div className="grid grid-cols-3 p-4 text-xs">
             <span className="text-neutral-400">Frame Setting</span>
-            <span className="col-span-2 font-medium text-[#F5F5F5]">{product.material}</span>
+            <span className="col-span-2 font-medium text-light-sand">{product.material}</span>
           </div>
           <div className="grid grid-cols-3 p-4 text-xs">
             <span className="text-neutral-400">Medium</span>
-            <span className="col-span-2 font-medium text-[#F5F5F5]">{product.medium}</span>
+            <span className="col-span-2 font-medium text-light-sand">{product.medium}</span>
           </div>
         </div>
 
@@ -388,7 +388,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             className="group relative inline-flex w-full overflow-hidden rounded-full p-[2px] transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] h-14 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] font-bold text-[#F5F5F5] backdrop-blur-2xl transition-all duration-300 group-hover:bg-black border-0">
+            <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] font-bold text-light-sand backdrop-blur-2xl transition-all duration-300 group-hover:bg-black border-0">
               <span className="relative z-10 flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-widest text-[#C19A6B]">
                 <ShoppingBag className="w-4 h-4 text-[#C19A6B]" />
                 {product.inStock ? 'Purchase Original Painting' : 'Sold Out / Reserve'}

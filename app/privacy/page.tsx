@@ -17,7 +17,7 @@ const STAGGER = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-[#000000] text-[#F5F5F5] min-h-screen pt-40 pb-24 px-6 font-sans relative overflow-hidden">
+    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-40 pb-24 px-6 font-sans relative overflow-hidden">
       {/* Ambient background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-neutral-900/30 blur-[130px] pointer-events-none z-0"></div>
 

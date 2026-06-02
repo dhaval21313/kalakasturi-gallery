@@ -230,7 +230,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-[#000000] pt-24 px-6 flex flex-col gap-6 md:hidden"
+            className="fixed inset-0 z-40 bg-dark-charcoal pt-24 px-6 flex flex-col gap-6 md:hidden"
           >
             {NAV_ITEMS.map((item) => (
               <button 
