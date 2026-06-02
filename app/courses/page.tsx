@@ -132,7 +132,7 @@ const TRANSLATIONS = {
     submitting: "Submitting...",
     success: "✅ Thank you for your inquiry! We will contact you within 24–48 hours with course details and availability.",
     requiredError: "Please fill in all required fields marked with *",
-    consentError: "Please agree to be contacted regarding course information",
+    consentError: "Instruction: Please check the box at the bottom of the form ('I agree to be contacted...') to proceed with your enrollment.",
     invalidEmail: "Please enter a valid email address.",
     invalidPhone: "Please enter a valid phone number (minimum 8 digits).",
     courses: [
@@ -178,7 +178,7 @@ const TRANSLATIONS = {
     submitting: "भेजा जा रहा है...",
     success: "✅ धन्यवाद! आपकी पूछताछ प्राप्त हो गई है। हम 24–48 घंटों के भीतर आपसे संपर्क करेंगे और पाठ्यक्रम की जानकारी तथा उपलब्धता साझा करेंगे।",
     requiredError: "कृपया * वाले सभी अनिवार्य फ़ील्ड भरें",
-    consentError: "कृपया पूछताछ संबंधी जानकारी हेतु संपर्क किए जाने की सहमति दें",
+    consentError: "निर्देश: आगे बढ़ने के लिए कृपया फ़ॉर्म के नीचे दिए गए चेकबॉक्स ('मैं पाठ्यक्रम संबंधी जानकारी प्राप्त करने हेतु...') पर टिक (✓) करें।",
     invalidEmail: "कृपया एक वैध ईमेल पता दर्ज करें।",
     invalidPhone: "कृपया एक वैध फ़ोन नंबर दर्ज करें (न्यूनतम 8 अंक)।",
     courses: [
@@ -945,12 +945,25 @@ export default function CoursesPage() {
                     </div>
 
                     {/* Consent checkbox */}
-                    <label className="flex gap-3 items-start text-xs text-neutral-400 font-light cursor-pointer select-none py-1">
+                    <label className={`flex gap-3 items-start text-xs font-light cursor-pointer select-none py-2 px-3.5 rounded-2xl border transition-all duration-300 ${
+                      errorMessage === TRANSLATIONS[formLanguage].consentError
+                        ? 'bg-red-500/5 border-red-500/30 text-red-300 animate-pulse'
+                        : 'bg-transparent border-transparent text-neutral-400'
+                    }`}>
                       <input 
                         type="checkbox"
                         checked={agreeConsent}
-                        onChange={(e) => setAgreeConsent(e.target.checked)}
-                        className="w-4.5 h-4.5 rounded border border-white/10 bg-neutral-950 text-[#C19A6B] focus:ring-0 mt-0.5 focus:ring-offset-0 cursor-pointer"
+                        onChange={(e) => {
+                          setAgreeConsent(e.target.checked);
+                          if (e.target.checked && errorMessage === TRANSLATIONS[formLanguage].consentError) {
+                            setErrorMessage('');
+                          }
+                        }}
+                        className={`w-4.5 h-4.5 rounded border bg-neutral-950 text-[#C19A6B] focus:ring-0 mt-0.5 focus:ring-offset-0 cursor-pointer transition-colors ${
+                          errorMessage === TRANSLATIONS[formLanguage].consentError
+                            ? 'border-red-500/50'
+                            : 'border-white/10'
+                        }`}
                       />
                       <span className="leading-snug">{TRANSLATIONS[formLanguage].consent}</span>
                     </label>
