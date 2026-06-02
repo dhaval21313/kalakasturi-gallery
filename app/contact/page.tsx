@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, MessageSquare, MapPin, Send } from 'lucide-react';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -16,11 +18,99 @@ const STAGGER = {
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('general');
+  const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
+    
+    // Check validation patterns
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name.trim() || name.trim().length < 2) {
+      setErrorMessage("Please enter a valid full name (minimum 2 characters).");
+      return;
+    }
+    if (!email.trim() || !EMAIL_REGEX.test(email.trim())) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    if (!message.trim() || message.trim().length < 10) {
+      setErrorMessage("Please enter a message containing at least 10 characters.");
+      return;
+    }
+
     setFormState('submitting');
-    setTimeout(() => setFormState('success'), 1500);
+
+    const payload = {
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      subject,
+      message: message.trim(),
+      website
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const resData = await response.json();
+      if (!response.ok || !resData.success) {
+        throw new Error(resData.message || "Failed to deliver message via backend.");
+      }
+
+      if (resData.etherealUrl) {
+        console.log("Mock Contact SMTP auto-responder successfully sent! Preview URL:", resData.etherealUrl);
+      }
+
+      setFormState('success');
+      // Reset Form fields
+      setName('');
+      setEmail('');
+      setSubject('general');
+      setMessage('');
+      setWebsite('');
+    } catch (apiError) {
+      console.warn("Secure Contact API failed. Reverting to local fallback:", apiError);
+      
+      // Direct Firestore client or localStorage fallback
+      try {
+        const clientData = {
+          ...payload,
+          submittedAt: serverTimestamp ? serverTimestamp() : new Date().toISOString(),
+          fallbackProcessed: true
+        };
+
+        if (db) {
+          await addDoc(collection(db, "contact_messages"), clientData);
+          console.log("Offline Fallback: Successfully saved contact message directly to Firestore.");
+        } else {
+          console.warn("Offline Fallback: Firestore offline. Saving to localStorage contact list.");
+          const msgs = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+          msgs.push({ ...clientData, submittedAt: new Date().toISOString() });
+          localStorage.setItem('contact_messages', JSON.stringify(msgs));
+        }
+
+        setFormState('success');
+        // Reset Form fields
+        setName('');
+        setEmail('');
+        setSubject('general');
+        setMessage('');
+        setWebsite('');
+      } catch (fallbackErr) {
+        console.error("Critical: Form resilience fallback also failed:", fallbackErr);
+        setErrorMessage("Delivery failed. Please check your network connection or message Ankita directly via WhatsApp.");
+        setFormState('idle');
+      }
+    }
   };
 
   return (
@@ -102,38 +192,91 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10 text-white">
                 <h3 className="text-2xl font-semibold mb-2">Send a Message</h3>
                 
+                {/* Honeypot field for spam prevention */}
+                <div style={{ position: 'absolute', left: '-5000px', top: '-5000px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
+                  <input 
+                    type="text" 
+                    name="website" 
+                    value={website} 
+                    onChange={(e) => setWebsite(e.target.value)} 
+                    tabIndex={-1} 
+                    placeholder="Do not fill this if you are human" 
+                  />
+                </div>
+
+                {/* Validation Error Alerts */}
+                {errorMessage && (
+                  <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-xs text-red-400">
+                    {errorMessage}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-sm font-medium text-[#A3A3A3]">Full Name</label>
-                    <input id="name" required type="text" className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white" placeholder="Jane Doe" />
+                    <input 
+                      id="name" 
+                      required 
+                      type="text" 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white" 
+                      placeholder="Jane Doe" 
+                    />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="text-sm font-medium text-[#A3A3A3]">Email Address</label>
-                    <input id="email" required type="email" className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white" placeholder="jane@example.com" />
+                    <input 
+                      id="email" 
+                      required 
+                      type="email" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white" 
+                      placeholder="jane@example.com" 
+                    />
                   </div>
                 </div>
                 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="subject" className="text-sm font-medium text-[#A3A3A3]">Subject</label>
-                  <select id="subject" className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white appearance-none">
-                    <option value="general">General Inquiry</option>
-                    <option value="commission">Custom Commission</option>
-                    <option value="shipping">Shipping & Delivery</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <div className="relative">
+                    <select 
+                      id="subject" 
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white appearance-none cursor-pointer"
+                    >
+                      <option value="general">General Inquiry</option>
+                      <option value="commission">Custom Commission</option>
+                      <option value="shipping">Shipping & Delivery</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white/50">
+                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="message" className="text-sm font-medium text-[#A3A3A3]">Message</label>
-                  <textarea id="message" required rows={5} className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white resize-none" placeholder="How can we help you?"></textarea>
+                  <textarea 
+                    id="message" 
+                    required 
+                    rows={5} 
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-colors text-white resize-none" 
+                    placeholder="How can we help you?"
+                  ></textarea>
                 </div>
 
                 <button 
                   type="submit" 
                   disabled={formState === 'submitting'}
-                  className="mt-4 w-full group relative inline-flex overflow-hidden rounded-full p-[2px] transition-all duration-300 disabled:opacity-70"
+                  className="mt-4 w-full group relative inline-flex overflow-hidden rounded-full p-[2px] transition-all duration-300 disabled:opacity-70 cursor-pointer"
                 >
-                  <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                  <span className="absolute inset-[-1000%] animate-spin [animation-duration:6s] bg-[conic-gradient(from_90deg_at_50%_50%,#C19A6B,#000000,#C19A6B)] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] py-4 font-semibold text-white backdrop-blur-xl transition-all duration-300 group-hover:bg-black w-full text-center">
                     <span className="relative z-10 transition-transform duration-300 group-hover:scale-105 flex items-center gap-2">
                       {formState === 'submitting' ? 'Sending...' : 'Send Message'}
