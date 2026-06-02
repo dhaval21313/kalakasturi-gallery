@@ -264,7 +264,7 @@ export default function CoursesPage() {
             </div>
             <div>
               <h4 className="text-sm font-semibold text-white mb-0.5">Complementary Art Supplies for Personal Coaching</h4>
-              <p className="text-xs text-neutral-400 font-light">All raw sketch kits, organic easel woods, canvas mounts, and hot green teas are fully included in every course tier.</p>
+              <p className="text-xs text-neutral-400 font-light">One-on-one classes include starter art supplies tailored to your chosen medium, such as canvas, brushes, paints, charcoal, graphite pencils, and other essential materials.</p>
             </div>
           </div>
 
