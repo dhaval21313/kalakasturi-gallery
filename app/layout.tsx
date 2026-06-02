@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${allura.variable} ${merriweather.variable} dark scroll-smooth`}>
       <body 
-        className="bg-[#000000] text-white antialiased selection:bg-white selection:text-black" 
+        className="antialiased selection:bg-[#C19A6B] selection:text-black" 
         suppressHydrationWarning
       >
         <AccessibilityManager />
