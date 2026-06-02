@@ -172,6 +172,29 @@ export const artProducts = [
       "One-of-a-kind original artwork, not a duplicate or reproduction.",
       "Carefully finished and ready for immediate indoor display."
     ]
+  },
+  {
+    id: "hanuman-digital-print",
+    title: "Hanuman Digital Print – Printable Art",
+    medium: "High-Res Digital Download",
+    price: "₹599",
+    originalMrp: "₹999",
+    size: "24 × 36 inches (Approx. 61 × 91.4 cm) – Multi-Ratio support",
+    material: "Instant Digital Download (JPG & PNG)",
+    image: "",
+    images: [],
+    description: "Invoke strength, devotion, and divine protection with this powerful Hanuman digital artwork. This monochrome illustration captures the fearless energy and spiritual presence of Lord Hanuman, making it a meaningful addition to meditation rooms, yoga spaces, temples, or peaceful home interiors. Perfect for lovers of Indian mythology, Hindu spiritual art, and sacred decor, this printable artwork blends traditional devotion with modern minimal aesthetics.",
+    category: "Pooja Essentials",
+    tags: ["Mythology", "Spiritual", "Digital Print", "Hanuman"],
+    inStock: true,
+    video: null,
+    features: [
+      "High-resolution digital download including pristine JPG & PNG printable files.",
+      "Features a striking minimal monochrome design depicting Lord Hanuman's powerful, fearless energy.",
+      "Multi-ratio files included supporting standard print frames: 1:2, 2:3, 3:4, 4:5, and 5:7 (ISO).",
+      "Instant access after checkout—no physical item will be shipped, offering immediate framing flexibility.",
+      "Perfect for home temples, yoga studios, meditation rooms, and spiritual gifting."
+    ]
   }
 ];
 
