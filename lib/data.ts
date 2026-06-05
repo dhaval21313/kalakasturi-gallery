@@ -328,14 +328,12 @@ export const artProducts = [
     originalMrp: "₹69,000",
     size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
     material: "Oil colors on premium canvas (Unframed, rolled in tube)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678994/kalakasturi_products/bo5v2tyzpqhfmfyp29xo.jpg",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678994/kalakasturi_products/bo5v2tyzpqhfmfyp29xo.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678996/kalakasturi_products/zxxzkk24k1fsgwoh11us.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678997/kalakasturi_products/qstxu7fqp3gqi8p3g2b1.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678999/kalakasturi_products/ukel1wqlokcmd3bcqjmx.jpg"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png"
     ],
     description: "Leopard's Gaze is a stunning original hand-painted oil painting on premium canvas. Capturing the intense focus and majestic presence of the leopard, this artwork features rich texture, vibrant colors, and deep emotional depth. Painted with professional oil colors on premium grade canvas, this piece brings the wild power of nature and fine realism into modern spaces.",
     category: "Portraits",
