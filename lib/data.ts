@@ -328,8 +328,9 @@ export const artProducts = [
     originalMrp: "₹69,000",
     size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
     material: "Oil colors on premium canvas (Unframed, rolled in tube)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679880/kalakasturi_products/t0ljyrogyxuwqc2ye3b6.jpg",
     images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679880/kalakasturi_products/t0ljyrogyxuwqc2ye3b6.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678996/kalakasturi_products/zxxzkk24k1fsgwoh11us.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678997/kalakasturi_products/qstxu7fqp3gqi8p3g2b1.png",
