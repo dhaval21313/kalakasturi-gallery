@@ -114,7 +114,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-44 pb-24 px-6 font-sans">
+    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-28 md:pt-44 pb-24 px-6 font-sans">
       <div className="max-w-[1200px] mx-auto">
         <motion.div 
           variants={STAGGER}

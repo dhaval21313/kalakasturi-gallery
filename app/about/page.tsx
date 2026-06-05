@@ -60,7 +60,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-32 pb-24 px-4 sm:px-6 md:px-8 font-sans select-none overflow-x-hidden relative">
+    <div className="bg-dark-charcoal text-light-sand min-h-screen pt-24 md:pt-36 pb-24 px-4 sm:px-6 md:px-8 font-sans select-none overflow-x-hidden relative">
       {/* Premium Ambient Radial Backgrounds */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-neutral-900/30 blur-[130px] pointer-events-none z-0"></div>
       <div className="absolute top-[40%] right-1/4 w-[700px] h-[700px] rounded-full bg-[#C19A6B]/5 blur-[160px] pointer-events-none z-0"></div>

@@ -24,14 +24,10 @@ body {
 }
 
 /* Global Heading Overrides -> Warm Ivory (#FAF6EE) */
-h1, h2, h3, h4, h5, h6,
-.text-white,
-.text-slate-50,
-.text-slate-100,
-.text-neutral-50,
-.text-neutral-100 {
+h1, h2, h3, h4, h5, h6 {
   color: #FAF6EE !important;
 }
+
 
 /* Global Body & Secondary Overrides -> Light Sand (#D8CCB5) */
 p, li, label,

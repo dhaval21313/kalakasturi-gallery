@@ -37,8 +37,15 @@ export const artProducts = [
     originalMrp: "₹6,000",
     size: "12 × 10 inches (Approx. 30.5 × 25.4 cm)",
     material: "Glass acrylic frame with classic white mount",
-    image: "",
-    images: [],
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676018/kalakasturi_products/omjygocbfbir10qscvnb.png",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676018/kalakasturi_products/omjygocbfbir10qscvnb.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676039/kalakasturi_products/mf46rizp5c0btkft3aqd.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676040/kalakasturi_products/vqh10nehnasxles1hgdy.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676054/kalakasturi_products/sbfh4unya7omqkdpokfd.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676041/kalakasturi_products/bbpl8px0ege8s0ayvcoe.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676021/kalakasturi_products/g0g9okidzzpj2fq1vdni.jpg"
+    ],
     description: "Charlie is a charcoal drawing on paper that focuses on expression and quiet presence through strong contrasts and subtle tonal shifts. Decisive lines and soft gradients create depth and emotional clarity, allowing the subject’s character to emerge naturally. The restrained monochrome palette gives the artwork a timeless, contemplative quality suited for modern interiors, studios, or curated gallery displays. Original hand-drawn charcoal artwork, not a duplicate or reproduction.",
     category: "Portraits",
     tags: ["Charcoal", "Portrait", "Sketch"],
@@ -50,6 +57,62 @@ export const artProducts = [
       "Finished with a classic white mount and premium glass acrylic frame.",
       "A timeless monochrome palette suited for modern interiors, studios, or curated gallery displays.",
       "Original hand-drawn charcoal artwork, not a duplicate or reproduction."
+    ],
+    variations: [
+      {
+        id: "charlie-original",
+        name: "Original Charcoal Drawing",
+        price: "₹4,999",
+        originalMrp: "₹6,000",
+        size: "12 × 10 inches (Approx. 30.5 × 25.4 cm)",
+        material: "Glass acrylic frame with classic white mount",
+        inStock: true
+      },
+      {
+        id: "charlie-digital",
+        name: "Digital Download (Printable Art)",
+        price: "₹599",
+        originalMrp: "₹999",
+        size: "Multi-Ratio support (Ratios 1:1, 1:2, 2:3, 3:4, 5:7 ISO)",
+        material: "High-Res Digital Download (JPG & PNG)",
+        inStock: true
+      },
+      {
+        id: "charlie-giclee-a4",
+        name: "Giclée Print - A4",
+        price: "₹1,599",
+        originalMrp: "₹1,999",
+        size: "A4 (21 × 29.7 cm / 8.3 × 11.7 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "charlie-giclee-a3",
+        name: "Giclée Print - A3",
+        price: "₹1,799",
+        originalMrp: "₹2,299",
+        size: "A3 (29.7 × 42 cm / 11.7 × 16.5 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "charlie-giclee-a2",
+        name: "Giclée Print - A2",
+        price: "₹1,899",
+        originalMrp: "₹2,499",
+        size: "A2 (42 × 59.4 cm / 16.5 × 23.4 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "charlie-giclee-a1",
+        name: "Giclée Print - A1",
+        price: "₹1,999",
+        originalMrp: "₹2,799",
+        size: "A1 (59.4 × 84.1 cm / 23.4 × 33.1 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      }
     ]
   },
   {
@@ -175,18 +238,18 @@ export const artProducts = [
   },
   {
     id: "hanuman-digital-print",
-    title: "Hanuman Digital Print – Printable Art",
-    medium: "High-Res Digital Download",
-    price: "₹599",
-    originalMrp: "₹999",
-    size: "24 × 36 inches (Approx. 61 × 91.4 cm) – Multi-Ratio support",
-    material: "Instant Digital Download (JPG & PNG)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402349/kalakasturi_products/ghoeqbjyzdwvglpr1xol.png",
+    title: "Hanuman – Original Art & Prints",
+    medium: "Original Charcoal / Fine Art Prints",
+    price: "₹4,999",
+    originalMrp: "₹6,000",
+    size: "12 × 10 inches (Approx. 30.5 × 25.4 cm)",
+    material: "Glass acrylic frame with classic white mount",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676814/kalakasturi_products/iuqbqatxdhxj8zsgj1ug.png",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402349/kalakasturi_products/ghoeqbjyzdwvglpr1xol.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402351/kalakasturi_products/ojgyrmw8umdmajdkny4o.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402352/kalakasturi_products/pppxogpimvfq7xo7uhpb.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780402355/kalakasturi_products/sv3daf4knnyuvev4lpcc.png"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676814/kalakasturi_products/iuqbqatxdhxj8zsgj1ug.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676815/kalakasturi_products/acpeohxm1bmrvjfxj0hb.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676817/kalakasturi_products/su3guxv8gisl3wwjh1s6.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676818/kalakasturi_products/u3hk4nsf9geivshi201q.png"
     ],
     description: "Invoke strength, devotion, and divine protection with this powerful Hanuman digital artwork. This monochrome illustration captures the fearless energy and spiritual presence of Lord Hanuman, making it a meaningful addition to meditation rooms, yoga spaces, temples, or peaceful home interiors. Perfect for lovers of Indian mythology, Hindu spiritual art, and sacred decor, this printable artwork blends traditional devotion with modern minimal aesthetics.",
     category: "Pooja Essentials",
@@ -199,6 +262,62 @@ export const artProducts = [
       "Multi-ratio files included supporting standard print frames: 1:2, 2:3, 3:4, 4:5, and 5:7 (ISO).",
       "Instant access after checkout—no physical item will be shipped, offering immediate framing flexibility.",
       "Perfect for home temples, yoga studios, meditation rooms, and spiritual gifting."
+    ],
+    variations: [
+      {
+        id: "hanuman-original",
+        name: "Original Charcoal Drawing",
+        price: "₹4,999",
+        originalMrp: "₹6,000",
+        size: "12 × 10 inches (Approx. 30.5 × 25.4 cm)",
+        material: "Glass acrylic frame with classic white mount",
+        inStock: true
+      },
+      {
+        id: "hanuman-digital",
+        name: "Digital Download (Printable Art)",
+        price: "₹599",
+        originalMrp: "₹999",
+        size: "Multi-Ratio support (Ratios 1:1, 1:2, 2:3, 3:4, 5:7 ISO)",
+        material: "High-Res Digital Download (JPG & PNG)",
+        inStock: true
+      },
+      {
+        id: "hanuman-giclee-a4",
+        name: "Giclée Print - A4",
+        price: "₹1,599",
+        originalMrp: "₹1,999",
+        size: "A4 (21 × 29.7 cm / 8.3 × 11.7 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "hanuman-giclee-a3",
+        name: "Giclée Print - A3",
+        price: "₹1,799",
+        originalMrp: "₹2,299",
+        size: "A3 (29.7 × 42 cm / 11.7 × 16.5 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "hanuman-giclee-a2",
+        name: "Giclée Print - A2",
+        price: "₹1,899",
+        originalMrp: "₹2,499",
+        size: "A2 (42 × 59.4 cm / 16.5 × 23.4 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      },
+      {
+        id: "hanuman-giclee-a1",
+        name: "Giclée Print - A1",
+        price: "₹1,999",
+        originalMrp: "₹2,799",
+        size: "A1 (59.4 × 84.1 cm / 23.4 × 33.1 in)",
+        material: "Premium Giclée Fine Art Paper",
+        inStock: true
+      }
     ]
   }
 ];

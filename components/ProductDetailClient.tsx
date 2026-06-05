@@ -20,6 +20,16 @@ import {
 } from 'lucide-react';
 import { useCartStore } from '../lib/store/cartStore';
 
+interface Variation {
+  id: string;
+  name: string;
+  price: string;
+  originalMrp: string;
+  size: string;
+  material: string;
+  inStock: boolean;
+}
+
 interface Product {
   id: string;
   title: string;
@@ -36,6 +46,7 @@ interface Product {
   inStock: boolean;
   video?: string | null;
   features?: string[];
+  variations?: Variation[];
 }
 
 export default function ProductDetailClient({ product }: { product: Product }) {
@@ -45,6 +56,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [zoomStyle, setZoomStyle] = useState({ transformOrigin: 'center', transform: 'scale(1)' });
   
+  // Variations state support
+  const [selectedVarId, setSelectedVarId] = useState<string | null>(
+    product.variations && product.variations.length > 0 ? product.variations[0].id : null
+  );
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const rId = useRef<number | null>(null);
 
@@ -91,10 +107,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     }
   };
 
-  // Calculate discount percentage
-  const salesVal = parseInt(product.price.replace(/[^\d]/g, ''), 10);
-  const mrpVal = parseInt(product.originalMrp.replace(/[^\d]/g, ''), 10);
-  const discountPct = Math.round(((mrpVal - salesVal) / mrpVal) * 100);
+  // Compute selected variation
+  const selectedVariation = product.variations?.find(v => v.id === selectedVarId) || null;
+
+  // Calculate discount percentage dynamically based on selected variation or root product
+  const currentPrice = selectedVariation ? selectedVariation.price : product.price;
+  const currentMrp = selectedVariation ? selectedVariation.originalMrp : product.originalMrp;
+
+  const salesVal = parseInt(currentPrice.replace(/[^\d]/g, ''), 10);
+  const mrpVal = parseInt(currentMrp.replace(/[^\d]/g, ''), 10);
+  const discountPct = mrpVal > 0 ? Math.round(((mrpVal - salesVal) / mrpVal) * 100) : 0;
   const savings = mrpVal - salesVal;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -333,24 +355,70 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         
         {/* Header description */}
         <div>
-          <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[#C19A6B] font-bold block mb-2">Original Art Piece</span>
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[#C19A6B] font-bold block mb-2">
+            {selectedVariation ? selectedVariation.name : "Original Art Piece"}
+          </span>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 sm:mb-3 leading-tight">{product.title}</h1>
           <p className="text-xs sm:text-sm text-[#A3A3A3] italic">{product.medium}</p>
         </div>
+
+        {/* Product Variations Option Selector */}
+        {product.variations && product.variations.length > 0 && (
+          <div className="flex flex-col gap-3 border-t border-white/5 pt-4">
+            <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">Select Edition / Size</span>
+            <div className="flex flex-col gap-2">
+              {product.variations.map((v) => {
+                const isSelected = selectedVarId === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    onClick={() => setSelectedVarId(v.id)}
+                    className={`flex items-center justify-between px-5 py-3.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#C19A6B]/10 border-[#C19A6B] text-white shadow-[0_0_15px_rgba(193,154,107,0.15)]'
+                        : 'bg-[#050505] border-white/5 text-neutral-400 hover:border-white/20 hover:text-white'
+                    }`}
+                  >
+                    <div className="flex flex-col gap-0.5">
+                      <span className={`text-xs font-bold ${isSelected ? 'text-[#C19A6B]' : 'text-neutral-200'}`}>
+                        {v.name}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 font-light truncate max-w-[200px] sm:max-w-[280px]">
+                        {v.size} • {v.material}
+                      </span>
+                    </div>
+                    <div className="text-right flex flex-col items-end shrink-0">
+                      <span className="text-sm font-bold font-mono text-white">{v.price}</span>
+                      {v.originalMrp !== v.price && (
+                        <span className="text-[9px] text-neutral-500 font-mono line-through leading-none mt-0.5">
+                          {v.originalMrp}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Luxury Price Matrix Panel */}
         <div className="p-5 sm:p-6 bg-[#080808] border border-white/10 rounded-2xl flex flex-col gap-3.5 shadow-md">
           <div className="flex items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-3">
-              <span className="text-3xl sm:text-4xl font-bold font-mono text-white">{product.price}</span>
-              <span className="text-sm sm:text-base text-neutral-500 font-mono line-through">{product.originalMrp}</span>
+              <span className="text-3xl sm:text-4xl font-bold font-mono text-white">{currentPrice}</span>
+              {currentMrp !== currentPrice && (
+                <span className="text-sm sm:text-base text-neutral-500 font-mono line-through">{currentMrp}</span>
+              )}
             </div>
-            <span className="px-3 py-1 bg-[#C19A6B]/15 border border-[#C19A6B]/30 rounded-full text-[10px] sm:text-xs uppercase tracking-wider text-[#C19A6B] font-bold">
-              {discountPct}% Off
-            </span>
+            {discountPct > 0 && (
+              <span className="px-3 py-1 bg-[#C19A6B]/15 border border-[#C19A6B]/30 rounded-full text-[10px] sm:text-xs uppercase tracking-wider text-[#C19A6B] font-bold">
+                {discountPct}% Off
+              </span>
+            )}
           </div>
           <div className="text-[11px] text-neutral-400 font-medium">
-            ✨ You save <span className="font-bold text-[#C19A6B] font-mono">₹{savings.toLocaleString('en-IN')}</span> on this original collector piece.
+            ✨ You save <span className="font-bold text-[#C19A6B] font-mono">₹{savings.toLocaleString('en-IN')}</span> on this collector selection.
           </div>
         </div>
 
@@ -358,11 +426,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <div className="flex flex-col border border-white/5 rounded-2xl bg-neutral-950/40 divide-y divide-white/5 overflow-hidden">
           <div className="grid grid-cols-3 p-4 text-xs">
             <span className="text-neutral-400">Dimensions</span>
-            <span className="col-span-2 font-medium text-light-sand">{product.size}</span>
+            <span className="col-span-2 font-medium text-light-sand">
+              {selectedVariation ? selectedVariation.size : product.size}
+            </span>
           </div>
           <div className="grid grid-cols-3 p-4 text-xs">
-            <span className="text-neutral-400">Frame Setting</span>
-            <span className="col-span-2 font-medium text-light-sand">{product.material}</span>
+            <span className="text-neutral-400">Material / Delivery</span>
+            <span className="col-span-2 font-medium text-light-sand">
+              {selectedVariation ? selectedVariation.material : product.material}
+            </span>
           </div>
           <div className="grid grid-cols-3 p-4 text-xs">
             <span className="text-neutral-400">Medium</span>
@@ -374,24 +446,38 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <div className="flex flex-col gap-3">
           <button 
             onClick={() => {
-              if (!product.inStock) return;
-              const priceNumeric = parseInt(product.price.replace(/[^\d]/g, ''), 10);
+              const isStockActive = selectedVariation ? selectedVariation.inStock : product.inStock;
+              if (!isStockActive) return;
+              
+              const finalId = selectedVariation ? selectedVariation.id : product.id;
+              const finalPrice = salesVal;
+              const finalPriceRaw = currentPrice;
+              
+              // Formatting cart item title to be clean and accurate
+              const cartTitle = selectedVariation 
+                ? (selectedVariation.id === `${product.id}-original` || selectedVariation.name.toLowerCase().includes("original")
+                    ? product.title
+                    : `${product.title} - ${selectedVariation.name}`)
+                : product.title;
+
               addItem({
-                id: product.id,
-                title: product.title,
-                price: priceNumeric,
-                priceRaw: product.price,
+                id: finalId,
+                title: cartTitle,
+                price: finalPrice,
+                priceRaw: finalPriceRaw,
                 image: images[0] || '',
               });
             }}
-            disabled={!product.inStock}
+            disabled={!(selectedVariation ? selectedVariation.inStock : product.inStock)}
             className="group relative inline-flex w-full overflow-hidden rounded-full p-[2px] transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] h-14 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#050505] font-bold text-light-sand backdrop-blur-2xl transition-all duration-300 group-hover:bg-black border-0">
               <span className="relative z-10 flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-widest text-[#C19A6B]">
                 <ShoppingBag className="w-4 h-4 text-[#C19A6B]" />
-                {product.inStock ? 'Purchase Original Painting' : 'Sold Out / Reserve'}
+                {selectedVariation 
+                  ? (selectedVariation.inStock ? `Add ${selectedVariation.name} to Cart` : 'Sold Out') 
+                  : (product.inStock ? 'Purchase Original Painting' : 'Sold Out / Reserve')}
               </span>
             </div>
           </button>

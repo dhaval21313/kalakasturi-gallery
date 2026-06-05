@@ -151,15 +151,15 @@ export default function CollectionsPage() {
           )}
         </AnimatePresence>
 
-        {/* Bottom-Tier: Layout-Fluid Masonry Grid */}
+        {/* Bottom-Tier: Responsive Product Grid — 2 cols mobile / 3 cols tablet / 4 cols desktop */}
         <motion.div 
           layout
-          className="columns-2 sm:columns-3 xl:columns-4 gap-4 sm:gap-6 lg:gap-8 space-y-6 sm:space-y-8 [column-fill:auto]"
+          className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
         >
           <AnimatePresence mode="popLayout">
             {isLoading ? (
               Array.from({ length: 8 }).map((_, idx) => (
-                <div key={`skeleton-wrap-${idx}`} className="break-inside-avoid mb-6 block">
+                <div key={`skeleton-wrap-${idx}`} className="block">
                   <ProductCardSkeleton />
                 </div>
               ))
@@ -170,7 +170,7 @@ export default function CollectionsPage() {
                   key={product.id} 
                   onMouseEnter={() => setHoveredId(product.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className={`break-inside-avoid mb-6 sm:mb-8 block rounded-2xl border transition-all duration-500 will-change-[transform,opacity,border-color,box-shadow] ${
+                  className={`block rounded-2xl border transition-all duration-500 will-change-[transform,opacity,border-color,box-shadow] ${
                     hoveredId === product.id 
                       ? 'border-[#C19A6B]/50 scale-[1.02] shadow-[0_20px_40px_rgba(193,154,107,0.1)] opacity-100 z-20' 
                       : hoveredId !== null 

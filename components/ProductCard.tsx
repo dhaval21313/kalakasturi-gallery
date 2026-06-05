@@ -178,31 +178,26 @@ export default function ProductCard({ product }: { product: Product }) {
       </Link>
       
       {/* Information Row */}
-      <div className="flex justify-between items-start gap-2">
-        <div className="flex flex-col min-w-0 flex-grow">
-          {/* Linked Title for easy navigation */}
-          <Link href={`/products/${product.id}`} className="hover:text-[#C19A6B] transition-colors duration-200 truncate">
-            <h3 className="text-sm sm:text-base md:text-lg font-medium tracking-tight mb-0.5 sm:mb-1 truncate text-warm-ivory">{product.title}</h3>
+      <div className="flex flex-col gap-2">
+        {/* Title + Price row */}
+        <div className="flex items-start justify-between gap-2">
+          <Link href={`/products/${product.id}`} className="hover:text-[#C19A6B] transition-colors duration-200 min-w-0 flex-grow">
+            <h3 className="text-xs sm:text-sm md:text-base font-semibold tracking-tight leading-snug line-clamp-2 text-warm-ivory">{product.title}</h3>
           </Link>
-          <p className="text-[11px] sm:text-xs text-[#A3A3A3] mb-1.5 sm:mb-2 italic truncate">{product.medium}</p>
-          <div className="flex flex-wrap items-center gap-1.5 mt-0.5 w-full">
-            {product.tags?.slice(0, 2).map((tag) => (
-              <span key={tag} className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-white/5 border border-white/10 rounded-sm text-neutral-300">{tag}</span>
-            ))}
-            {/* Buy Now button linked to the dynamic product detail page */}
-            <Link href={`/products/${product.id}`} className="group relative inline-flex overflow-hidden rounded-full p-[1px] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(255,255,255,0.15)] h-[22px] ml-auto sm:ml-2">
-              <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-40 group-hover:opacity-100 transition-opacity duration-200" />
-              <div className="inline-flex h-full items-center justify-center rounded-full bg-[#050505] px-3 font-bold text-light-sand backdrop-blur-xl transition-all duration-300 group-hover:bg-black border-0">
-                <span className="relative z-10 flex items-center justify-center gap-1 text-[9px] uppercase tracking-wider whitespace-nowrap text-[#C19A6B]">
-                  Buy
-                </span>
-              </div>
-            </Link>
+          <div className="flex flex-col items-end gap-1 flex-shrink-0">
+            <span className="text-[11px] sm:text-xs md:text-sm font-semibold bg-[#121212] px-2 py-0.5 rounded-md border border-white/10 text-white font-mono whitespace-nowrap">{product.price}</span>
+            {!product.inStock && <span className="text-[8px] uppercase tracking-widest text-red-400">Sold Out</span>}
           </div>
         </div>
-        <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-          <span className="text-xs sm:text-sm md:text-base font-semibold bg-[#121212] px-2.5 py-1 rounded-lg border border-white/10 text-white font-mono">{product.price}</span>
-          {!product.inStock && <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-red-400 bg-red-400/5 px-2 py-0.5 rounded-md border border-red-400/10">Sold Out</span>}
+        {/* Medium + Tags + Buy row */}
+        <div className="flex items-center justify-between gap-1">
+          <p className="text-[10px] sm:text-[11px] text-[#A3A3A3] italic truncate flex-grow">{product.medium}</p>
+          <Link href={`/products/${product.id}`} className="group relative inline-flex overflow-hidden rounded-full p-[1px] transition-all duration-300 hover:scale-[1.03] h-[20px] flex-shrink-0">
+            <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-40 group-hover:opacity-100 transition-opacity duration-200" />
+            <div className="inline-flex h-full items-center justify-center rounded-full bg-[#050505] px-2.5 backdrop-blur-xl transition-all duration-300 group-hover:bg-black">
+              <span className="relative z-10 text-[9px] uppercase tracking-wider whitespace-nowrap text-[#C19A6B] font-bold">Buy</span>
+            </div>
+          </Link>
         </div>
       </div>
     </motion.div>
