@@ -319,6 +319,56 @@ export const artProducts = [
         inStock: true
       }
     ]
+  },
+  {
+    id: "leopards-gaze",
+    title: "Leopard's Gaze",
+    medium: "Original Oil on Premium Canvas",
+    price: "₹55,999",
+    originalMrp: "₹69,000",
+    size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
+    material: "Oil colors on premium canvas (Unframed, rolled in tube)",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678994/kalakasturi_products/bo5v2tyzpqhfmfyp29xo.jpg",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678994/kalakasturi_products/bo5v2tyzpqhfmfyp29xo.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678996/kalakasturi_products/zxxzkk24k1fsgwoh11us.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678997/kalakasturi_products/qstxu7fqp3gqi8p3g2b1.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678999/kalakasturi_products/ukel1wqlokcmd3bcqjmx.jpg"
+    ],
+    description: "Leopard's Gaze is a stunning original hand-painted oil painting on premium canvas. Capturing the intense focus and majestic presence of the leopard, this artwork features rich texture, vibrant colors, and deep emotional depth. Painted with professional oil colors on premium grade canvas, this piece brings the wild power of nature and fine realism into modern spaces.",
+    category: "Portraits",
+    tags: ["Wildlife", "Original Oil", "Leopard"],
+    inStock: true,
+    video: null,
+    features: [
+      "Original hand-painted oil artwork on premium canvas depicting a leopard's intense gaze.",
+      "Created with professional-grade oil colors offering rich texture and lasting vibrancy.",
+      "Ships safely rolled in a reinforced protective tube (unframed).",
+      "Suited for modern homes, wildlife art collections, and statement pieces.",
+      "A certificate of originality signed by artist Ankita Patel is provided."
+    ],
+    variations: [
+      {
+        id: "leopards-gaze-original",
+        name: "Original Oil Painting",
+        price: "₹55,999",
+        originalMrp: "₹69,000",
+        size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
+        material: "Original Oil on Premium Canvas (Unframed)",
+        inStock: true
+      },
+      {
+        id: "leopards-gaze-giclee",
+        name: "Giclée Fine Art Print",
+        price: "₹14,999",
+        originalMrp: "₹18,500",
+        size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
+        material: "Premium Giclée Fine Art Canvas (Unframed)",
+        inStock: true
+      }
+    ]
   }
 ];
 
