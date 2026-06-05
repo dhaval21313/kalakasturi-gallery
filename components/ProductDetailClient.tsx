@@ -61,6 +61,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     product.variations && product.variations.length > 0 ? product.variations[0].id : null
   );
 
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
+
+  const guideImages = [
+    "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780677291/kalakasturi_guide/hry0cellfu4zccp0vepp.png",
+    "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780677294/kalakasturi_guide/trgcopr3ngdfhdvbkajw.png",
+    "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780677297/kalakasturi_guide/vhmciox9gzbmhfmlddzs.png"
+  ];
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const rId = useRef<number | null>(null);
 
@@ -160,7 +168,8 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
       
       {/* LEFT SIDEBAR: Dynamic Media Gallery Component (Lg: 7 Columns) */}
       <div className="lg:col-span-7 flex flex-col gap-6 w-full">
@@ -399,6 +408,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 );
               })}
             </div>
+            {/* Dynamic Printing Guide Button for Digital Prints */}
+            {(selectedVarId?.includes("digital") || product.id.includes("digital")) && (
+              <button
+                onClick={() => setIsGuideOpen(true)}
+                className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#C19A6B] hover:text-white transition-colors cursor-pointer border border-[#C19A6B]/25 hover:border-[#C19A6B]/50 bg-[#C19A6B]/5 hover:bg-[#C19A6B]/10 px-4 py-2.5 rounded-full mt-3 w-fit"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                View Printing Guide
+              </button>
+            )}
           </div>
         )}
 
@@ -535,5 +554,88 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       </div>
 
     </div>
+
+      {/* Printing Guide Modal Overlay */}
+      <AnimatePresence>
+        {isGuideOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setIsGuideOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="bg-neutral-950 border border-white/10 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden relative shadow-[0_30px_70px_rgba(0,0,0,0.8)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-white/5 bg-black/40">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#C19A6B]">Art Printing & Ratio Guide</h3>
+                  <p className="text-[10px] text-neutral-400 mt-1">Guidelines for standard frames, proportions, and home printing setups</p>
+                </div>
+                <button
+                  onClick={() => setIsGuideOpen(false)}
+                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all cursor-pointer text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Modal Body: Scrollable Image Grid */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-8 scrollbar-thin">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {guideImages.map((img, idx) => (
+                    <div key={idx} className="flex flex-col gap-3">
+                      <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-white/10 bg-neutral-900 shadow-md">
+                        <Image
+                          src={img}
+                          alt={`Art printing guide page ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 300px"
+                          referrerPolicy="no-referrer"
+                          draggable="false"
+                        />
+                      </div>
+                      <span className="text-[10px] uppercase tracking-widest text-center text-neutral-400 font-medium">
+                        Guide Page {idx + 1}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Print instructions detail card */}
+                <div className="p-5 bg-neutral-900/60 border border-white/5 rounded-2xl space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C19A6B]" />
+                    How to Print Your Digital Art File
+                  </h4>
+                  <ul className="space-y-2 text-xs font-light text-neutral-400">
+                    <li className="flex gap-2.5 items-start">
+                      <span className="text-[#C19A6B] font-bold">•</span>
+                      <span><strong>At Home:</strong> Use high-quality heavyweight matte cardstock or photo paper. Disable auto-scaling in printer properties.</span>
+                    </li>
+                    <li className="flex gap-2.5 items-start">
+                      <span className="text-[#C19A6B] font-bold">•</span>
+                      <span><strong>Local Print Shop:</strong> Take files on a USB or upload them to local print stores and request matte finish poster paper.</span>
+                    </li>
+                    <li className="flex gap-2.5 items-start">
+                      <span className="text-[#C19A6B] font-bold">•</span>
+                      <span><strong>Online Framing:</strong> Use online services to upload, print, frame, and ship to your doorstep.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
