@@ -408,8 +408,8 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 );
               })}
             </div>
-            {/* Dynamic Printing Guide Button for Digital Prints */}
-            {(selectedVarId?.includes("digital") || product.id.includes("digital")) && (
+            {/* Dynamic Printing Guide Button for Prints (Digital & Giclée) */}
+            {(selectedVarId?.includes("digital") || selectedVarId?.includes("giclee") || product.id.includes("digital")) && (
               <button
                 onClick={() => setIsGuideOpen(true)}
                 className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#C19A6B] hover:text-white transition-colors cursor-pointer border border-[#C19A6B]/25 hover:border-[#C19A6B]/50 bg-[#C19A6B]/5 hover:bg-[#C19A6B]/10 px-4 py-2.5 rounded-full mt-3 w-fit"

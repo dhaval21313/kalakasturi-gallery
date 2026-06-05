@@ -333,7 +333,9 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678996/kalakasturi_products/zxxzkk24k1fsgwoh11us.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678997/kalakasturi_products/qstxu7fqp3gqi8p3g2b1.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679494/kalakasturi_products/mco7aqxppocu4cvjqbrp.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679495/kalakasturi_products/qfdq0xqpqel3coybdg5n.jpg"
     ],
     description: "Leopard's Gaze is a stunning original hand-painted oil painting on premium canvas. Capturing the intense focus and majestic presence of the leopard, this artwork features rich texture, vibrant colors, and deep emotional depth. Painted with professional oil colors on premium grade canvas, this piece brings the wild power of nature and fine realism into modern spaces.",
     category: "Portraits",
