@@ -328,15 +328,15 @@ export const artProducts = [
     originalMrp: "₹69,000",
     size: "36 × 24 inches (Approx. 91.4 × 61 cm)",
     material: "Oil colors on premium canvas (Unframed, rolled in tube)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679880/kalakasturi_products/t0ljyrogyxuwqc2ye3b6.jpg",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680865/kalakasturi_products/gnt9p39pcpnumm5aejcg.jpg",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679880/kalakasturi_products/t0ljyrogyxuwqc2ye3b6.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678995/kalakasturi_products/tplwc2lnfnuyzomovfqv.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678996/kalakasturi_products/zxxzkk24k1fsgwoh11us.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678997/kalakasturi_products/qstxu7fqp3gqi8p3g2b1.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780678998/kalakasturi_products/apbjqmegbxeakt1upyt5.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679494/kalakasturi_products/mco7aqxppocu4cvjqbrp.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780679495/kalakasturi_products/qfdq0xqpqel3coybdg5n.jpg"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680865/kalakasturi_products/gnt9p39pcpnumm5aejcg.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680872/kalakasturi_products/pnepawvdzrcnndgmqlza.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680889/kalakasturi_products/pasfkyw7sg3w71c6ma07.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680896/kalakasturi_products/byncxeszesgngtmnjytp.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680900/kalakasturi_products/prnfs24openbdp08rzgk.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680901/kalakasturi_products/yvrwhf5ojo7rsqyvcelf.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680906/kalakasturi_products/d8vcmyyv6nn0ybcabcmb.jpg"
     ],
     description: "Leopard's Gaze is a stunning original hand-painted oil painting on premium canvas. Capturing the intense focus and majestic presence of the leopard, this artwork features rich texture, vibrant colors, and deep emotional depth. Painted with professional oil colors on premium grade canvas, this piece brings the wild power of nature and fine realism into modern spaces.",
     category: "Portraits",
