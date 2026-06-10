@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Globe, X, MessageCircle } from 'lucide-react';
+import { Globe, X, Mail } from 'lucide-react';
 
 export default function InternationalShippingModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +23,7 @@ export default function InternationalShippingModal() {
     setIsOpen(false);
   };
 
-  const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919033459353";
-  const whatsappUrl = `https://wa.me/${contactNumber.replace(/[^\d+]/g, '')}?text=Hello%20Ankita,%20I%27m%20an%20international%20buyer%20interested%20in%20your%20art.%20Could%20you%20please%20help%20me%20calculate%20the%20shipping%20price%20to%20my%20address?`;
+  const emailUrl = "mailto:care.kalakasturi@gmail.com?subject=International%20Shipping%20Quote%20Request%20-%20KalaKasturi&body=Hello%20Ankita%2C%0D%0A%0D%0AI%20am%20an%20international%20buyer%20interested%20in%20your%20artworks.%20Could%20you%20please%20calculate%20the%20shipping%20rate%20for%20my%20address%3F%0D%0A%0D%0A-%20Art%20Piece(s)%20of%20Interest%3A%0D%0A-%20My%20Delivery%20Address%3A%0D%0A-%20Country%3A";
 
   return (
     <AnimatePresence>
@@ -67,19 +66,17 @@ export default function InternationalShippingModal() {
               International Collectors
             </h3>
             <p className="text-stone-300 text-sm sm:text-base leading-relaxed mb-6 font-light">
-              For deliveries outside of India, please contact us directly with your shipping address. We will verify custom carrier rates to provide you the best shipping price.
+              For deliveries outside of India, please email us directly with your shipping address. We will verify custom carrier rates to provide you the best shipping price.
             </p>
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={emailUrl}
                 onClick={handleClose}
                 className="flex-1 inline-flex items-center justify-center gap-2 bg-[#C19A6B] hover:bg-[#b08b5f] text-black font-semibold px-5 py-3 rounded-full text-sm shadow-lg transition-all hover:scale-[1.02]"
               >
-                <MessageCircle className="w-4 h-4" /> Message on WhatsApp
+                <Mail className="w-4 h-4" /> Send Email
               </a>
               <button
                 onClick={handleClose}
