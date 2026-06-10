@@ -244,7 +244,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                       src={images[activeImgIndex]}
                       alt={`${product.title} detailed angle view ${activeImgIndex + 1}`}
                       fill
-                      className="object-cover transition-transform duration-200 ease-out"
+                      className="object-contain transition-transform duration-200 ease-out"
                       style={zoomStyle}
                       priority
                       referrerPolicy="no-referrer"
@@ -272,7 +272,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover animate-fade-in"
+                        className="w-full h-full object-contain animate-fade-in"
                       />
                     )}
                     {/* Custom video control bar overlaid dynamically */}
@@ -598,7 +598,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                           src={img}
                           alt={`Art printing guide page ${idx + 1}`}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 768px) 100vw, 300px"
                           referrerPolicy="no-referrer"
                           draggable="false"
