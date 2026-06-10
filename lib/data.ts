@@ -419,7 +419,8 @@ export const artProducts = [
     image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
     images: [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086828/kalakasturi_products/cubzninj4ws0ylkscuf3.jpg"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086828/kalakasturi_products/cubzninj4ws0ylkscuf3.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781087425/kalakasturi_products/ra72gdz3uifnchk1rsbt.png"
     ],
     description: "Veena Lady is a beautiful, highly detailed original hand-painted acrylic painting on canvas. Depicting a graceful lady playing the traditional Indian stringed instrument, the Veena, this artwork captures musical devotion, elegance, and cultural depth. Created with professional-grade acrylic colors on premium stretched canvas wrapped on a sturdy wooden frame, it brings a peaceful, artistic presence and rich color realism into any living space, study, or gallery.",
     category: "Original Art",
