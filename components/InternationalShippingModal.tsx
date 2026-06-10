@@ -8,19 +8,18 @@ export default function InternationalShippingModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check if the user has already dismissed the modal
-    const hasSeenNotice = localStorage.getItem('hasSeenInternationalShippingNotice');
+    // Use sessionStorage so the modal displays on new sessions (tab open) to make testing/validation easy
+    const hasSeenNotice = sessionStorage.getItem('hasSeenInternationalShippingNotice');
     if (!hasSeenNotice) {
-      // Delay the popup slightly for a smoother, less intrusive entry
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1500);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem('hasSeenInternationalShippingNotice', 'true');
+    sessionStorage.setItem('hasSeenInternationalShippingNotice', 'true');
     setIsOpen(false);
   };
 

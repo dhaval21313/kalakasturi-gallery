@@ -387,12 +387,12 @@ export const artProducts = [
     originalMrp: "₹55,000",
     size: "23 × 16 inches (Approx. 58.4 × 40.6 cm)",
     material: "Oil colors on textured wrapped canvas on wood (Ready to hang)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084539/kalakasturi_products/owpqrsfeflem9kdzjd0w.jpg",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781085884/kalakasturi_products/a7qg1iflh58im8vhimls.jpg",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084539/kalakasturi_products/owpqrsfeflem9kdzjd0w.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084540/kalakasturi_products/d1jb16ljjuzqret89x03.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084542/kalakasturi_products/nqfij1y348iu0el1wand.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084544/kalakasturi_products/uhagurvfwjusiej4c4r6.jpg"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781085884/kalakasturi_products/a7qg1iflh58im8vhimls.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781085885/kalakasturi_products/mpw520at7qbii4evabqf.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781085886/kalakasturi_products/bmastpltfpmyovyirpqr.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781085887/kalakasturi_products/oc9gjqdtdlduggxmebkf.jpg"
     ],
     description: "Pied Kingfisher is a beautiful, highly detailed original hand-painted oil painting on canvas. Depicting the striking black and white plumage of the kingfisher bird poised with focus, this artwork features rich texture, vibrant detailing, and deep realism. Created with professional-grade oil colors on high-quality canvas wrapped on a sturdy wooden frame, it brings a peaceful touch of wildlife and fine art realism into any modern home or office.",
     category: "Original Art",
