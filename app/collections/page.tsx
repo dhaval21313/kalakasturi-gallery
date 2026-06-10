@@ -12,7 +12,8 @@ import { collection, getDocs } from 'firebase/firestore';
 
 const CinematicReel = dynamic(() => import('@/components/CinematicReel'), { ssr: false });
 
-const categories = ["All", "Abstracts", "Portraits", "Wabi-Sabi", "Pooja Essentials"];
+const mainCategories = ["All", "Original Art", "Print", "Digital Download"];
+const subCategories = ["All", "Oil", "Acrylic", "Water", "Charcoal"];
 
 // High-fidelity shimmering skeleton loader that exactly mimics the real ProductCard layout to prevent Cumulative Layout Shift
 function ProductCardSkeleton() {
@@ -49,6 +50,7 @@ function ProductCardSkeleton() {
 
 export default function CollectionsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [activeSubCategory, setActiveSubCategory] = useState("All");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   
@@ -75,9 +77,36 @@ export default function CollectionsPage() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = activeCategory === "All" 
-    ? products 
-    : products.filter(p => p.category === activeCategory);
+  const filteredProducts = products.filter(p => {
+    // 1. Main Category Filter
+    if (activeCategory === "All") {
+      return true;
+    }
+    
+    if (activeCategory === "Original Art") {
+      // Must be an original art product
+      const isOriginal = p.category === "Original Art" || (p.variations && p.variations.some((v: any) => v.id.includes("original")));
+      if (!isOriginal) return false;
+      
+      // If a specific subcategory is selected, filter by subCategory
+      if (activeSubCategory !== "All") {
+        return p.subCategory === activeSubCategory;
+      }
+      return true;
+    }
+    
+    if (activeCategory === "Print") {
+      // Must be a print product or have a print/giclee variation
+      return p.category === "Print" || (p.variations && p.variations.some((v: any) => v.id.includes("giclee") || v.id.includes("print")));
+    }
+    
+    if (activeCategory === "Digital Download") {
+      // Must be a digital download or have a digital variation
+      return p.category === "Digital Download" || (p.variations && p.variations.some((v: any) => v.id.includes("digital")));
+    }
+    
+    return false;
+  });
 
   return (
     <div className="bg-dark-charcoal text-light-sand min-h-screen pt-[72px] md:pt-[138px] pb-24 px-4 sm:px-6 font-sans">
@@ -89,34 +118,69 @@ export default function CollectionsPage() {
         </div>
 
         {/* Filter Navigation Bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="hidden md:flex flex-wrap items-center gap-2 bg-[#0A0A0A] p-1.5 rounded-full border border-white/10"
-          >
-            {categories.map(cat => (
-              <button 
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === cat 
-                    ? 'bg-white text-black font-semibold shadow-lg' 
-                    : 'text-[#A3A3A3] hover:text-white'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </motion.div>
+        <div className="flex flex-col gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="hidden md:flex flex-wrap items-center gap-2 bg-[#0A0A0A] p-1.5 rounded-full border border-white/10"
+            >
+              {mainCategories.map(cat => (
+                <button 
+                  key={cat}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    setActiveSubCategory("All"); // Reset subcategory when main changes
+                  }}
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                    activeCategory === cat 
+                      ? 'bg-white text-black font-semibold shadow-lg' 
+                      : 'text-[#A3A3A3] hover:text-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </motion.div>
 
-          <button 
-            onClick={() => setIsFilterOpen(true)}
-            className="md:hidden flex items-center justify-center gap-2 bg-[#0A0A0A] border border-white/10 py-3 px-6 rounded-full font-medium"
-          >
-            <Filter className="w-4 h-4 text-[#C19A6B]" /> Filter Artworks
-          </button>
+            <button 
+              onClick={() => setIsFilterOpen(true)}
+              className="md:hidden flex items-center justify-center gap-2 bg-[#0A0A0A] border border-white/10 py-3 px-6 rounded-full font-medium"
+            >
+              <Filter className="w-4 h-4 text-[#C19A6B]" /> Filter Artworks
+            </button>
+          </div>
+
+          {/* Subcategories for Original Art */}
+          <AnimatePresence>
+            {activeCategory === "Original Art" && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-wrap items-center gap-2 p-1 bg-[#0f0f0f] border border-white/5 rounded-xl md:w-fit">
+                  <span className="text-xs uppercase tracking-wider text-[#A3A3A3] px-3 font-semibold font-mono">Medium:</span>
+                  {subCategories.map(subCat => (
+                    <button
+                      key={subCat}
+                      onClick={() => setActiveSubCategory(subCat)}
+                      className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        activeSubCategory === subCat
+                          ? 'bg-[#C19A6B] text-black font-semibold shadow-md'
+                          : 'text-[#8C8C8C] hover:text-white'
+                      }`}
+                    >
+                      {subCat}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Mobile Filter Drawer Overlay */}
@@ -134,17 +198,44 @@ export default function CollectionsPage() {
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              <div className="flex flex-col gap-4">
-                {categories.map(cat => (
-                  <button 
-                    key={cat}
-                    onClick={() => { setActiveCategory(cat); setIsFilterOpen(false); }}
-                    className={`text-left text-2xl font-medium py-4 border-b border-white/10 ${
-                      activeCategory === cat ? 'text-white border-[#C19A6B]' : 'text-[#A3A3A3]'
-                    }`}
-                  >
-                    {cat}
-                  </button>
+              <div className="flex flex-col gap-6 overflow-y-auto max-h-[70vh] pr-2">
+                <span className="text-xs uppercase tracking-wider text-[#C19A6B] font-semibold font-mono">Collections</span>
+                {mainCategories.map(cat => (
+                  <div key={cat} className="flex flex-col">
+                    <button 
+                      onClick={() => { 
+                        setActiveCategory(cat); 
+                        setActiveSubCategory("All");
+                        if (cat !== "Original Art") {
+                          setIsFilterOpen(false);
+                        }
+                      }}
+                      className={`text-left text-2xl font-medium py-3 border-b border-white/5 ${
+                        activeCategory === cat ? 'text-white font-semibold' : 'text-[#A3A3A3]'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                    {/* If this is Original Art and it's active, show subcategories right below it */}
+                    {cat === "Original Art" && activeCategory === "Original Art" && (
+                      <div className="flex flex-col pl-4 py-2 gap-2 border-l-2 border-[#C19A6B]/30 mt-2">
+                        {subCategories.map(subCat => (
+                          <button
+                            key={subCat}
+                            onClick={() => {
+                              setActiveSubCategory(subCat);
+                              setIsFilterOpen(false);
+                            }}
+                            className={`text-left text-lg py-2 ${
+                              activeSubCategory === subCat ? 'text-[#C19A6B] font-medium' : 'text-[#8C8C8C]'
+                            }`}
+                          >
+                            {subCat}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             </motion.div>

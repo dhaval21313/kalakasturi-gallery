@@ -17,7 +17,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777655/kalakasturi_products/q10noh6fmbilxcllomm5.png"
     ],
     description: "This evocative oil-on-canvas painting of Vishvamitra captures the profound serenity and spiritual depth of the revered sage, rendered with sensitivity and painterly grace. Seated in meditation and adorned in soft saffron robes, the sage symbolises renunciation and inner awakening. The artist’s masterful use of oil paints brings warmth and texture to the composition, with layered brushwork that lends richness to the skin tones, flowing garments, and tranquil background. Ideal for a meditation room, study, or living area, this original artwork celebrates spiritual heritage.",
-    category: "Pooja Essentials",
+    category: "Original Art",
+    subCategory: "Oil",
     tags: ["Mythology", "Spiritual", "Original Oil"],
     inStock: true,
     video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1779808290/kalakasturi_products/yetimin6xvbbfnl3eifk.mp4",
@@ -47,7 +48,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676021/kalakasturi_products/g0g9okidzzpj2fq1vdni.jpg"
     ],
     description: "Charlie is a charcoal drawing on paper that focuses on expression and quiet presence through strong contrasts and subtle tonal shifts. Decisive lines and soft gradients create depth and emotional clarity, allowing the subject’s character to emerge naturally. The restrained monochrome palette gives the artwork a timeless, contemplative quality suited for modern interiors, studios, or curated gallery displays. Original hand-drawn charcoal artwork, not a duplicate or reproduction.",
-    category: "Portraits",
+    category: "Original Art",
+    subCategory: "Charcoal",
     tags: ["Charcoal", "Portrait", "Sketch"],
     inStock: true,
     video: null,
@@ -133,7 +135,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777448/kalakasturi_products/vgvhe1a9agbjs7wevqcr.png"
     ],
     description: "Cosmic Mirage is an original hand-painted oil artwork exploring space, motion, and perception. Created on high-quality canvas, it features swirling cosmic movement, rich textures, and layered brushwork that adds depth and visual interest. The balanced abstract composition makes it suitable for modern interiors, studios, and meditation spaces.",
-    category: "Abstracts",
+    category: "Original Art",
+    subCategory: "Oil",
     tags: ["Abstract", "Cosmic", "Modern Art"],
     inStock: true,
     video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1779777435/kalakasturi_products/pavd5gjipwvunneo5bnl.mp4",
@@ -164,7 +167,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777570/kalakasturi_products/fgwgxyfbmykundzs1khv.png"
     ],
     description: "Feminine Energy is an original abstract oil painting that explores softness, strength, intuition, and flow through form, colour, and movement. The composition unfolds through layered brushwork and organic shapes, creating a sense of rhythm and balance. Gentle tonal transitions and textured oil surfaces invite prolonged viewing, adding warmth and depth to modern living spaces.",
-    category: "Abstracts",
+    category: "Original Art",
+    subCategory: "Oil",
     tags: ["Abstract", "Feminine Energy", "Modern Art"],
     inStock: true,
     video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1779808215/kalakasturi_products/hd1hjeopx0efozshpzwc.mp4",
@@ -195,7 +199,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777579/kalakasturi_products/vzlu2lfbkjeff5ouaknp.png"
     ],
     description: "Milkmaid is an original hand-painted watercolour artwork on paper that gently portrays rural Indian life through a quiet, intimate moment. The composition captures simplicity, grace, and everyday tradition, reflecting the dignity and calm rhythm of village life. Presented with a classic white mount and premium frame.",
-    category: "Wabi-Sabi",
+    category: "Original Art",
+    subCategory: "Water",
     tags: ["Folk Art", "Watercolour", "Rural Life"],
     inStock: true,
     video: null,
@@ -224,7 +229,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777585/kalakasturi_products/snvgirfj6iy8t4zj4ly2.png"
     ],
     description: "The Village Musician is an original hand-painted oil artwork that captures the quiet soul of rural life and traditional music. Rendered on high-quality canvas, the painting portrays a village musician immersed in his art, reflecting simplicity, rhythm, and cultural continuity. Textured brushwork and warm earthy tones lend the artwork depth and authenticity.",
-    category: "Portraits",
+    category: "Original Art",
+    subCategory: "Oil",
     tags: ["Folk Art", "Village", "Original Oil"],
     inStock: true,
     video: null,
@@ -252,7 +258,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676818/kalakasturi_products/u3hk4nsf9geivshi201q.png"
     ],
     description: "Invoke strength, devotion, and divine protection with this powerful Hanuman digital artwork. This monochrome illustration captures the fearless energy and spiritual presence of Lord Hanuman, making it a meaningful addition to meditation rooms, yoga spaces, temples, or peaceful home interiors. Perfect for lovers of Indian mythology, Hindu spiritual art, and sacred decor, this printable artwork blends traditional devotion with modern minimal aesthetics.",
-    category: "Pooja Essentials",
+    category: "Original Art",
+    subCategory: "Charcoal",
     tags: ["Mythology", "Spiritual", "Digital Print", "Hanuman"],
     inStock: true,
     video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1780402364/kalakasturi_products/omukp6h6f6yqs6tsjq55.mp4",
@@ -339,7 +346,8 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/v1780680906/kalakasturi_products/d8vcmyyv6nn0ybcabcmb.jpg"
     ],
     description: "Leopard's Gaze is a stunning original hand-painted oil painting on premium canvas. Capturing the intense focus and majestic presence of the leopard, this artwork features rich texture, vibrant colors, and deep emotional depth. Painted with professional oil colors on premium grade canvas, this piece brings the wild power of nature and fine realism into modern spaces.",
-    category: "Portraits",
+    category: "Original Art",
+    subCategory: "Oil",
     tags: ["Wildlife", "Original Oil", "Leopard"],
     inStock: true,
     video: null,
@@ -369,6 +377,35 @@ export const artProducts = [
         material: "Premium Giclée Fine Art Canvas (Unframed)",
         inStock: true
       }
+    ]
+  },
+  {
+    id: "pied-kingfisher",
+    title: "Pied Kingfisher Original Oil Painting",
+    medium: "Original Oil on Canvas",
+    price: "₹19,999",
+    originalMrp: "₹25,000",
+    size: "23 × 16 inches (Approx. 58.4 × 40.6 cm)",
+    material: "Oil colors on textured wrapped canvas on wood (Ready to hang)",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084539/kalakasturi_products/owpqrsfeflem9kdzjd0w.jpg",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084539/kalakasturi_products/owpqrsfeflem9kdzjd0w.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084540/kalakasturi_products/d1jb16ljjuzqret89x03.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084542/kalakasturi_products/nqfij1y348iu0el1wand.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781084544/kalakasturi_products/uhagurvfwjusiej4c4r6.jpg"
+    ],
+    description: "Pied Kingfisher is a beautiful, highly detailed original hand-painted oil painting on canvas. Depicting the striking black and white plumage of the kingfisher bird poised with focus, this artwork features rich texture, vibrant detailing, and deep realism. Created with professional-grade oil colors on high-quality canvas wrapped on a sturdy wooden frame, it brings a peaceful touch of wildlife and fine art realism into any modern home or office.",
+    category: "Original Art",
+    subCategory: "Oil",
+    tags: ["Wildlife", "Original Oil", "Bird", "Textured Art"],
+    inStock: true,
+    video: null,
+    features: [
+      "Original hand-painted oil artwork on textured canvas wrapped on wood.",
+      "Depicts the striking detail and intense presence of a Pied Kingfisher.",
+      "Created with premium oil colors ensuring rich textures and lasting colors.",
+      "Canvas is stretched and wrapped on a wood frame, ready to hang immediately.",
+      "A certificate of authenticity signed by the artist Ankita Patel is included."
     ]
   }
 ];

@@ -12,7 +12,7 @@ const merriweather = Merriweather({ weight: ["300", "400", "700", "900"], subset
 
 export const metadata: Metadata = {
   title: 'KalaKasturi | Original Canvas Art',
-  description: 'Premium original paintings, acrylics, and wabi-sabi abstracts.',
+  description: 'Premium original oil, acrylic, watercolor, and charcoal paintings, fine art prints, and digital downloads.',
 };
 
 export default function RootLayout({

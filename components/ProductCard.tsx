@@ -15,6 +15,7 @@ interface Product {
   images?: string[];
   description: string;
   category: string;
+  subCategory?: string;
   tags?: string[];
   inStock: boolean;
   video?: string | null;

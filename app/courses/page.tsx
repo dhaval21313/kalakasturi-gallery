@@ -222,7 +222,8 @@ export default function CoursesPage() {
   const [agreeConsent, setAgreeConsent] = useState(false);
   const [website, setWebsite] = useState(''); // Spam honeypot field
 
-  const whatsappUrl = "https://wa.me/919429188049?text=Hello%20Ankita,%20I'm%20interested%20in%20enrolling%20in%20your%20art%20courses!";
+  const contactNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919033459353";
+  const whatsappUrl = `https://wa.me/${contactNumber.replace(/[^\d+]/g, '')}?text=Hello%20Ankita,%20I'm%20interested%20in%20enrolling%20in%20your%20art%20courses!`;
 
   const openInquiryForm = (courseId: string) => {
     setSubmitSuccess(false);

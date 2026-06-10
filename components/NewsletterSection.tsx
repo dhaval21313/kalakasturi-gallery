@@ -6,7 +6,7 @@ import { Mail, Sparkles, Check, ArrowRight } from 'lucide-react';
 
 const INTERESTS = [
   "Original Oil Paintings",
-  "Wabi-Sabi Abstracts",
+  "Fine Art Charcoal & Water",
   "Prints & Reproductions",
   "Studio Behind-The-Scenes",
   "Collector Pre-Releases"
