@@ -407,6 +407,53 @@ export const artProducts = [
       "Canvas is stretched and wrapped on a wood frame, ready to hang immediately.",
       "A certificate of authenticity signed by the artist Ankita Patel is included."
     ]
+  },
+  {
+    id: "veena-lady",
+    title: "Veena Lady Acrylic on Canvas",
+    medium: "Original Acrylic on Canvas",
+    price: "₹59,999",
+    originalMrp: "₹75,000",
+    size: "24 × 18 inches (Approx. 61 × 45.7 cm)",
+    material: "Acrylic colors on premium wrapped canvas on wood (Ready to hang)",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086828/kalakasturi_products/cubzninj4ws0ylkscuf3.jpg"
+    ],
+    description: "Veena Lady is a beautiful, highly detailed original hand-painted acrylic painting on canvas. Depicting a graceful lady playing the traditional Indian stringed instrument, the Veena, this artwork captures musical devotion, elegance, and cultural depth. Created with professional-grade acrylic colors on premium stretched canvas wrapped on a sturdy wooden frame, it brings a peaceful, artistic presence and rich color realism into any living space, study, or gallery.",
+    category: "Original Art",
+    subCategory: "Acrylic",
+    tags: ["Music", "Original Acrylic", "Portrait", "Traditional Art"],
+    inStock: true,
+    video: null,
+    features: [
+      "Original hand-painted acrylic artwork on premium wrapped canvas.",
+      "Depicts a graceful lady with the traditional musical instrument, the Veena.",
+      "Created with professional-grade acrylic colors offering rich texture and lasting vibrancy.",
+      "Canvas is stretched and wrapped on a wood frame, ready to hang immediately.",
+      "A certificate of authenticity signed by the artist Ankita Patel is included."
+    ],
+    variations: [
+      {
+        id: "veena-lady-original",
+        name: "Original Acrylic Painting",
+        price: "₹59,999",
+        originalMrp: "₹75,000",
+        size: "24 × 18 inches (Approx. 61 × 45.7 cm)",
+        material: "Original Acrylic on Canvas (Ready to hang)",
+        inStock: true
+      },
+      {
+        id: "veena-lady-giclee",
+        name: "Giclée Fine Art Print",
+        price: "₹5,999",
+        originalMrp: "₹7,500",
+        size: "24 × 18 inches (Approx. 61 × 45.7 cm)",
+        material: "Premium Giclée Fine Art Canvas (Unframed)",
+        inStock: true
+      }
+    ]
   }
 ];
 
