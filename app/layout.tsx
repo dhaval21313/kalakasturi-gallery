@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AccessibilityManager from '@/components/AccessibilityManager';
+import InternationalShippingModal from '@/components/InternationalShippingModal';
 import { Inter, Playfair_Display, Allura, Merriweather } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -27,6 +28,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AccessibilityManager />
+        <InternationalShippingModal />
         <Navbar />
         {children}
         <Footer />
