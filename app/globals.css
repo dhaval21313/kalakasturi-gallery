@@ -224,3 +224,12 @@ p, li, label,
   color: #A3A3A3 !important;
   transition: color 0.3s ease;
 }
+
+/* Utility to hide scrollbars globally */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}

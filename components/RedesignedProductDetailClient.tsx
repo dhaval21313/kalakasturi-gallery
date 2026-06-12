@@ -79,6 +79,9 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
   const [lightboxZoomStyle, setLightboxZoomStyle] = useState({ transformOrigin: 'center', transform: 'scale(1)' });
   const lightboxRef = useRef<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isProgrammaticScroll = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Theme support
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -142,6 +145,40 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
     } else {
       setActiveMedia('photo');
       setActiveImgIndex(targetIndex);
+      
+      isProgrammaticScroll.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      
+      // Programmatic scroll with timeout to allow rendering/layout to complete
+      setTimeout(() => {
+        if (scrollRef.current) {
+          const width = scrollRef.current.clientWidth;
+          if (width > 0) {
+            scrollRef.current.scrollTo({
+              left: targetIndex * width,
+              behavior: 'smooth'
+            });
+          }
+        }
+      }, 0);
+
+      // Reset programmatic flag after smooth scroll transition completes
+      scrollTimeoutRef.current = setTimeout(() => {
+        isProgrammaticScroll.current = false;
+      }, 600);
+    }
+  };
+
+  const handleStageScroll = () => {
+    if (isProgrammaticScroll.current) return;
+    if (scrollRef.current && activeMedia === 'photo') {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      if (clientWidth > 0) {
+        const newIndex = Math.round(scrollLeft / clientWidth);
+        if (newIndex >= 0 && newIndex < images.length && newIndex !== activeImgIndex) {
+          setActiveImgIndex(newIndex);
+        }
+      }
     }
   };
 
@@ -196,6 +233,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
   useEffect(() => {
     return () => {
       if (lightboxRef.current) cancelAnimationFrame(lightboxRef.current);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
 
@@ -358,20 +396,31 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
             {/* Visual View Stage */}
             <div className="relative aspect-[4/5] w-full lg:w-auto max-h-[70vw] lg:max-h-[520px] mx-auto rounded-2xl overflow-hidden bg-theme-sub transition-all duration-300">
               {activeMedia === 'photo' ? (
-                <div 
-                  className="w-full h-full relative cursor-zoom-in group/stage"
-                  onClick={() => setLightboxImgIndex(activeImgIndex)}
-                >
-                  <Image
-                    src={images[activeImgIndex]}
-                    alt={`${product.title} detailed view`}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 100vw, 800px"
-                    priority
-                    referrerPolicy="no-referrer"
-                    draggable="false"
-                  />
+                <div className="w-full h-full relative group/stage">
+                  <div
+                    ref={scrollRef}
+                    onScroll={handleStageScroll}
+                    className="w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar cursor-zoom-in animate-fade-in"
+                  >
+                    {images.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="w-full h-full flex-shrink-0 snap-center relative"
+                        onClick={() => setLightboxImgIndex(idx)}
+                      >
+                        <Image
+                          src={img}
+                          alt={`${product.title} detailed view ${idx + 1}`}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 1024px) 100vw, 800px"
+                          priority={idx === 0}
+                          referrerPolicy="no-referrer"
+                          draggable="false"
+                        />
+                      </div>
+                    ))}
+                  </div>
                   
                   {/* Prev / Next Arrows */}
                   {totalItems > 1 && (
