@@ -85,7 +85,8 @@ export default function ProductCard({ product }: { product: Product }) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="group flex flex-col gap-3 sm:gap-4 text-white"
     >
       {/* Dynamic Link wrapper around product images for details routing */}

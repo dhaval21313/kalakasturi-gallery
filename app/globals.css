@@ -108,44 +108,119 @@ p, li, label,
   animation: marquee 40s linear infinite reverse;
 }
 
-/* Redesigned Product Page styling overrides to support light theme */
-.redesigned-product-page-wrapper {
-  background-color: #FAF9F6 !important; /* Premium warm off-white */
-  color: #1A1A1A !important;
+/* Redesigned Product Page Light Mode */
+.redesigned-product-page-light {
+  background-color: #FAF6EE !important; /* Premium warm ivory canvas */
+  color: #2C2C2C !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.redesigned-product-page-wrapper p,
-.redesigned-product-page-wrapper li,
-.redesigned-product-page-wrapper label,
-.redesigned-product-page-wrapper span:not(.no-override),
-.redesigned-product-page-wrapper div:not(.no-override),
-.redesigned-product-page-wrapper table,
-.redesigned-product-page-wrapper td,
-.redesigned-product-page-wrapper th {
+.redesigned-product-page-light p,
+.redesigned-product-page-light li,
+.redesigned-product-page-light label,
+.redesigned-product-page-light span:not(.no-override),
+.redesigned-product-page-light div:not(.no-override),
+.redesigned-product-page-light table,
+.redesigned-product-page-light td,
+.redesigned-product-page-light th {
   color: #333333 !important;
 }
 
-.redesigned-product-page-wrapper h1,
-.redesigned-product-page-wrapper h2,
-.redesigned-product-page-wrapper h3,
-.redesigned-product-page-wrapper h4,
-.redesigned-product-page-wrapper h5,
-.redesigned-product-page-wrapper h6 {
+.redesigned-product-page-light h1,
+.redesigned-product-page-light h2,
+.redesigned-product-page-light h3,
+.redesigned-product-page-light h4,
+.redesigned-product-page-light h5,
+.redesigned-product-page-light h6 {
   color: #1E3F20 !important; /* Deep forest green */
 }
 
+/* Redesigned Product Page Dark Mode */
+.redesigned-product-page-dark {
+  background-color: #0D0D0D !important; /* Dark charcoal */
+  color: #FAF6EE !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.redesigned-product-page-dark p,
+.redesigned-product-page-dark li,
+.redesigned-product-page-dark label,
+.redesigned-product-page-dark span:not(.no-override),
+.redesigned-product-page-dark div:not(.no-override),
+.redesigned-product-page-dark table,
+.redesigned-product-page-dark td,
+.redesigned-product-page-dark th {
+  color: #D8CCB5 !important; /* Light sand */
+}
+
+.redesigned-product-page-dark h1,
+.redesigned-product-page-dark h2,
+.redesigned-product-page-dark h3,
+.redesigned-product-page-dark h4,
+.redesigned-product-page-dark h5,
+.redesigned-product-page-dark h6 {
+  color: #FAF6EE !important; /* Warm ivory */
+}
+
 /* Specific button text color preservation */
-.redesigned-product-page-wrapper button span,
-.redesigned-product-page-wrapper a span {
+.redesigned-product-page-light button span,
+.redesigned-product-page-light a span,
+.redesigned-product-page-dark button span,
+.redesigned-product-page-dark a span {
   color: inherit !important;
 }
 
 /* In Stock badge text override */
-.redesigned-product-page-wrapper .in-stock-badge-text {
+.redesigned-product-page-light .in-stock-badge-text {
   color: #1E3F20 !important;
+}
+.redesigned-product-page-dark .in-stock-badge-text {
+  color: #C19A6B !important; /* Antique Gold */
 }
 
 /* Sold out badge text override */
-.redesigned-product-page-wrapper .out-of-stock-badge-text {
+.redesigned-product-page-light .out-of-stock-badge-text,
+.redesigned-product-page-dark .out-of-stock-badge-text {
   color: #DC2626 !important;
+}
+
+/* Dynamic theme helpers */
+/* Borders */
+.redesigned-product-page-light .border-theme {
+  border-color: rgba(30, 63, 32, 0.15) !important;
+  transition: border-color 0.3s ease;
+}
+.redesigned-product-page-dark .border-theme {
+  border-color: rgba(216, 204, 181, 0.15) !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Theme Background Cards */
+.redesigned-product-page-light .bg-theme-card {
+  background-color: #FFFFFF !important;
+  transition: background-color 0.3s ease;
+}
+.redesigned-product-page-dark .bg-theme-card {
+  background-color: #070707 !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Theme Background Sub-panels */
+.redesigned-product-page-light .bg-theme-sub {
+  background-color: #F5EFE4 !important;
+  transition: background-color 0.3s ease;
+}
+.redesigned-product-page-dark .bg-theme-sub {
+  background-color: #141414 !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Text muted helpers */
+.redesigned-product-page-light .text-theme-muted {
+  color: #666666 !important;
+  transition: color 0.3s ease;
+}
+.redesigned-product-page-dark .text-theme-muted {
+  color: #A3A3A3 !important;
+  transition: color 0.3s ease;
 }

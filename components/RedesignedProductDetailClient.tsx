@@ -80,6 +80,26 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
   const lightboxRef = useRef<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Theme support
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const storedTheme = localStorage.getItem('product-page-theme');
+    if (storedTheme) {
+      setIsDarkMode(storedTheme === 'dark');
+    } else {
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('product-page-theme', newMode ? 'dark' : 'light');
+  };
+
   // Reviews local state
   const [reviewsList, setReviewsList] = useState([
     { name: "Rajesh Sharma", date: "June 2, 2026", rating: 5, comment: "Absolutely stunning brushwork! The colors are even more vibrant in person. The museum-grade packaging was extremely secure and arrived in mint condition." },
@@ -224,7 +244,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
   const skuString = `KK-${product.id.substring(0, 8).toUpperCase()}-${selectedVariation ? selectedVariation.id.replace(product.id + '-', '').substring(0, 4).toUpperCase() : 'ORIG'}`;
 
   return (
-    <div className="redesigned-product-page-wrapper min-h-screen flex flex-col font-sans select-text">
+    <div className={`${isDarkMode ? 'redesigned-product-page-dark' : 'redesigned-product-page-light'} min-h-screen flex flex-col font-sans select-text`}>
       
       {/* ======================= TOP BAR (Green Banner) ======================= */}
       <div className="bg-[#1E3F20] text-white py-2 px-4 text-xs font-semibold tracking-wider flex flex-col md:flex-row items-center justify-between gap-2 border-b border-[#ffffff]/10 select-none">
@@ -239,8 +259,8 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
         </div>
       </div>
 
-      {/* ======================= NAVBAR (White) ======================= */}
-      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-40 select-none">
+      {/* ======================= NAVBAR (White/Theme-Card) ======================= */}
+      <header className="bg-theme-card border-b border-theme sticky top-0 z-40 select-none transition-colors duration-300">
         <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
@@ -248,7 +268,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
               <Image src="/kalakasturilogo.png" alt="KalaKasturi Logo" fill className="object-contain" />
             </div>
             <span 
-              className="text-2xl md:text-3xl tracking-wider text-[#1E3F20] select-none" 
+              className={`text-2xl md:text-3xl tracking-wider select-none no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`} 
               style={{ fontFamily: 'var(--font-allura), cursive', fontWeight: 'bold' }}
             >
               Kala Kasturi
@@ -256,28 +276,28 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           </Link>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 text-[13px] uppercase font-bold tracking-widest text-neutral-700">
-            <Link href="/collections" className="hover:text-[#1E3F20] transition-colors">Gallery</Link>
-            <Link href="/courses" className="hover:text-[#1E3F20] transition-colors">Courses</Link>
-            <Link href="/about" className="hover:text-[#1E3F20] transition-colors">About Us</Link>
-            <Link href="/contact" className="hover:text-[#1E3F20] transition-colors">Contact</Link>
+          <nav className={`hidden md:flex items-center gap-8 text-[13px] uppercase font-bold tracking-widest ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>
+            <Link href="/collections" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Gallery</Link>
+            <Link href="/courses" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Courses</Link>
+            <Link href="/about" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>About Us</Link>
+            <Link href="/contact" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Contact</Link>
           </nav>
 
           {/* Icons Bar */}
-          <div className="flex items-center gap-5 text-neutral-700">
-            <Link href="/collections" className="hover:text-[#1E3F20] transition-all p-1" title="Search Gallery">
+          <div className={`flex items-center gap-5 ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>
+            <Link href="/collections" className={`transition-all p-1 ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`} title="Search Gallery">
               <Search className="w-5 h-5" />
             </Link>
             <button 
               onClick={() => setIsWishlisted(!isWishlisted)} 
-              className="hover:text-[#1E3F20] transition-all p-1 cursor-pointer bg-transparent border-0"
+              className={`transition-all p-1 cursor-pointer bg-transparent border-0 ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}
               title="View Wishlist"
             >
-              <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
+              <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-red-500 text-red-500 hover:text-red-500' : ''}`} />
             </button>
             <button 
               onClick={openCart} 
-              className="hover:text-[#1E3F20] transition-all p-1 relative cursor-pointer bg-transparent border-0"
+              className={`transition-all p-1 relative cursor-pointer bg-transparent border-0 ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}
               title="Open Cart"
             >
               <ShoppingBag className="w-5 h-5" />
@@ -287,24 +307,45 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                 </span>
               )}
             </button>
-            <Link href="/login" className="hover:text-[#1E3F20] transition-all p-1" title="Account / Login">
+            <Link href="/login" className={`transition-all p-1 ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`} title="Account / Login">
               <User className="w-5 h-5" />
             </Link>
+
+            {/* Sun/Moon Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`p-1.5 rounded-full transition-all cursor-pointer bg-transparent border-0 flex items-center justify-center ${
+                isDarkMode 
+                  ? 'text-amber-400 hover:bg-neutral-800' 
+                  : 'text-neutral-600 hover:bg-neutral-100 hover:text-[#1E3F20]'
+              }`}
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDarkMode ? (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </header>
 
       {/* ======================= SHOP HEADER (Breadcrumbs) ======================= */}
-      <section className="bg-[#F3F4F6] py-12 px-6 border-b border-[#E5E7EB] text-center select-none">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1E3F20] mb-3 font-serif">
+      <section className="bg-theme-sub py-12 px-6 border-b border-theme text-center select-none transition-colors duration-300">
+        <h1 className={`text-3xl md:text-4xl font-extrabold tracking-tight mb-3 font-serif no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>
           {product.category} Details
         </h1>
-        <div className="flex items-center justify-center gap-2 text-xs md:text-sm font-semibold text-neutral-500">
-          <Link href="/" className="hover:text-[#1E3F20] transition-colors">Home</Link>
+        <div className={`flex items-center justify-center gap-2 text-xs md:text-sm font-semibold ${isDarkMode ? 'text-neutral-400' : 'text-neutral-500'}`}>
+          <Link href="/" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Home</Link>
           <span>/</span>
-          <Link href="/collections" className="hover:text-[#1E3F20] transition-colors">Shop</Link>
+          <Link href="/collections" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Shop</Link>
           <span>/</span>
-          <span className="text-[#1E3F20]">{product.title}</span>
+          <span className={`no-override ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>{product.title}</span>
         </div>
       </section>
 
@@ -315,7 +356,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           {/* LEFT COLUMN: Gallery Panel */}
           <div className="lg:col-span-7 flex flex-col gap-5 w-full select-none">
             {/* Visual View Stage */}
-            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-neutral-900/10 border border-[#E5E7EB] shadow-sm">
+            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-theme-sub border border-theme shadow-sm transition-all duration-300">
               {activeMedia === 'photo' ? (
                 <div 
                   className="w-full h-full relative cursor-zoom-in group/stage"
@@ -335,26 +376,38 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                   {/* Prev / Next Arrows */}
                   {totalItems > 1 && (
                     <>
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handlePrev();
                         }}
-                        className="absolute top-1/2 -translate-y-1/2 left-4 w-10 h-10 rounded-full bg-white/80 hover:bg-[#1E3F20] hover:text-white border border-[#E5E7EB] text-[#1E3F20] flex items-center justify-center backdrop-blur-sm transition-all duration-300 z-10 cursor-pointer shadow"
+                        className={`absolute top-1/2 -translate-y-1/2 left-4 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 z-10 cursor-pointer shadow border ${
+                          isDarkMode 
+                            ? 'bg-[#000000]/85 hover:bg-[#C19A6B] hover:text-black border-neutral-800 text-[#C19A6B]' 
+                            : 'bg-white/80 hover:bg-[#1E3F20] hover:text-white border-[#E5E7EB] text-[#1E3F20]'
+                        }`}
                         aria-label="Previous image"
                       >
                         <ChevronLeft className="w-5 h-5" />
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleNext();
                         }}
-                        className="absolute top-1/2 -translate-y-1/2 right-4 w-10 h-10 rounded-full bg-white/80 hover:bg-[#1E3F20] hover:text-white border border-[#E5E7EB] text-[#1E3F20] flex items-center justify-center backdrop-blur-sm transition-all duration-300 z-10 cursor-pointer shadow"
+                        className={`absolute top-1/2 -translate-y-1/2 right-4 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 z-10 cursor-pointer shadow border ${
+                          isDarkMode 
+                            ? 'bg-[#000000]/85 hover:bg-[#C19A6B] hover:text-black border-neutral-800 text-[#C19A6B]' 
+                            : 'bg-white/80 hover:bg-[#1E3F20] hover:text-white border-[#E5E7EB] text-[#1E3F20]'
+                        }`}
                         aria-label="Next image"
                       >
                         <ChevronRight className="w-5 h-5" />
-                      </button>
+                      </motion.button>
                     </>
                   )}
 
@@ -393,17 +446,21 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                   const isVideoItem = product.video && i === images.length;
                   const isActive = i === activeIndex;
                   return (
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       key={i}
                       onClick={() => goToIndex(i)}
-                      className={`relative w-16 h-20 rounded-xl overflow-hidden border bg-[#F9FAFB] transition-all duration-300 ${
+                      className={`relative w-16 h-20 rounded-xl overflow-hidden border transition-all duration-300 bg-theme-card ${
                         isActive 
-                          ? 'border-[#1E3F20] scale-105 shadow-md ring-2 ring-[#1E3F20]/10' 
-                          : 'border-[#E5E7EB] hover:border-neutral-400'
+                          ? (isDarkMode 
+                              ? 'border-[#C19A6B] scale-105 shadow-md ring-2 ring-[#C19A6B]/20' 
+                              : 'border-[#1E3F20] scale-105 shadow-md ring-2 ring-[#1E3F20]/10') 
+                          : 'border-theme hover:border-neutral-400'
                       }`}
                     >
                       {isVideoItem ? (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-black/5 hover:bg-black/10 transition-colors text-[#1E3F20]">
+                        <div className={`w-full h-full flex flex-col items-center justify-center bg-black/5 hover:bg-black/10 transition-colors ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>
                           <Play className="w-5 h-5 fill-current mb-0.5" />
                           <span className="text-[8px] uppercase tracking-wider font-bold">Video</span>
                         </div>
@@ -417,7 +474,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                           referrerPolicy="no-referrer"
                         />
                       )}
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -428,11 +485,11 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           <div className="lg:col-span-5 flex flex-col gap-6 text-neutral-800">
             {/* Header info */}
             <div>
-              <span className="text-[11px] uppercase tracking-widest text-[#1E3F20] font-bold block mb-1">
+              <span className={`text-[11px] uppercase tracking-widest font-bold block mb-1 no-override ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>
                 {product.category}
               </span>
               <div className="flex items-start justify-between gap-4">
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1E3F20] leading-snug font-serif">
+                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug font-serif">
                   {product.title}
                 </h1>
                 
@@ -459,11 +516,11 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                   <Star className="w-3.5 h-3.5 fill-current" />
                   <Star className="w-3.5 h-3.5 fill-current" />
                 </div>
-                <span className="font-semibold text-neutral-700 font-mono">5.0</span>
+                <span className={`font-semibold font-mono ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>5.0</span>
                 <span className="text-neutral-400">•</span>
                 <button 
                   onClick={() => setActiveTab('reviews')}
-                  className="text-[#1E3F20] font-bold hover:underline bg-transparent border-0 cursor-pointer p-0"
+                  className={`font-bold hover:underline bg-transparent border-0 cursor-pointer p-0 ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}
                 >
                   ({reviewsList.length} reviews)
                 </button>
@@ -471,13 +528,17 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
             </div>
 
             {/* Price display */}
-            <div className="flex items-baseline gap-4 py-4 border-y border-[#E5E7EB] select-none">
-              <span className="text-3xl font-extrabold font-mono text-[#1E3F20]">{currentPrice}</span>
+            <div className="flex items-baseline gap-4 py-4 border-y border-theme select-none">
+              <span className={`text-3xl font-extrabold font-mono no-override ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>{currentPrice}</span>
               {currentMrp !== currentPrice && (
                 <span className="text-lg text-neutral-400 font-mono line-through">{currentMrp}</span>
               )}
               {discountPct > 0 && (
-                <span className="px-2.5 py-0.5 bg-[#1E3F20]/10 border border-[#1E3F20]/25 rounded-md text-[10px] uppercase tracking-wider text-[#1E3F20] font-extrabold">
+                <span className={`px-2.5 py-0.5 border rounded-md text-[10px] uppercase tracking-wider font-extrabold ${
+                  isDarkMode 
+                    ? 'bg-[#C19A6B]/10 border-[#C19A6B]/25 text-[#C19A6B] no-override' 
+                    : 'bg-[#1E3F20]/10 border-[#1E3F20]/25 text-[#1E3F20] no-override'
+                }`}>
                   {discountPct}% Off
                 </span>
               )}
@@ -485,7 +546,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
 
             {/* Description intro */}
             <div>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed italic">
+              <p className="text-xs sm:text-sm text-theme-muted leading-relaxed italic">
                 {product.description.split('.')[0]}. {product.description.split('.')[1]}.
               </p>
             </div>
@@ -498,22 +559,28 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                   {product.variations.map((v) => {
                     const isSelected = selectedVarId === v.id;
                     return (
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
                         key={v.id}
                         onClick={() => setSelectedVarId(v.id)}
                         className={`px-4 py-3 rounded-lg border text-xs font-bold transition-all duration-300 cursor-pointer ${
                           isSelected
-                            ? 'bg-[#1E3F20] border-[#1E3F20] text-white shadow-sm'
-                            : 'bg-white border-[#E5E7EB] text-neutral-600 hover:border-neutral-400 hover:text-[#1e3f20]'
+                            ? (isDarkMode 
+                                ? 'bg-[#C19A6B] border-[#C19A6B] text-black shadow-sm no-override' 
+                                : 'bg-[#1E3F20] border-[#1E3F20] text-white shadow-sm no-override')
+                            : (isDarkMode
+                                ? 'bg-[#141414] border-[#D8CCB5]/20 text-neutral-400 hover:border-neutral-400 hover:text-[#C19A6B] no-override'
+                                : 'bg-white border-[#E5E7EB] text-neutral-600 hover:border-neutral-400 hover:text-[#1E3F20] no-override')
                         }`}
                       >
-                        <div className="flex flex-col items-start gap-0.5">
-                          <span>{v.name}</span>
-                          <span className={`text-[9px] font-normal font-mono ${isSelected ? 'text-neutral-200' : 'text-neutral-500'}`}>
+                        <div className="flex flex-col items-start gap-0.5 no-override">
+                          <span className="no-override">{v.name}</span>
+                          <span className={`text-[9px] font-normal font-mono no-override ${isSelected ? (isDarkMode ? 'text-neutral-900' : 'text-neutral-200') : 'text-neutral-500'}`}>
                             {v.price} • {v.size}
                           </span>
                         </div>
-                      </button>
+                      </motion.button>
                     );
                   })}
                 </div>
@@ -521,79 +588,93 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
             )}
 
             {/* Purchase CTA controls */}
-            <div className="flex flex-col gap-4 border-t border-[#E5E7EB] pt-6 select-none">
+            <div className="flex flex-col gap-4 border-t border-theme pt-6 select-none">
               <div className="flex items-center gap-3">
                 
                 {/* Quantity selector */}
-                <div className="flex items-center border border-[#E5E7EB] rounded-lg bg-white overflow-hidden h-12">
+                <div className="flex items-center border border-theme rounded-lg bg-theme-card overflow-hidden h-12">
                   <button
                     onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
                     disabled={!currentStock}
-                    className="px-3 hover:bg-neutral-50 text-neutral-600 h-full flex items-center justify-center cursor-pointer bg-transparent border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 hover:bg-neutral-100/10 text-neutral-500 h-full flex items-center justify-center cursor-pointer bg-transparent border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="px-4 text-xs font-bold text-neutral-800 font-mono w-10 text-center">
+                  <span className={`px-4 text-xs font-bold font-mono w-10 text-center ${isDarkMode ? 'text-white' : 'text-neutral-800'}`}>
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(prev => prev + 1)}
                     disabled={!currentStock}
-                    className="px-3 hover:bg-neutral-50 text-neutral-600 h-full flex items-center justify-center cursor-pointer bg-transparent border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 hover:bg-neutral-100/10 text-neutral-500 h-full flex items-center justify-center cursor-pointer bg-transparent border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 {/* Add to Cart button */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={handleAddToCart}
                   disabled={!currentStock}
-                  className="flex-1 bg-[#1E3F20] hover:bg-[#152e18] text-white font-bold text-xs uppercase tracking-widest rounded-lg h-12 flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`flex-1 font-bold text-xs uppercase tracking-widest rounded-lg h-12 flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed no-override ${
+                    isDarkMode 
+                      ? 'bg-[#C19A6B] hover:bg-[#b08757] text-black' 
+                      : 'bg-[#1E3F20] hover:bg-[#152e18] text-white'
+                  }`}
                 >
-                  <ShoppingBag className="w-4 h-4" />
-                  Add To Cart
-                </button>
+                  <ShoppingBag className="w-4 h-4 text-inherit" />
+                  <span className="no-override text-inherit">Add To Cart</span>
+                </motion.button>
 
                 {/* Buy Now button */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => {
                     handleAddToCart();
                     router.push('/checkout');
                   }}
                   disabled={!currentStock}
-                  className="flex-1 bg-[#C19A6B] hover:bg-[#b08757] text-white font-bold text-xs uppercase tracking-widest rounded-lg h-12 flex items-center justify-center cursor-pointer transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`flex-1 font-bold text-xs uppercase tracking-widest rounded-lg h-12 flex items-center justify-center cursor-pointer transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed no-override ${
+                    isDarkMode 
+                      ? 'bg-[#FAF6EE] hover:bg-white text-black' 
+                      : 'bg-[#C19A6B] hover:bg-[#b08757] text-white'
+                  }`}
                 >
-                  Buy Now
-                </button>
+                  <span className="no-override text-inherit">Buy Now</span>
+                </motion.button>
 
                 {/* Wishlist toggle */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setIsWishlisted(!isWishlisted)}
-                  className="w-12 h-12 border border-[#E5E7EB] rounded-lg flex items-center justify-center hover:bg-neutral-50 transition-colors text-neutral-500 cursor-pointer bg-transparent"
+                  className="w-12 h-12 border border-theme rounded-lg flex items-center justify-center hover:bg-neutral-100/10 text-neutral-500 cursor-pointer bg-transparent"
                 >
                   <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-red-500 text-red-500 border-none' : ''}`} />
-                </button>
+                </motion.button>
               </div>
             </div>
 
             {/* Metadata Section */}
-            <div className="border-t border-[#E5E7EB] pt-6 flex flex-col gap-2.5 text-xs text-neutral-500 select-none">
+            <div className="border-t border-theme pt-6 flex flex-col gap-2.5 text-xs text-theme-muted select-none">
               <div>
-                <span className="font-bold text-neutral-700 uppercase">SKU:</span> {skuString}
+                <span className={`font-bold uppercase ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>SKU:</span> {skuString}
               </div>
               {product.tags && product.tags.length > 0 && (
                 <div>
-                  <span className="font-bold text-neutral-700 uppercase">Tags:</span> {product.tags.join(', ')}
+                  <span className={`font-bold uppercase ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>Tags:</span> {product.tags.join(', ')}
                 </div>
               )}
               <div className="flex items-center gap-2">
-                <span className="font-bold text-neutral-700 uppercase">Share:</span>
+                <span className={`font-bold uppercase ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>Share:</span>
                 <div className="flex items-center gap-3 text-neutral-600 ml-1">
-                  <a href="#" className="hover:text-[#1E3F20] transition-colors"><Share2 className="w-4 h-4" /></a>
-                  <a href="#" className="hover:text-[#1E3F20] transition-colors font-bold">f</a>
-                  <a href="#" className="hover:text-[#1E3F20] transition-colors font-bold">t</a>
-                  <a href="#" className="hover:text-[#1E3F20] transition-colors font-bold">p</a>
+                  <a href="#" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}><Share2 className="w-4 h-4" /></a>
+                  <a href="#" className={`transition-colors font-bold ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>f</a>
+                  <a href="#" className={`transition-colors font-bold ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>t</a>
+                  <a href="#" className={`transition-colors font-bold ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>p</a>
                 </div>
               </div>
             </div>
@@ -603,17 +684,21 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
         </div>
 
         {/* ======================= TABS SECTION ======================= */}
-        <div className="mt-16 md:mt-24 border border-[#E5E7EB] rounded-2xl bg-white overflow-hidden shadow-sm">
+        <div className="mt-16 md:mt-24 border border-theme rounded-2xl bg-theme-card overflow-hidden shadow-sm transition-all duration-305">
           {/* Tabs row */}
-          <div className="flex border-b border-[#E5E7EB] bg-neutral-50 select-none">
+          <div className="flex border-b border-theme bg-theme-sub select-none">
             {(['description', 'info', 'reviews'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-4 text-xs sm:text-sm uppercase tracking-widest font-extrabold cursor-pointer border-r border-[#E5E7EB] transition-colors ${
+                className={`px-6 py-4 text-xs sm:text-sm uppercase tracking-widest font-extrabold cursor-pointer border-r border-theme transition-colors no-override ${
                   activeTab === tab 
-                    ? 'bg-white text-[#1E3F20] border-t-2 border-t-[#1E3F20] -mt-[2px]' 
-                    : 'text-neutral-500 hover:text-neutral-800'
+                    ? (isDarkMode 
+                        ? 'bg-theme-card text-[#C19A6B] border-t-2 border-t-[#C19A6B] -mt-[2px] no-override' 
+                        : 'bg-theme-card text-[#1E3F20] border-t-2 border-t-[#1E3F20] -mt-[2px] no-override')
+                    : (isDarkMode
+                        ? 'text-neutral-400 hover:text-neutral-205 no-override'
+                        : 'text-neutral-500 hover:text-neutral-805 no-override')
                 }`}
               >
                 {tab === 'description' ? 'Description' : tab === 'info' ? 'Additional Information' : 'Reviews'}
@@ -623,185 +708,213 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
 
           {/* Tab Content body */}
           <div className="p-6 md:p-8">
-            {activeTab === 'description' && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-bold text-[#1E3F20] font-serif mb-2 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#C19A6B]" />
-                  Artistic Narrative
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed text-justify whitespace-pre-line select-text">
-                  {product.description}
-                </p>
-                {product.features && product.features.length > 0 && (
-                  <div className="mt-6 p-5 bg-[#FAF9F6] border border-[#E5E7EB] rounded-xl">
-                    <h4 className="text-xs font-extrabold uppercase tracking-widest text-[#1E3F20] mb-3">Collector Details</h4>
-                    <ul className="flex flex-col gap-2">
-                      {product.features.map((feature, i) => (
-                        <li key={i} className="flex gap-2.5 items-start text-xs font-semibold text-neutral-600">
-                          <span className="text-[#C19A6B] font-bold">•</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+              >
+                {activeTab === 'description' && (
+                  <div className="space-y-4">
+                    <h3 className={`text-lg font-bold font-serif mb-2 flex items-center gap-2 no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>
+                      <Sparkles className="w-4 h-4 text-[#C19A6B]" />
+                      Artistic Narrative
+                    </h3>
+                    <p className="text-sm text-theme-muted leading-relaxed text-justify whitespace-pre-line select-text">
+                      {product.description}
+                    </p>
+                    {product.features && product.features.length > 0 && (
+                      <div className="mt-6 p-5 bg-theme-sub border border-theme rounded-xl">
+                        <h4 className={`text-xs font-extrabold uppercase tracking-widest mb-3 no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>Collector Details</h4>
+                        <ul className="flex flex-col gap-2">
+                          {product.features.map((feature, i) => (
+                            <li key={i} className="flex gap-2.5 items-start text-xs font-semibold text-theme-muted">
+                              <span className="text-[#C19A6B] font-bold">•</span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-            )}
 
-            {activeTab === 'info' && (
-              <div className="overflow-x-auto select-none">
-                <table className="w-full border-collapse border border-[#E5E7EB] rounded-lg overflow-hidden text-sm">
-                  <thead>
-                    <tr className="bg-[#1E3F20] text-white">
-                      <th className="border border-[#E5E7EB] px-6 py-3.5 text-left font-bold uppercase tracking-wider text-xs">Attribute</th>
-                      <th className="border border-[#E5E7EB] px-6 py-3.5 text-left font-bold uppercase tracking-wider text-xs">Details</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#E5E7EB] font-medium text-neutral-600">
-                    <tr className="bg-white">
-                      <td className="border border-[#E5E7EB] px-6 py-4 font-bold text-neutral-700">Dimensions</td>
-                      <td className="border border-[#E5E7EB] px-6 py-4">{currentSize}</td>
-                    </tr>
-                    <tr className="bg-neutral-50/50">
-                      <td className="border border-[#E5E7EB] px-6 py-4 font-bold text-neutral-700">Medium</td>
-                      <td className="border border-[#E5E7EB] px-6 py-4">{product.medium}</td>
-                    </tr>
-                    <tr className="bg-white">
-                      <td className="border border-[#E5E7EB] px-6 py-4 font-bold text-neutral-700">Material</td>
-                      <td className="border border-[#E5E7EB] px-6 py-4">{currentMaterial}</td>
-                    </tr>
-                    <tr className="bg-neutral-50/50">
-                      <td className="border border-[#E5E7EB] px-6 py-4 font-bold text-neutral-700">Framing</td>
-                      <td className="border border-[#E5E7EB] px-6 py-4">
-                        {product.category === 'Original Art' ? 'Stretched wrapped canvas (Ready to hang)' : 'Rolled fine art canvas (Ships in a protective tube)'}
-                      </td>
-                    </tr>
-                    <tr className="bg-white">
-                      <td className="border border-[#E5E7EB] px-6 py-4 font-bold text-neutral-700">Delivery & Shipping</td>
-                      <td className="border border-[#E5E7EB] px-6 py-4">Museum-grade bubble wrapped packaging • Insured global delivery</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            )}
-
-            {activeTab === 'reviews' && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                {/* Reviews List */}
-                <div className="lg:col-span-7 space-y-6">
-                  <h3 className="text-lg font-bold text-[#1E3F20] font-serif mb-4">
-                    Customer Reviews ({reviewsList.length})
-                  </h3>
-                  
-                  <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
-                    {reviewsList.map((rev, index) => (
-                      <div key={index} className="p-5 border border-[#E5E7EB] bg-[#FAF9F6] rounded-xl flex flex-col gap-2">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-bold text-neutral-800 text-sm">{rev.name}</span>
-                          <span className="text-[10px] text-neutral-400 font-mono">{rev.date}</span>
-                        </div>
-                        <div className="flex items-center text-amber-500 select-none">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star 
-                              key={i} 
-                              className={`w-3 h-3 fill-current ${i < rev.rating ? 'text-amber-500' : 'text-neutral-200'}`} 
-                            />
-                          ))}
-                        </div>
-                        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed select-text">
-                          {rev.comment}
-                        </p>
-                      </div>
-                    ))}
+                {activeTab === 'info' && (
+                  <div className="overflow-x-auto select-none">
+                    <table className="w-full border-collapse border border-theme rounded-lg overflow-hidden text-sm">
+                      <thead>
+                        <tr className={`${isDarkMode ? 'bg-[#121212]' : 'bg-[#1E3F20]'} text-white`}>
+                          <th className="border border-theme px-6 py-3.5 text-left font-bold uppercase tracking-wider text-xs">Attribute</th>
+                          <th className="border border-theme px-6 py-3.5 text-left font-bold uppercase tracking-wider text-xs">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-theme font-medium text-theme-muted">
+                        <tr className="bg-theme-card">
+                          <td className={`border border-theme px-6 py-4 font-bold no-override ${isDarkMode ? 'text-neutral-300' : 'text-neutral-750'}`}>Dimensions</td>
+                          <td className="border border-theme px-6 py-4">{currentSize}</td>
+                        </tr>
+                        <tr className="bg-theme-sub">
+                          <td className={`border border-theme px-6 py-4 font-bold no-override ${isDarkMode ? 'text-neutral-300' : 'text-neutral-755'}`}>Medium</td>
+                          <td className="border border-theme px-6 py-4">{product.medium}</td>
+                        </tr>
+                        <tr className="bg-theme-card">
+                          <td className={`border border-theme px-6 py-4 font-bold no-override ${isDarkMode ? 'text-neutral-300' : 'text-neutral-750'}`}>Material</td>
+                          <td className="border border-theme px-6 py-4">{currentMaterial}</td>
+                        </tr>
+                        <tr className="bg-theme-sub">
+                          <td className={`border border-theme px-6 py-4 font-bold no-override ${isDarkMode ? 'text-neutral-300' : 'text-neutral-755'}`}>Framing</td>
+                          <td className="border border-theme px-6 py-4">
+                            {product.category === 'Original Art' ? 'Stretched wrapped canvas (Ready to hang)' : 'Rolled fine art canvas (Ships in a protective tube)'}
+                          </td>
+                        </tr>
+                        <tr className="bg-theme-card">
+                          <td className={`border border-theme px-6 py-4 font-bold no-override ${isDarkMode ? 'text-neutral-300' : 'text-neutral-750'}`}>Delivery & Shipping</td>
+                          <td className="border border-theme px-6 py-4">Museum-grade bubble wrapped packaging • Insured global delivery</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                </div>
+                )}
 
-                {/* Leave a review form */}
-                <div className="lg:col-span-5 p-6 border border-[#E5E7EB] bg-neutral-50 rounded-xl">
-                  <h3 className="text-base font-bold text-[#1E3F20] uppercase tracking-wider mb-4">
-                    Leave a Review
-                  </h3>
-                  
-                  {reviewSuccess && (
-                    <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 text-xs font-bold rounded-lg animate-fade-in select-none">
-                      ✓ Thank you! Your review has been added successfully.
-                    </div>
-                  )}
-
-                  <form onSubmit={handleAddReview} className="space-y-4 text-xs font-semibold">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-neutral-500">Your Rating</label>
-                      <div className="flex items-center gap-1.5 text-neutral-300">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <button
-                            key={star}
-                            type="button"
-                            onClick={() => setReviewRating(star)}
-                            className="hover:scale-115 transition-transform cursor-pointer bg-transparent border-0 p-0"
-                          >
-                            <Star className={`w-6 h-6 fill-current ${star <= reviewRating ? 'text-amber-500' : 'text-neutral-300'}`} />
-                          </button>
+                {activeTab === 'reviews' && (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    {/* Reviews List */}
+                    <div className="lg:col-span-7 space-y-6">
+                      <h3 className={`text-lg font-bold font-serif mb-4 no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>
+                        Customer Reviews ({reviewsList.length})
+                      </h3>
+                      
+                      <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
+                        {reviewsList.map((rev, index) => (
+                          <div key={index} className="p-5 border border-theme bg-theme-sub rounded-xl flex flex-col gap-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className={`font-bold text-sm no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-neutral-800'}`}>{rev.name}</span>
+                              <span className="text-[10px] text-neutral-400 font-mono">{rev.date}</span>
+                            </div>
+                            <div className="flex items-center text-amber-500 select-none">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <Star 
+                                  key={i} 
+                                  className={`w-3 h-3 fill-current ${i < rev.rating ? 'text-amber-500' : 'text-neutral-300'}`} 
+                                />
+                              ))}
+                            </div>
+                            <p className="text-xs sm:text-sm text-theme-muted leading-relaxed select-text">
+                              {rev.comment}
+                            </p>
+                          </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="revName" className="text-neutral-500">Name *</label>
-                      <input
-                        id="revName"
-                        type="text"
-                        required
-                        value={reviewName}
-                        onChange={(e) => setReviewName(e.target.value)}
-                        className="px-4 py-2.5 rounded-lg border border-[#E5E7EB] bg-white text-neutral-800 focus:outline-[#1E3F20]"
-                        placeholder="e.g. Rajesh Sharma"
-                      />
-                    </div>
+                    {/* Leave a review form */}
+                    <div className="lg:col-span-5 p-6 border border-theme bg-theme-sub rounded-xl">
+                      <h3 className={`text-base font-bold uppercase tracking-wider mb-4 no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>
+                        Leave a Review
+                      </h3>
+                      
+                      {reviewSuccess && (
+                        <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 text-xs font-bold rounded-lg animate-fade-in select-none">
+                          ✓ Thank you! Your review has been added successfully.
+                        </div>
+                      )}
 
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="revEmail" className="text-neutral-500">Email Address *</label>
-                      <input
-                        id="revEmail"
-                        type="email"
-                        required
-                        value={reviewEmail}
-                        onChange={(e) => setReviewEmail(e.target.value)}
-                        className="px-4 py-2.5 rounded-lg border border-[#E5E7EB] bg-white text-neutral-800 focus:outline-[#1E3F20]"
-                        placeholder="e.g. rajesh@gmail.com"
-                      />
-                    </div>
+                      <form onSubmit={handleAddReview} className="space-y-4 text-xs font-semibold">
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-neutral-500">Your Rating</label>
+                          <div className="flex items-center gap-1.5 text-neutral-300">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                key={star}
+                                type="button"
+                                onClick={() => setReviewRating(star)}
+                                className="hover:scale-110 transition-transform cursor-pointer bg-transparent border-0 p-0"
+                              >
+                                <Star className={`w-6 h-6 fill-current ${star <= reviewRating ? 'text-amber-500' : 'text-neutral-300'}`} />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
 
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="revComment" className="text-neutral-500">Review Comment *</label>
-                      <textarea
-                        id="revComment"
-                        required
-                        rows={4}
-                        value={reviewComment}
-                        onChange={(e) => setReviewComment(e.target.value)}
-                        className="px-4 py-2.5 rounded-lg border border-[#E5E7EB] bg-white text-neutral-800 focus:outline-[#1E3F20] resize-none"
-                        placeholder="Write your review here..."
-                      />
-                    </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="revName" className="text-neutral-500">Name *</label>
+                          <input
+                            id="revName"
+                            type="text"
+                            required
+                            value={reviewName}
+                            onChange={(e) => setReviewName(e.target.value)}
+                            className={`px-4 py-2.5 rounded-lg border focus:outline-none transition-all no-override ${
+                              isDarkMode 
+                                ? 'border-neutral-800 bg-[#121212] text-[#FAF6EE] focus:border-[#C19A6B]' 
+                                : 'border-[#E5E7EB] bg-white text-neutral-800 focus:border-[#1E3F20]'
+                            }`}
+                            placeholder="e.g. Rajesh Sharma"
+                          />
+                        </div>
 
-                    <button
-                      type="submit"
-                      className="w-full bg-[#1E3F20] hover:bg-[#152e18] text-white font-bold text-xs uppercase tracking-widest py-3 rounded-lg cursor-pointer transition-colors shadow-sm"
-                    >
-                      Submit Review
-                    </button>
-                  </form>
-                </div>
-              </div>
-            )}
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="revEmail" className="text-neutral-500">Email Address *</label>
+                          <input
+                            id="revEmail"
+                            type="email"
+                            required
+                            value={reviewEmail}
+                            onChange={(e) => setReviewEmail(e.target.value)}
+                            className={`px-4 py-2.5 rounded-lg border focus:outline-none transition-all no-override ${
+                              isDarkMode 
+                                ? 'border-neutral-800 bg-[#121212] text-[#FAF6EE] focus:border-[#C19A6B]' 
+                                : 'border-[#E5E7EB] bg-white text-neutral-800 focus:border-[#1E3F20]'
+                            }`}
+                            placeholder="e.g. rajesh@gmail.com"
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="revComment" className="text-neutral-500">Review Comment *</label>
+                          <textarea
+                            id="revComment"
+                            required
+                            rows={4}
+                            value={reviewComment}
+                            onChange={(e) => setReviewComment(e.target.value)}
+                            className={`px-4 py-2.5 rounded-lg border focus:outline-none transition-all no-override resize-none ${
+                              isDarkMode 
+                                ? 'border-neutral-800 bg-[#121212] text-[#FAF6EE] focus:border-[#C19A6B]' 
+                                : 'border-[#E5E7EB] bg-white text-neutral-800 focus:border-[#1E3F20]'
+                            }`}
+                            placeholder="Write your review here..."
+                          />
+                        </div>
+
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          type="submit"
+                          className={`w-full font-bold text-xs uppercase tracking-widest py-3 rounded-lg cursor-pointer transition-colors shadow-sm no-override ${
+                            isDarkMode 
+                              ? 'bg-[#C19A6B] hover:bg-[#b08757] text-black' 
+                              : 'bg-[#1E3F20] hover:bg-[#152e18] text-white'
+                          }`}
+                        >
+                          Submit Review
+                        </motion.button>
+                      </form>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
         {/* ======================= RELATED PRODUCTS SECTION ======================= */}
-        <section className="mt-20 md:mt-28 border-t border-[#E5E7EB] pt-16">
+        <section className="mt-20 md:mt-28 border-t border-theme pt-16">
           <div className="text-center mb-10 select-none">
             <span className="text-[11px] uppercase tracking-widest text-neutral-400 font-extrabold block mb-1">Related Products</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E3F20] tracking-tight font-serif">
+            <h2 className={`text-2xl sm:text-3xl font-extrabold tracking-tight font-serif no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>
               Explore Related Products
             </h2>
           </div>
@@ -814,9 +927,9 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
               const pSlug = getCategorySlug(p.category);
 
               return (
-                <div key={p.id} className="group flex flex-col gap-3.5 bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                <div key={p.id} className="group flex flex-col gap-3.5 bg-theme-card border border-theme rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                   {/* Image panel */}
-                  <Link href={`/products/${pSlug}/${p.id}`} className="block relative aspect-[4/5] overflow-hidden bg-neutral-50 border-b border-[#E5E7EB]">
+                  <Link href={`/products/${pSlug}/${p.id}`} className="block relative aspect-[4/5] overflow-hidden bg-theme-sub border-b border-theme">
                     <Image
                       src={p.image}
                       alt={p.title}
@@ -828,14 +941,20 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                     
                     {/* Discount badge */}
                     {pDiscountPct > 0 && (
-                      <span className="absolute top-3 left-3 bg-[#1E3F20] text-white text-[9px] uppercase tracking-widest font-extrabold px-2 py-0.5 rounded-md">
+                      <span className={`absolute top-3 left-3 text-[9px] uppercase tracking-widest font-extrabold px-2 py-0.5 rounded-md no-override ${
+                        isDarkMode ? 'bg-[#C19A6B] text-black' : 'bg-[#1E3F20] text-white'
+                      }`}>
                         {pDiscountPct}% Off
                       </span>
                     )}
 
                     {/* Toolbar overlays */}
                     <div className="absolute top-3 right-3 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button className="w-8 h-8 rounded-full bg-white border border-[#E5E7EB] text-[#1E3F20] flex items-center justify-center hover:bg-[#1E3F20] hover:text-white transition-all shadow-sm cursor-pointer border-none">
+                      <button className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all shadow-sm cursor-pointer border-none no-override ${
+                        isDarkMode 
+                          ? 'bg-[#121212] border-neutral-800 text-[#C19A6B] hover:bg-[#C19A6B] hover:text-black' 
+                          : 'bg-white border-[#E5E7EB] text-[#1E3F20] hover:bg-[#1E3F20] hover:text-white'
+                      }`}>
                         <Heart className="w-4 h-4" />
                       </button>
                     </div>
@@ -847,19 +966,21 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                       <span>{p.category}</span>
                       <div className="flex items-center text-amber-500 font-semibold gap-0.5">
                         <Star className="w-3 h-3 fill-current" />
-                        <span className="text-neutral-700 font-mono">5.0</span>
+                        <span className={`font-mono ${isDarkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>5.0</span>
                       </div>
                     </div>
                     
-                    <Link href={`/products/${pSlug}/${p.id}`} className="hover:text-[#1E3F20] transition-colors">
-                      <h3 className="text-xs sm:text-sm font-bold tracking-tight text-[#1E3F20] line-clamp-1 font-serif">
+                    <Link href={`/products/${pSlug}/${p.id}`} className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>
+                      <h3 className={`text-xs sm:text-sm font-bold tracking-tight line-clamp-1 font-serif no-override ${
+                        isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'
+                      }`}>
                         {p.title}
                       </h3>
                     </Link>
 
                     {/* Price */}
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-sm font-extrabold text-[#1E3F20] font-mono">{p.price}</span>
+                      <span className={`text-sm font-extrabold font-mono no-override ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>{p.price}</span>
                       {p.originalMrp && p.originalMrp !== p.price && (
                         <span className="text-xs text-neutral-400 line-through font-mono">{p.originalMrp}</span>
                       )}
@@ -872,34 +993,34 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
         </section>
 
         {/* ======================= BADGES ROW ======================= */}
-        <section className="mt-20 md:mt-24 border-t border-[#E5E7EB] pt-12 grid grid-cols-1 md:grid-cols-3 gap-6 select-none">
-          <div className="flex items-center gap-4 p-5 border border-[#E5E7EB] rounded-2xl bg-white shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#1E3F20]/10 flex items-center justify-center text-[#1E3F20] shrink-0">
+        <section className="mt-20 md:mt-24 border-t border-theme pt-12 grid grid-cols-1 md:grid-cols-3 gap-6 select-none">
+          <div className="flex items-center gap-4 p-5 border border-theme rounded-2xl bg-theme-card shadow-sm">
+            <div className={`w-12 h-12 rounded-full bg-theme-sub flex items-center justify-center shrink-0 ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>
               <Truck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#1E3F20] uppercase tracking-wide">Free Shipping</h4>
-              <p className="text-xs text-neutral-500 mt-1">Museum-grade secure wrapping and insured global delivery.</p>
+              <h4 className={`text-sm font-bold uppercase tracking-wide no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>Free Shipping</h4>
+              <p className="text-xs text-theme-muted mt-1">Museum-grade secure wrapping and insured global delivery.</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 p-5 border border-[#E5E7EB] rounded-2xl bg-white shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#1E3F20]/10 flex items-center justify-center text-[#1E3F20] shrink-0">
+          <div className="flex items-center gap-4 p-5 border border-theme rounded-2xl bg-theme-card shadow-sm">
+            <div className={`w-12 h-12 rounded-full bg-theme-sub flex items-center justify-center shrink-0 ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#1E3F20] uppercase tracking-wide">Flexible Payment</h4>
-              <p className="text-xs text-neutral-500 mt-1">Highly secure dynamic checkout with multiple credit, debit, or UPI options.</p>
+              <h4 className={`text-sm font-bold uppercase tracking-wide no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>Flexible Payment</h4>
+              <p className="text-xs text-theme-muted mt-1">Highly secure dynamic checkout with multiple credit, debit, or UPI options.</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 p-5 border border-[#E5E7EB] rounded-2xl bg-white shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#1E3F20]/10 flex items-center justify-center text-[#1E3F20] shrink-0">
+          <div className="flex items-center gap-4 p-5 border border-theme rounded-2xl bg-theme-card shadow-sm">
+            <div className={`w-12 h-12 rounded-full bg-theme-sub flex items-center justify-center shrink-0 ${isDarkMode ? 'text-[#C19A6B]' : 'text-[#1E3F20]'}`}>
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#1E3F20] uppercase tracking-wide">24x7 Support</h4>
-              <p className="text-xs text-neutral-500 mt-1">Direct support helpline and WhatsApp channels for all collector queries.</p>
+              <h4 className={`text-sm font-bold uppercase tracking-wide no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`}>24x7 Support</h4>
+              <p className="text-xs text-theme-muted mt-1">Direct support helpline and WhatsApp channels for all collector queries.</p>
             </div>
           </div>
         </section>
@@ -907,14 +1028,14 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
       </main>
 
       {/* ======================= REDESIGNED LIGHT FOOTER ======================= */}
-      <footer className="bg-white border-t border-[#E5E7EB] py-12 px-6 select-none mt-auto">
+      <footer className="bg-theme-card border-t border-theme py-12 px-6 select-none mt-auto transition-colors duration-300">
         <div className="max-w-[1400px] mx-auto flex flex-col items-center justify-center text-center gap-6">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10 bg-black rounded-lg overflow-hidden flex items-center justify-center">
               <Image src="/kalakasturilogo.png" alt="KalaKasturi Logo" fill className="object-contain" />
             </div>
             <span 
-              className="text-2xl tracking-wider text-[#1E3F20] select-none" 
+              className={`text-2xl tracking-wider select-none no-override ${isDarkMode ? 'text-[#FAF6EE]' : 'text-[#1E3F20]'}`} 
               style={{ fontFamily: 'var(--font-allura), cursive', fontWeight: 'bold' }}
             >
               Kala Kasturi
@@ -922,15 +1043,15 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-bold uppercase tracking-wider text-neutral-500">
-            <Link href="/collections" className="hover:text-[#1E3F20] transition-colors">All Artworks</Link>
-            <Link href="/contact" className="hover:text-[#1E3F20] transition-colors">Contact Us</Link>
-            <Link href="/shipping-returns" className="hover:text-[#1E3F20] transition-colors">Shipping & Returns</Link>
-            <Link href="/about" className="hover:text-[#1E3F20] transition-colors">About the Artist</Link>
-            <Link href="/terms" className="hover:text-[#1E3F20] transition-colors">Terms & Conditions</Link>
-            <Link href="/privacy" className="hover:text-[#1E3F20] transition-colors">Privacy Policy</Link>
+            <Link href="/collections" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>All Artworks</Link>
+            <Link href="/contact" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Contact Us</Link>
+            <Link href="/shipping-returns" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Shipping & Returns</Link>
+            <Link href="/about" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>About the Artist</Link>
+            <Link href="/terms" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Terms & Conditions</Link>
+            <Link href="/privacy" className={`transition-colors ${isDarkMode ? 'hover:text-[#C19A6B]' : 'hover:text-[#1E3F20]'}`}>Privacy Policy</Link>
           </div>
 
-          <div className="w-full border-t border-[#E5E7EB] pt-6 mt-2 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-mono">
+          <div className="w-full border-t border-theme pt-6 mt-2 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-450 font-mono">
             <p>© {new Date().getFullYear()} KalaKasturi. All rights reserved.</p>
             <p className="text-neutral-500 uppercase tracking-widest text-[9px] font-bold">Museum Grade Curated Art</p>
           </div>
