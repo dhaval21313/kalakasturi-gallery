@@ -20,6 +20,10 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
+
+  // Hide global navbar on redesigned product pages
+  if (pathname?.includes('/products/')) return null;
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

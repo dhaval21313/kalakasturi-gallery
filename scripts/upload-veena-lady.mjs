@@ -16,7 +16,8 @@ async function run() {
   
   const files = [
     'Untitled design (1).png',
-    'Untitled design (2).png'
+    'Untitled design (2).png',
+    'Untitled design (3).png'
   ];
 
   let uploadedUrls = [];
@@ -32,7 +33,7 @@ async function run() {
     const optFileName = `opt_${i+1}.jpg`;
     const optPath = path.join(veenaDir, optFileName);
 
-    console.log(`[${i+1}/2] Compressing ${fileName}...`);
+    console.log(`[${i+1}/${files.length}] Compressing ${fileName}...`);
     try {
       // Compress using FFmpeg
       execSync(`ffmpeg -y -i "${fullPath}" -vf "scale='min(1920,iw)':-1" -q:v 3 "${optPath}"`, { stdio: 'pipe' });

@@ -107,3 +107,45 @@ p, li, label,
 .animate-marquee-reverse {
   animation: marquee 40s linear infinite reverse;
 }
+
+/* Redesigned Product Page styling overrides to support light theme */
+.redesigned-product-page-wrapper {
+  background-color: #FAF9F6 !important; /* Premium warm off-white */
+  color: #1A1A1A !important;
+}
+
+.redesigned-product-page-wrapper p,
+.redesigned-product-page-wrapper li,
+.redesigned-product-page-wrapper label,
+.redesigned-product-page-wrapper span:not(.no-override),
+.redesigned-product-page-wrapper div:not(.no-override),
+.redesigned-product-page-wrapper table,
+.redesigned-product-page-wrapper td,
+.redesigned-product-page-wrapper th {
+  color: #333333 !important;
+}
+
+.redesigned-product-page-wrapper h1,
+.redesigned-product-page-wrapper h2,
+.redesigned-product-page-wrapper h3,
+.redesigned-product-page-wrapper h4,
+.redesigned-product-page-wrapper h5,
+.redesigned-product-page-wrapper h6 {
+  color: #1E3F20 !important; /* Deep forest green */
+}
+
+/* Specific button text color preservation */
+.redesigned-product-page-wrapper button span,
+.redesigned-product-page-wrapper a span {
+  color: inherit !important;
+}
+
+/* In Stock badge text override */
+.redesigned-product-page-wrapper .in-stock-badge-text {
+  color: #1E3F20 !important;
+}
+
+/* Sold out badge text override */
+.redesigned-product-page-wrapper .out-of-stock-badge-text {
+  color: #DC2626 !important;
+}

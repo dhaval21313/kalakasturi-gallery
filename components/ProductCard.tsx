@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Paintbrush } from 'lucide-react';
+import { getCategorySlug } from '../lib/utils';
 
 interface Product {
   id: string;
@@ -88,7 +89,7 @@ export default function ProductCard({ product }: { product: Product }) {
       className="group flex flex-col gap-3 sm:gap-4 text-white"
     >
       {/* Dynamic Link wrapper around product images for details routing */}
-      <Link href={`/products/${product.id}`} className="block relative aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-950 border border-white/5 cursor-crosshair group/box">
+      <Link href={`/products/${getCategorySlug(product.category)}/${product.id}`} className="block relative aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-950 border border-white/5 cursor-crosshair group/box">
         <div 
           ref={containerRef}
           onMouseMove={handleMouseMove}
@@ -182,7 +183,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-col gap-2">
         {/* Title + Price row */}
         <div className="flex items-start justify-between gap-2">
-          <Link href={`/products/${product.id}`} className="hover:text-[#C19A6B] transition-colors duration-200 min-w-0 flex-grow">
+          <Link href={`/products/${getCategorySlug(product.category)}/${product.id}`} className="hover:text-[#C19A6B] transition-colors duration-200 min-w-0 flex-grow">
             <h3 className="text-xs sm:text-sm md:text-base font-semibold tracking-tight leading-snug line-clamp-2 text-warm-ivory">{product.title}</h3>
           </Link>
           <div className="flex flex-col items-end gap-1 flex-shrink-0">
@@ -193,7 +194,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Medium + Tags + Buy row */}
         <div className="flex items-center justify-between gap-1">
           <p className="text-[10px] sm:text-[11px] text-[#A3A3A3] italic truncate flex-grow">{product.medium}</p>
-          <Link href={`/products/${product.id}`} className="group relative inline-flex overflow-hidden rounded-full p-[1px] transition-all duration-300 hover:scale-[1.03] h-[20px] flex-shrink-0">
+          <Link href={`/products/${getCategorySlug(product.category)}/${product.id}`} className="group relative inline-flex overflow-hidden rounded-full p-[1px] transition-all duration-300 hover:scale-[1.03] h-[20px] flex-shrink-0">
             <span className="absolute inset-[-1000%] animate-spin [animation-duration:4s] bg-[conic-gradient(from_90deg_at_50%_50%,#ff0000,#ff7f00,#ffff00,#00ff00,#0000ff,#4b0082,#8b00ff,#ff0000)] opacity-40 group-hover:opacity-100 transition-opacity duration-200" />
             <div className="inline-flex h-full items-center justify-center rounded-full bg-[#050505] px-2.5 backdrop-blur-xl transition-all duration-300 group-hover:bg-black">
               <span className="relative z-10 text-[9px] uppercase tracking-wider whitespace-nowrap text-[#C19A6B] font-bold">Buy</span>

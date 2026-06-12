@@ -416,10 +416,11 @@ export const artProducts = [
     originalMrp: "₹75,000",
     size: "24 × 18 inches (Approx. 61 × 45.7 cm)",
     material: "Acrylic colors on premium wrapped canvas on wood (Ready to hang)",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781089173/kalakasturi_products/kycf22vbajlqkk1wep5b.jpg",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086827/kalakasturi_products/auhdxpdfccxjrjbveehh.jpg",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781086828/kalakasturi_products/cubzninj4ws0ylkscuf3.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781089173/kalakasturi_products/kycf22vbajlqkk1wep5b.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781089175/kalakasturi_products/xqaqgdynl2fhnqzcsuq7.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781089176/kalakasturi_products/infmlsgothcdaqdiinct.jpg",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781087425/kalakasturi_products/ra72gdz3uifnchk1rsbt.png"
     ],
     description: "Veena Lady is a beautiful, highly detailed original hand-painted acrylic painting on canvas. Depicting a graceful lady playing the traditional Indian stringed instrument, the Veena, this artwork captures musical devotion, elegance, and cultural depth. Created with professional-grade acrylic colors on premium stretched canvas wrapped on a sturdy wooden frame, it brings a peaceful, artistic presence and rich color realism into any living space, study, or gallery.",

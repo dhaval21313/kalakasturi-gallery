@@ -1,9 +1,17 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Instagram, ShoppingBag, Store } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide global footer on redesigned product pages
+  if (pathname?.includes('/products/')) return null;
+
   return (
     <footer className="bg-dark-charcoal py-12 px-6 border-t border-white/5">
       <div className="max-w-[1400px] mx-auto flex flex-col items-center justify-center text-center gap-8">
