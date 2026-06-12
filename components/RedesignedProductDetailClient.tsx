@@ -356,7 +356,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           {/* LEFT COLUMN: Gallery Panel */}
           <div className="lg:col-span-7 flex flex-col gap-5 w-full select-none">
             {/* Visual View Stage */}
-            <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-theme-sub border border-theme shadow-sm transition-all duration-300">
+            <div className="relative aspect-[4/5] w-full lg:w-auto max-h-[70vw] lg:max-h-[520px] mx-auto rounded-2xl overflow-hidden bg-theme-sub transition-all duration-300">
               {activeMedia === 'photo' ? (
                 <div 
                   className="w-full h-full relative cursor-zoom-in group/stage"
