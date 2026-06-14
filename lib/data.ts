@@ -13,7 +13,6 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452892/kalakasturi_products/angbrfp9kytxo0wrymap.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452894/kalakasturi_products/fdhedkgsute4dkyzlefm.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452896/kalakasturi_products/svsyw5a3b6g3di4yedyr.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452897/kalakasturi_products/w9wsbbcyetpthksa2cwt.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452899/kalakasturi_products/oq9vv0h5e7ouaqainf9u.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452901/kalakasturi_products/eaidtopqgbgenesbv2yv.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452902/kalakasturi_products/r8zn5mc87lqzdy8r5pil.png"
