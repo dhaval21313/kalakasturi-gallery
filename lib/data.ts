@@ -509,6 +509,56 @@ export const artProducts = [
         inStock: true
       }
     ]
+  },
+  {
+    id: "david-michal",
+    title: "David and Michal - Oil Painting",
+    medium: "Original Oil on Canvas",
+    price: "₹49,999",
+    originalMrp: "₹62,000",
+    size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+    material: "Original oil on stretched canvas, ready to hang",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446220/kalakasturi_products/jirfj0whpclfqwcc64ar.png",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446220/kalakasturi_products/jirfj0whpclfqwcc64ar.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446225/kalakasturi_products/hfd3g73ileebxmronu5s.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446223/kalakasturi_products/j6osckdmmofhxrwtkuk2.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446227/kalakasturi_products/xjyk8qnlh441i8o4lzfb.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/v1781446230/kalakasturi_products/ofracm0b9pndykuieuae.png"
+    ],
+    description: "A beautiful depiction of the biblical story of David and Michal. This original oil painting captures the dramatic moment when Michal helps David escape from King Saul's guards by letting him down through a window. The rich colors and expressive figures bring this historical narrative to life.",
+    category: "Original Art",
+    subCategory: "Oil",
+    tags: ["David and Michal", "Biblical", "Oil Painting", "Historical", "Narrative Art"],
+    inStock: true,
+    video: null,
+    features: [
+      "Original hand-painted oil on stretched canvas.",
+      "Depicts the dramatic biblical escape of David.",
+      "Rich color palette with detailed architectural elements.",
+      "Size: 18 × 24 inches — ideal for living rooms or study spaces.",
+      "Ready to hang; a certificate of originality is provided."
+    ],
+    variations: [
+      {
+        id: "david-michal-original",
+        name: "Original Oil Painting",
+        price: "₹49,999",
+        originalMrp: "₹62,000",
+        size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+        material: "Original Oil on Canvas (Ready to hang)",
+        inStock: true
+      },
+      {
+        id: "david-michal-giclee",
+        name: "Giclée Fine Art Print",
+        price: "₹4,999",
+        originalMrp: "₹6,500",
+        size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+        material: "Premium Giclée Fine Art Canvas (Unframed)",
+        inStock: true
+      }
+    ]
   }
 ];
 
