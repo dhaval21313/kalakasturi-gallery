@@ -250,11 +250,8 @@ export const artProducts = [
     originalMrp: "₹6,000",
     size: "12 × 10 inches (Approx. 30.5 × 25.4 cm)",
     material: "Glass acrylic frame with classic white mount",
-    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676814/kalakasturi_products/iuqbqatxdhxj8zsgj1ug.png",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452096/kalakasturi_products/arzsqc8ujmkkiwclu2fe.png",
     images: [
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676814/kalakasturi_products/iuqbqatxdhxj8zsgj1ug.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676815/kalakasturi_products/acpeohxm1bmrvjfxj0hb.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676817/kalakasturi_products/su3guxv8gisl3wwjh1s6.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452096/kalakasturi_products/arzsqc8ujmkkiwclu2fe.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452098/kalakasturi_products/afbmxtwjindo04clrzta.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452100/kalakasturi_products/zbfeseucv3k28esgvqe0.png",
