@@ -456,6 +456,59 @@ export const artProducts = [
         inStock: true
       }
     ]
+  },
+  {
+    id: "fruit-lady",
+    title: "Indian Woman With Fruit – Oil Painting",
+    medium: "Original Oil on Canvas",
+    price: "₹49,999",
+    originalMrp: "₹62,000",
+    size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+    material: "Original oil on stretched canvas, ready to hang",
+    image: "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441890/kalakasturi_products/adrcpeniuunhuq4g55sj.jpg",
+    images: [
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441890/kalakasturi_products/adrcpeniuunhuq4g55sj.jpg",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441896/kalakasturi_products/iqlfocjz92lbnev63a7k.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441899/kalakasturi_products/ky16m7wy0gu0dw30ieqr.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441902/kalakasturi_products/ohfeotfhf1lbmfyh386n.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441893/kalakasturi_products/nwlgycpboeqjuyswzbn3.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441917/kalakasturi_products/ne7hsqmyradcttwnbkam.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781441931/kalakasturi_products/ze5nkitleqgt6fsmq8e9.png"
+    ],
+    description: "A beautifully hand-painted oil on canvas portraying a graceful Indian woman in traditional attire, delicately holding a ripe golden fruit. Inspired by the timeless style of Raja Ravi Varma, this painting captures the elegance, poise, and cultural richness of classical Indian womanhood. The artist's careful layering of oil paints brings life to the warm skin tones, the intricate jewellery — from the pearl-studded jhumkas to the layered necklace — and the soft folds of the draped saree. The deep olive-green background lends a serene, contemplative atmosphere that makes this piece a captivating focal point in any interior. A fine tribute to India's artistic heritage, rendered with sensitivity and painterly grace.",
+    category: "Original Art",
+    subCategory: "Oil",
+    tags: ["Indian Woman", "Oil Painting", "Raja Ravi Varma Style", "Traditional", "Portrait"],
+    inStock: true,
+    video: null,
+    features: [
+      "Original hand-painted oil on stretched canvas by Ankita Patel.",
+      "Inspired by the iconic Raja Ravi Varma style of classical Indian portraiture.",
+      "Rich layered oil technique with warm skin tones and intricate jewellery details.",
+      "Deep olive-green atmospheric background for a timeless, museum-quality feel.",
+      "Size: 18 × 24 inches — ideal for living rooms, studies, and curated gallery walls.",
+      "Ready to hang; a certificate of originality is provided."
+    ],
+    variations: [
+      {
+        id: "fruit-lady-original",
+        name: "Original Oil Painting",
+        price: "₹49,999",
+        originalMrp: "₹62,000",
+        size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+        material: "Original Oil on Canvas (Ready to hang)",
+        inStock: true
+      },
+      {
+        id: "fruit-lady-giclee",
+        name: "Giclée Fine Art Print",
+        price: "₹4,999",
+        originalMrp: "₹6,500",
+        size: "18 × 24 inches (Approx. 45.7 × 61 cm)",
+        material: "Premium Giclée Fine Art Canvas (Unframed)",
+        inStock: true
+      }
+    ]
   }
 ];
 
