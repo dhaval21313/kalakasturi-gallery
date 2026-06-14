@@ -15,7 +15,10 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452896/kalakasturi_products/svsyw5a3b6g3di4yedyr.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452899/kalakasturi_products/oq9vv0h5e7ouaqainf9u.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452901/kalakasturi_products/eaidtopqgbgenesbv2yv.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452902/kalakasturi_products/r8zn5mc87lqzdy8r5pil.png"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452902/kalakasturi_products/r8zn5mc87lqzdy8r5pil.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781453820/kalakasturi_products/vqnwgohh0yesx8bzmszj.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781453821/kalakasturi_products/q4whzsdqto4nizfeayue.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781453822/kalakasturi_products/co4pwj1j5vsw1ligc22g.png"
     ],
     description: "This evocative oil-on-canvas painting of Vishvamitra captures the profound serenity and spiritual depth of the revered sage, rendered with sensitivity and painterly grace. Seated in meditation and adorned in soft saffron robes, the sage symbolises renunciation and inner awakening. The artist’s masterful use of oil paints brings warmth and texture to the composition, with layered brushwork that lends richness to the skin tones, flowing garments, and tranquil background. Ideal for a meditation room, study, or living area, this original artwork celebrates spiritual heritage.",
     category: "Original Art",
@@ -29,6 +32,26 @@ export const artProducts = [
       "Varnish-ready for long-lasting protection and enhanced color vibrancy.",
       "Includes a premium acrylic golden frame adding a refined, contemporary touch.",
       "A certificate of originality is provided."
+    ],
+    variations: [
+      {
+        id: "vishwamitra-original",
+        name: "Original Oil Painting",
+        price: "₹22,999",
+        originalMrp: "₹29,000",
+        size: "16 × 16 inches (Approx. 40.6 × 40.6 cm)",
+        material: "Finished with premium acrylic golden frame",
+        inStock: true
+      },
+      {
+        id: "vishwamitra-giclee",
+        name: "Giclée Fine Art Print",
+        price: "₹4,599",
+        originalMrp: "₹6,000",
+        size: "16 × 16 inches (Approx. 40.6 × 40.6 cm)",
+        material: "280 GSM Matte Canvas, Rolled",
+        inStock: true
+      }
     ]
   },
   {
