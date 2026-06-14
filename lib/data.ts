@@ -14,7 +14,17 @@ export const artProducts = [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777591/kalakasturi_products/a9gl4kr8h6e7i6vksulc.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777592/kalakasturi_products/uiizkboriefylck2ixb7.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777652/kalakasturi_products/srn7appw2czvqv6jak6y.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777655/kalakasturi_products/q10noh6fmbilxcllomm5.png"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1779777655/kalakasturi_products/q10noh6fmbilxcllomm5.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452889/kalakasturi_products/ssaqahr0qz4thmdoqdqo.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452890/kalakasturi_products/lbsbew6t1jynniuz4jvo.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452892/kalakasturi_products/angbrfp9kytxo0wrymap.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452893/kalakasturi_products/bhndtx3dlpblpmgyjllg.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452894/kalakasturi_products/fdhedkgsute4dkyzlefm.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452896/kalakasturi_products/svsyw5a3b6g3di4yedyr.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452897/kalakasturi_products/w9wsbbcyetpthksa2cwt.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452899/kalakasturi_products/oq9vv0h5e7ouaqainf9u.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452901/kalakasturi_products/eaidtopqgbgenesbv2yv.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452902/kalakasturi_products/r8zn5mc87lqzdy8r5pil.png"
     ],
     description: "This evocative oil-on-canvas painting of Vishvamitra captures the profound serenity and spiritual depth of the revered sage, rendered with sensitivity and painterly grace. Seated in meditation and adorned in soft saffron robes, the sage symbolises renunciation and inner awakening. The artist’s masterful use of oil paints brings warmth and texture to the composition, with layered brushwork that lends richness to the skin tones, flowing garments, and tranquil background. Ideal for a meditation room, study, or living area, this original artwork celebrates spiritual heritage.",
     category: "Original Art",
