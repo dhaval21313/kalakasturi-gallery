@@ -102,7 +102,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
   const handleOpenCheckout = () => { closeCart(); router.push('/checkout'); };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] flex flex-col">
+    <div className="min-h-screen bg-[#0D0D0D] flex flex-col pt-24 md:pt-36">
 
       {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} onOpenCheckout={handleOpenCheckout} />
