@@ -137,11 +137,11 @@ const DigitalSerenity = () => {
         <div className="relative z-10 p-0 flex flex-col justify-center items-center min-h-[60vh] w-full px-0 mx-0">
           <div className="text-center w-full relative my-12 px-0 mx-0 max-w-none">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-snug text-warm-ivory text-decoration-animate w-full px-0 mx-0 max-w-none" style={{ fontFamily: 'var(--font-merriweather)' }}>
-              <div className="mb-3 md:mb-4 w-full">
-                <span className="word-animate" data-delay="0">Sacred</span>
-                <span className="word-animate" data-delay="150">Realism</span>
-                <span className="word-animate" data-delay="300">in</span>
-                <span className="word-animate italic font-serif font-light text-[#C19A6B]" data-delay="450"> Every Stroke</span>
+              <div className="mb-3 md:mb-4 w-full text-[#C19A6B] font-normal tracking-normal" style={{ fontFamily: 'var(--font-allura)', fontSize: '1.4em' }}>
+                <span className="word-animate pr-2" data-delay="0">Sacred</span>
+                <span className="word-animate pr-2" data-delay="150">Realism</span>
+                <span className="word-animate pr-2" data-delay="300">in</span>
+                <span className="word-animate" data-delay="450">Every Stroke</span>
               </div>
               <div className="text-[13px] sm:text-[14.5px] md:text-[16.5px] font-sans font-normal text-warm-ivory leading-relaxed tracking-normal w-full px-0 mx-0 max-w-none py-2">
                 <span className="word-animate" data-delay="600">Traditional</span>
