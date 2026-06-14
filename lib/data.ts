@@ -262,6 +262,7 @@ export const artProducts = [
     subCategory: "Charcoal",
     tags: ["Mythology", "Spiritual", "Digital Print", "Hanuman"],
     inStock: true,
+    imagePosition: "right",
     video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1780402364/kalakasturi_products/omukp6h6f6yqs6tsjq55.mp4",
     features: [
       "High-resolution digital download including pristine JPG & PNG printable files.",

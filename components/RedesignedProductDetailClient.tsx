@@ -32,9 +32,9 @@ interface Product {
   subCategory?: string;
   tags?: string[];
   inStock: boolean;
-  video?: string | null;
   features?: string[];
   variations?: Variation[];
+  imagePosition?: string;
 }
 
 export default function RedesignedProductDetailClient({ product }: { product: Product }) {
@@ -128,7 +128,8 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                       src={img}
                       alt={`${product.title} view ${idx + 1}`}
                       fill
-                      className="object-cover object-center"
+                      className="object-cover"
+                      style={{ objectPosition: product.imagePosition || 'center' }}
                       sizes="(max-width: 1024px) 100vw, 640px"
                       priority={idx === 0}
                       referrerPolicy="no-referrer"
@@ -192,6 +193,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                       alt={`Thumbnail ${idx + 1}`}
                       fill
                       className="object-cover"
+                      style={{ objectPosition: product.imagePosition || 'center' }}
                       sizes="64px"
                       referrerPolicy="no-referrer"
                     />
