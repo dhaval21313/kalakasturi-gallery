@@ -108,15 +108,14 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} onOpenCheckout={handleOpenCheckout} />
 
       {/* ── MAIN LAYOUT ── */}
-      <main className="flex-1 flex items-start justify-center px-4 md:px-10 py-10 md:py-14">
-        <div className="w-full max-w-[1200px] flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+      <main className="flex-1 flex justify-center px-4 md:px-10">
+        <div className="w-full max-w-[1200px] flex flex-col lg:flex-row gap-6 lg:gap-12 items-stretch">
 
           {/* ════ LEFT: Gallery ════ */}
-          <div className="flex-1 flex flex-col gap-4 min-w-0">
+          <div className="flex-1 flex flex-col gap-3 min-w-0">
 
-            {/* ── Main large image ── */}
-            <div className="relative w-full rounded-xl overflow-hidden bg-[#141414] select-none"
-                 style={{ aspectRatio: '4/5' }}>
+            {/* ── Main large image — fills full column height ── */}
+            <div className="relative flex-1 min-h-0 rounded-xl overflow-hidden bg-[#141414] select-none">
               <div
                 ref={scrollRef}
                 onScroll={handleScroll}
@@ -202,7 +201,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           </div>
 
           {/* ════ RIGHT: Details (site theme) ════ */}
-          <div className="flex-1 min-w-0 flex flex-col gap-5">
+          <div className="flex-1 min-w-0 flex flex-col gap-5 py-10 md:py-14 overflow-y-auto">
 
             {/* Category badge */}
             <span className="text-[11px] uppercase tracking-widest text-[#C19A6B] font-semibold">
