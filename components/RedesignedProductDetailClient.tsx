@@ -114,8 +114,9 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
           {/* ════ LEFT: Gallery ════ */}
           <div className="flex-1 flex flex-col gap-3 min-w-0">
 
-            {/* ── Main large image — fills full column height ── */}
-            <div className="relative flex-1 min-h-0 rounded-xl overflow-hidden bg-[#141414] select-none">
+            {/* ── Main large image ── */}
+            <div className="relative w-full rounded-xl overflow-hidden bg-[#141414] select-none"
+                 style={{ aspectRatio: '4/5' }}>
               <div
                 ref={scrollRef}
                 onScroll={handleScroll}
@@ -127,7 +128,7 @@ export default function RedesignedProductDetailClient({ product }: { product: Pr
                       src={img}
                       alt={`${product.title} view ${idx + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 640px"
                       priority={idx === 0}
                       referrerPolicy="no-referrer"
