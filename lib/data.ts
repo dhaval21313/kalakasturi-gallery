@@ -254,7 +254,11 @@ export const artProducts = [
     images: [
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676814/kalakasturi_products/iuqbqatxdhxj8zsgj1ug.png",
       "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676815/kalakasturi_products/acpeohxm1bmrvjfxj0hb.png",
-      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676817/kalakasturi_products/su3guxv8gisl3wwjh1s6.png"
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1780676817/kalakasturi_products/su3guxv8gisl3wwjh1s6.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452096/kalakasturi_products/arzsqc8ujmkkiwclu2fe.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452098/kalakasturi_products/afbmxtwjindo04clrzta.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452100/kalakasturi_products/zbfeseucv3k28esgvqe0.png",
+      "https://res.cloudinary.com/dwmilzocy/image/upload/q_auto,f_auto/v1781452101/kalakasturi_products/bmk7eo3efi5gcdtixgrd.png"
     ],
     description: "Invoke strength, devotion, and divine protection with this powerful Hanuman digital artwork. This monochrome illustration captures the fearless energy and spiritual presence of Lord Hanuman, making it a meaningful addition to meditation rooms, yoga spaces, temples, or peaceful home interiors. Perfect for lovers of Indian mythology, Hindu spiritual art, and sacred decor, this printable artwork blends traditional devotion with modern minimal aesthetics.",
     category: "Original Art",
@@ -262,7 +266,7 @@ export const artProducts = [
     tags: ["Mythology", "Spiritual", "Digital Print", "Hanuman"],
     inStock: true,
     imagePosition: "right",
-    video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1780402364/kalakasturi_products/omukp6h6f6yqs6tsjq55.mp4",
+    video: "https://res.cloudinary.com/dwmilzocy/video/upload/q_auto,f_auto/v1781452111/kalakasturi_products/bx9melewl2zyxzyhjid9.mp4",
     features: [
       "High-resolution digital download including pristine JPG & PNG printable files.",
       "Features a striking minimal monochrome design depicting Lord Hanuman's powerful, fearless energy.",
